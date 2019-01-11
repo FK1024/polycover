@@ -132,9 +132,9 @@ namespace StaticCodeAnalysis
 
         static void Main(string[] args)
         {
-            string path = @"C:\Users\fkeck\OneDrive\Studium\Semester07\Thesis\StaticCodeAnalysis\ExampleCode\ExampleCode.cs";
+            string path = @"..\..\..\ExampleCode\ExampleCode.cs";
             StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
-
+            
 
         }
     }

@@ -11,7 +11,7 @@ namespace StaticCodeAnalysis.Tests
     [TestClass()]
     public class StaticCodeAnalysisTests
     {
-        static string path = @"C:\Users\fkeck\OneDrive\Studium\Semester07\Thesis\StaticCodeAnalysis\ExampleCode\ExampleCode.cs";
+        static string path = @"..\..\..\ExampleCode\ExampleCode.cs";
         StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
         // getBaseClasses tests:

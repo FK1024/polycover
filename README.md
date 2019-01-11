@@ -11,13 +11,14 @@ Static code analysis for a C# file using .NET Compiler Platform ("Roslyn")
 | StaticCodeAnalysis      | actual code analysis                                                                    |
 | StaticCodeAnalysisTests | test project for StaticCodeAnalysis using ExampleCode                                   |
 
-## Usage
+## Requirements
 
-Just clone or download this repo, open in Visual Studio, adjust paths to the ExampleCode.cs in
- * ```StaticCodeAnalysis/StaticCodeAnalysis.cs``` and
- * ```StaticCodeAnalysis/StaticCodeAnalysisTests.cs```
-
-and execute all tests to observe behaviour.
+The following Visual Studio Workloads are neccessary:
+ * .NET desktop development with
+   * .NET framework development tools
+   * .NET Core development tools
+ * Visual Studio extension development with
+   * .NET Compiler Platform SDK
 
 ## General Information
 
