@@ -14,10 +14,10 @@ namespace StaticCodeAnalysis.Tests
         static string path = @"..\..\..\ExampleCode\ExampleCode2.cs";
         StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
-        // getBaseClasses tests:
+        // GetBaseClasses tests:
         // =====================
         [TestMethod()]
-        public void getBaseClassesTest1()
+        public void GetBaseClassesTest1()
         {
             var expected = new List<INamedTypeSymbol> { };
             var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass"));
@@ -25,7 +25,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getBaseClassesTest2()
+        public void GetBaseClassesTest2()
         {
             var expected = new List<INamedTypeSymbol>
             {
@@ -36,7 +36,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getBaseClassesTest3()
+        public void GetBaseClassesTest3()
         {
             var expected = new List<INamedTypeSymbol>
             {
@@ -47,10 +47,10 @@ namespace StaticCodeAnalysis.Tests
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        // getDerivedClasses tests:
+        // GetDerivedClasses tests:
         // ========================
         [TestMethod()]
-        public void getDerivedClassesTest1()
+        public void GetDerivedClassesTest1()
         {
             var expected = new List<INamedTypeSymbol>
             {
@@ -62,7 +62,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getDerivedClassesTest2()
+        public void GetDerivedClassesTest2()
         {
             var expected = new List<INamedTypeSymbol>
             {
@@ -73,17 +73,17 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getDerivedClassesTest3()
+        public void GetDerivedClassesTest3()
         {
             var expected = new List<INamedTypeSymbol> { };
             var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        // getMethods tests:
+        // GetMethods tests:
         // =================
         [TestMethod()]
-        public void getMethodsTest1()
+        public void GetMethodsTest1()
         {
             var expected = new List<MethodDeclarationSyntax>
             {
@@ -94,7 +94,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getMethodsTest2()
+        public void GetMethodsTest2()
         {
             var expected = new List<MethodDeclarationSyntax>
             {
@@ -106,7 +106,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getMethodsTest3()
+        public void GetMethodsTest3()
         {
             var expected = new List<MethodDeclarationSyntax>
             {
@@ -117,10 +117,10 @@ namespace StaticCodeAnalysis.Tests
             CollectionAssert.AreEqual(expected, actual);
         }
         
-        // getOverridingMethods tests:
+        // GetOverridingMethods tests:
         // ===========================
         [TestMethod()]
-        public void getOverridingMethodsTest1()
+        public void GetOverridingMethodsTest1()
         {
             var expected = new List<MethodDeclarationSyntax>
             {
@@ -131,7 +131,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getOverridingMethodsTest2()
+        public void GetOverridingMethodsTest2()
         {
             var expected = new List<MethodDeclarationSyntax> { };
             var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodNamedTypeSymbol("ExampleCode2.DerivedAbstractClass.Method1"));
@@ -139,7 +139,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getOverridingMethodsTest3()
+        public void GetOverridingMethodsTest3()
         {
             var expected = new List<MethodDeclarationSyntax>
             {
@@ -150,7 +150,7 @@ namespace StaticCodeAnalysis.Tests
         }
 
         [TestMethod()]
-        public void getOverridingMethodsTest4()
+        public void GetOverridingMethodsTest4()
         {
             var expected = new List<MethodDeclarationSyntax> { };
             var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodNamedTypeSymbol("ExampleCode2.DerivedConcreteClass.Method2"));
