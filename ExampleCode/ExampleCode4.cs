@@ -16,20 +16,20 @@
 
     public class Prog
     {
-        public int m1(A a)
+        public int M1(A a)
         {
-            return a.d();
+            return a.D();
         }
 
-        public int m2(B b)
+        public int M2(B b)
         {
-            return b.d();
+            return b.D();
         }
     }
     
     public class A
     {
-        public virtual int d()
+        public virtual int D()
         {
             return 1;
         }
@@ -37,7 +37,7 @@
 
     public class B : A
     {
-        public override int d()
+        public override int D()
         {
             return 2;
         }
@@ -45,7 +45,7 @@
 
     public class C : B
     {
-        public override int d()
+        public override int D()
         {
             return 3;
         }

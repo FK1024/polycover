@@ -6,11 +6,11 @@ namespace ExampleCode3.Tests
     public class ProgTests
     {
         [TestMethod()]
-        public void m1Test()
+        public void MTest()
         {
             IA myClass = new A();
             IA myParam = new B();
-            Assert.AreEqual(2, myClass.m(myParam));
+            Assert.AreEqual(2, myClass.M(myParam));
         }
     }
 }

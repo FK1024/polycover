@@ -18,18 +18,18 @@
 
     public interface IA
     {
-        int m(IA a);
-        int n();
+        int M(IA a);
+        int N();
     }
-    
+
     public class A : IA
     {
-        public int m(IA a)
+        public int M(IA a)
         {
-            return a.n();
+            return a.N();
         }
 
-        public virtual int n()
+        public virtual int N()
         {
             return 1;
         }
@@ -37,7 +37,7 @@
 
     public class B : A
     {
-        public override int n()
+        public override int N()
         {
             return 2;
         }
@@ -45,8 +45,9 @@
 
     public class C : B
     {
-        public override int n()
+        public override int N()
         {
             return 3;
         }
     }
+}

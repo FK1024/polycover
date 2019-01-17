@@ -31,7 +31,7 @@ namespace StaticCodeAnalysis
 
 
         // returns a list of named type symbols of all classes which are direct or indirect base classes of a given class
-        public List<INamedTypeSymbol> getBaseClasses(ClassDeclarationSyntax classDecl)
+        public List<INamedTypeSymbol> GetBaseClasses(ClassDeclarationSyntax classDecl)
         {
             List<INamedTypeSymbol> baseClasses = new List<INamedTypeSymbol>();
 
@@ -50,46 +50,46 @@ namespace StaticCodeAnalysis
         }
 
         // returns a list of named type symbols of all classes which are direct or indirect derived classes of a given class
-        public List<INamedTypeSymbol> getDerivedClasses(ClassDeclarationSyntax classDecl)
+        public List<INamedTypeSymbol> GetDerivedClasses(ClassDeclarationSyntax classDecl)
         {
             List<INamedTypeSymbol> derivedClasses = new List<INamedTypeSymbol>();
 
             // init heirs with the symbol of the given class
-            IEnumerable<INamedTypeSymbol> heirs = new List<INamedTypeSymbol> { semMod.GetDeclaredSymbol(classDecl) };
-            IEnumerable<INamedTypeSymbol> nextHeirs = new List<INamedTypeSymbol>();
+            List<INamedTypeSymbol> subClasses = new List<INamedTypeSymbol> { semMod.GetDeclaredSymbol(classDecl) };
+            List<INamedTypeSymbol> nextSubClasses = new List<INamedTypeSymbol>();
 
-            while (heirs.Count() > 0)
+            while (subClasses.Count() > 0)
             {
                 // find all classes which derive directly from a member of the current list of derived classes
-                nextHeirs = (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
-                             where heirs.Contains(semMod.GetDeclaredSymbol(myClass).BaseType)
+                nextSubClasses = (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
+                             where subClasses.Contains(semMod.GetDeclaredSymbol(myClass).BaseType)
                              select semMod.GetDeclaredSymbol(myClass)).ToList();
 
                 // add all found classes to return list
-                derivedClasses.AddRange(nextHeirs);
+                derivedClasses.AddRange(nextSubClasses);
 
-                heirs = nextHeirs;
+                subClasses = nextSubClasses;
             }
 
             return derivedClasses;
         }
 
         // returns a list of all methods declared in a given class
-        public List<MethodDeclarationSyntax> getMethods(ClassDeclarationSyntax classDecl)
+        public List<MethodDeclarationSyntax> GetMethods(ClassDeclarationSyntax classDecl)
         {
             return classDecl.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
         }
 
         // ToDo: should onyl return user defined methods, not .toString() or Math.Pow()!
         // returns a list of all methods called in a given method
-        public List<IMethodSymbol> getInvocations(MethodDeclarationSyntax methodDecl)
+        public List<IMethodSymbol> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
             return methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
                 .Select(invoc => (IMethodSymbol)semMod.GetSymbolInfo(invoc).Symbol).ToList();
         }
 
         // returns a list of all methods overriding a given method
-        public List<MethodDeclarationSyntax> getOverridingMethods(IMethodSymbol method)
+        public List<MethodDeclarationSyntax> GetOverridingMethods(IMethodSymbol method)
         {
             return (from methodDecl in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
                     where semMod.GetDeclaredSymbol(methodDecl).OverriddenMethod == method
@@ -101,7 +101,7 @@ namespace StaticCodeAnalysis
         // =================
 
         // returns the class declaration syntax node for a given class name
-        public ClassDeclarationSyntax getClassDeclSyntax(string fullClassName)
+        public ClassDeclarationSyntax GetClassDeclSyntax(string fullClassName)
         {
             return (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
                     where semMod.GetDeclaredSymbol(myClass).OriginalDefinition.ToString() == fullClassName
@@ -109,7 +109,7 @@ namespace StaticCodeAnalysis
         }
 
         // returns the class declaration syntax node for a given class name
-        public MethodDeclarationSyntax getMethodDeclSyntax(string fullMethodName)
+        public MethodDeclarationSyntax GetMethodDeclSyntax(string fullMethodName)
         {
             return (from myMethod in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
                     where (semMod.GetDeclaredSymbol(myMethod).ContainingType.OriginalDefinition.ToString()
@@ -120,13 +120,13 @@ namespace StaticCodeAnalysis
         // returns the NamedTypeSymbol of a given class name
         public INamedTypeSymbol GetClassNamedTypeSymbol(string fullClassName)
         {
-            return semMod.GetDeclaredSymbol(getClassDeclSyntax(fullClassName));
+            return semMod.GetDeclaredSymbol(GetClassDeclSyntax(fullClassName));
         }
 
         // returns the NamedTypeSymbol of a given method name
         public IMethodSymbol GetMethodNamedTypeSymbol(string fullMethodName)
         {
-            return semMod.GetDeclaredSymbol(getMethodDeclSyntax(fullMethodName));
+            return semMod.GetDeclaredSymbol(GetMethodDeclSyntax(fullMethodName));
         }
 
 
