@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="ExampleCode4.A.D" Bounds="-7.105427357601E-15,71.9200000000001,119.883333333333,25.96" Label="ExampleCode4.A.D" />
+    <Node Id="ExampleCode4.B.D" Bounds="150.43,71.9200000000001,119.023333333333,25.96" Label="ExampleCode4.B.D" />
+    <Node Id="ExampleCode4.C.D" Bounds="300.155,71.9200000000001,119.573333333333,25.96" Label="ExampleCode4.C.D" />
+    <Node Id="ExampleCode4.Prog.M1" Bounds="65.4749913533529,-55.0000004577637,145.966666666667,25.96" Label="ExampleCode4.Prog.M1" UseManualLocation="True" />
+    <Node Id="ExampleCode4.Prog.M2" Bounds="241.44165802002,-56.0000004577637,145.966666666667,25.96" Label="ExampleCode4.Prog.M2" UseManualLocation="True" />
+  </Nodes>
+  <Links>
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.A.D" Bounds="72.7063840464514,-29.0400004577637,57.7221088642589,93.3061854794622" Label="direct" LabelBounds="103.26828574291,18.66528930887,30.0333333333333,15.96" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.B.D" Bounds="145.768863459323,-29.0400004577637,52.4456347215748,93.1182173924048" Label="overridden" LabelBounds="173.734298770453,0.577638585752139,57.5066666666667,15.96" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.B.D" Bounds="226.23685316524,-30.0400004577637,77.5862480606208,94.9896186167172" Label="direct" LabelBounds="266.578950429378,18.7199894388443,30.0333333333333,15.96" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.C.D" Bounds="319.043553273457,-30.0400004577637,33.2624622783836,93.4807777490379" Label="overridden" LabelBounds="339.681892282309,6.03594159034366,57.5066666666667,15.9600000000001" />
+  </Links>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="LabelBounds" DataType="System.Windows.Rect" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="xsd" DataType="System.String" />
+    <Property Id="xsi" DataType="System.String" />
+  </Properties>
+</DirectedGraph>

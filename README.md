@@ -1,4 +1,4 @@
-# StaticCodeAnalysis
+# Static Code Analysis
 
 Static code analysis for a C# file using .NET Compiler Platform ("Roslyn")
 
@@ -19,6 +19,12 @@ The following Visual Studio Workloads are neccessary:
    * .NET Core development tools
  * Visual Studio extension development with
    * .NET Compiler Platform SDK
+ * Individual components
+   * DGML-Editor
+
+## Usage
+
+Run the StaticCodeAnalysis.Program.Main to create a YoYo graph for a certain ExampleCode file which will be created in the ExampleCode project directory.
 
 ## General Information
 
