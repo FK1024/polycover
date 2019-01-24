@@ -48,6 +48,7 @@
     <Compile Include="ExampleCode.cs" />
     <Compile Include="ExampleCode2.cs" />
     <Compile Include="ExampleCode3.cs" />
+    <Compile Include="ExampleCode5.cs" />
     <Compile Include="ExampleCode4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
