@@ -126,7 +126,7 @@ namespace StaticCodeAnalysis.Tests
             {
                 testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method1")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodNamedTypeSymbol("ExampleCode2.BaseClass.Method1"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.BaseClass.Method1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -134,7 +134,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetOverridingMethodsTest2()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodNamedTypeSymbol("ExampleCode2.DerivedAbstractClass.Method1"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -145,7 +145,7 @@ namespace StaticCodeAnalysis.Tests
             {
                 testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method2")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodNamedTypeSymbol("ExampleCode2.DerivedAbstractClass.Method2"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method2"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -153,7 +153,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetOverridingMethodsTest4()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodNamedTypeSymbol("ExampleCode2.DerivedConcreteClass.Method2"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method2"));
             CollectionAssert.AreEqual(expected, actual);
         }
     }

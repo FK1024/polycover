@@ -17,7 +17,7 @@ namespace ExampleCode
             ==   ==   ====   ====
             M1   M4<----------M4
             M2<--M2  `-M4     M5
-            M3<--------M3
+            M3<--M3<---M3
     */
 
 
@@ -51,6 +51,11 @@ namespace ExampleCode
         public override int M2(int a, int b)
         {
             return a - b;
+        }
+
+        public override int M3(int a, bool b, string c)
+        {
+            return 2 * a;
         }
 
         public virtual int M4(int a, int b)
