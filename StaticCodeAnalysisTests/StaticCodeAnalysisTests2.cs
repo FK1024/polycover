@@ -19,7 +19,7 @@ namespace StaticCodeAnalysis.Tests
         [TestMethod()]
         public void GetBaseClassesTest1()
         {
-            var expected = new List<INamedTypeSymbol> { };
+            var expected = new List<ClassDeclarationSyntax> { };
             var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass"));
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -27,9 +27,9 @@ namespace StaticCodeAnalysis.Tests
         [TestMethod()]
         public void GetBaseClassesTest2()
         {
-            var expected = new List<INamedTypeSymbol>
+            var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassNamedTypeSymbol("ExampleCode2.BaseClass")
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass")
             };
             var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass"));
             CollectionAssert.AreEqual(expected, actual);
@@ -38,10 +38,10 @@ namespace StaticCodeAnalysis.Tests
         [TestMethod()]
         public void GetBaseClassesTest3()
         {
-            var expected = new List<INamedTypeSymbol>
+            var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassNamedTypeSymbol("ExampleCode2.DerivedAbstractClass"),
-                testAnalysis.GetClassNamedTypeSymbol("ExampleCode2.BaseClass")
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass")
             };
             var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass"));
             CollectionAssert.AreEqual(expected, actual);
@@ -52,10 +52,10 @@ namespace StaticCodeAnalysis.Tests
         [TestMethod()]
         public void GetDerivedClassesTest1()
         {
-            var expected = new List<INamedTypeSymbol>
+            var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassNamedTypeSymbol("ExampleCode2.DerivedAbstractClass"),
-                testAnalysis.GetClassNamedTypeSymbol("ExampleCode2.DerivedConcreteClass")
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass")
             };
             var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass"));
             CollectionAssert.AreEqual(expected, actual);
@@ -64,9 +64,9 @@ namespace StaticCodeAnalysis.Tests
         [TestMethod()]
         public void GetDerivedClassesTest2()
         {
-            var expected = new List<INamedTypeSymbol>
+            var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassNamedTypeSymbol("ExampleCode2.DerivedConcreteClass")
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass")
             };
             var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass"));
             CollectionAssert.AreEqual(expected, actual);
@@ -75,7 +75,7 @@ namespace StaticCodeAnalysis.Tests
         [TestMethod()]
         public void GetDerivedClassesTest3()
         {
-            var expected = new List<INamedTypeSymbol> { };
+            var expected = new List<ClassDeclarationSyntax> { };
             var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass"));
             CollectionAssert.AreEqual(expected, actual);
         }

@@ -31,7 +31,7 @@ namespace StaticCodeAnalysis
 
 
         // returns a list of named type symbols of all classes which are direct or indirect base classes of a given class
-        public List<INamedTypeSymbol> GetBaseClasses(ClassDeclarationSyntax classDecl)
+        public List<ClassDeclarationSyntax> GetBaseClasses(ClassDeclarationSyntax classDecl)
         {
             List<INamedTypeSymbol> baseClasses = new List<INamedTypeSymbol>();
 
@@ -43,14 +43,14 @@ namespace StaticCodeAnalysis
                 baseClass = baseClass.BaseType;
             }
 
-            return baseClasses;
+            return baseClasses.Select(myBaseClass => GetClassDeclSyntax(myBaseClass)).ToList();
 
             // works too:
             // classDecl.BaseList.Types.First().Type.ToString(); // problematic if class don't derives
         }
 
         // returns a list of named type symbols of all classes which are direct or indirect derived classes of a given class
-        public List<INamedTypeSymbol> GetDerivedClasses(ClassDeclarationSyntax classDecl)
+        public List<ClassDeclarationSyntax> GetDerivedClasses(ClassDeclarationSyntax classDecl)
         {
             List<INamedTypeSymbol> derivedClasses = new List<INamedTypeSymbol>();
 
@@ -71,7 +71,7 @@ namespace StaticCodeAnalysis
                 classes = subClasses;
             }
 
-            return derivedClasses;
+            return derivedClasses.Select(myDerivedClass => GetClassDeclSyntax(myDerivedClass)).ToList();
         }
 
         // returns a list of all methods declared in code
@@ -88,10 +88,11 @@ namespace StaticCodeAnalysis
 
         // ToDo: should onyl return user defined methods, not .toString() or Math.Pow()!
         // returns a list of all methods called in a given method
-        public List<IMethodSymbol> GetInvocations(MethodDeclarationSyntax methodDecl)
+        public List<MethodDeclarationSyntax> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
             return methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
-                .Select(invoc => (IMethodSymbol)semMod.GetSymbolInfo(invoc).Symbol).ToList();
+                .Select(invoc => (IMethodSymbol)semMod.GetSymbolInfo(invoc).Symbol).ToList()
+                .Select(myInvoc => GetMethodDeclSyntax(myInvoc)).ToList();
         }
 
         // returns a list of all methods overriding a given method
@@ -129,12 +130,29 @@ namespace StaticCodeAnalysis
         // helper functions:
         // =================
 
+        // returns the corresponding ClassDeclarationSyntax of a given NamedTypeSymbol
+        public ClassDeclarationSyntax GetClassDeclSyntax(INamedTypeSymbol classSymb)
+        {
+            return (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
+                    where semMod.GetDeclaredSymbol(myClass).Equals(classSymb)
+                    select myClass).First();
+        }
+
         // returns the class declaration syntax node for a given class name
         public ClassDeclarationSyntax GetClassDeclSyntax(string fullClassName)
         {
             return (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
                     where semMod.GetDeclaredSymbol(myClass).OriginalDefinition.ToString() == fullClassName
                     select myClass).First();
+        }
+
+
+        // returns the corresponding ClassDeclarationSyntax of a given MethodSymbol
+        public MethodDeclarationSyntax GetMethodDeclSyntax(IMethodSymbol methSymb)
+        {
+            return (from myMethod in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
+                    where semMod.GetDeclaredSymbol(myMethod).Equals(methSymb)
+                    select myMethod).First();
         }
 
         // returns the method declaration syntax node for a given class name
@@ -146,32 +164,15 @@ namespace StaticCodeAnalysis
                     select myMethod).First(); // assumes there is only one method with this specified name in the class -> need to be fixed!
         }
 
+
         // returns the full name of a given method declaration syntax
         public string GetFullMethodName(MethodDeclarationSyntax method)
         {
             return semMod.GetDeclaredSymbol(method).ContainingType.OriginalDefinition.ToString()
                    + "." + semMod.GetDeclaredSymbol(method).Name;
         }
-
-        // returns the NamedTypeSymbol of a given class name
-        public INamedTypeSymbol GetClassNamedTypeSymbol(string fullClassName)
-        {
-            return semMod.GetDeclaredSymbol(GetClassDeclSyntax(fullClassName));
-        }
-
-        // returns the NamedTypeSymbol of a given method name
-        public IMethodSymbol GetMethodNamedTypeSymbol(string fullMethodName)
-        {
-            return semMod.GetDeclaredSymbol(GetMethodDeclSyntax(fullMethodName));
-        }
-
-        public YoYoGraph.Node GetCorrespondingNode(YoYoGraph graph, IMethodSymbol methSymb)
-        {
-            return (from node in graph.Nodes
-                    where semMod.GetDeclaredSymbol(node.MethDecl) == methSymb
-                    select node).First();
-        }
-
+        
+        
         public YoYoGraph.Node GetCorrespondingNode(YoYoGraph graph, MethodDeclarationSyntax methDecl)
         {
             return (from node in graph.Nodes
@@ -180,44 +181,45 @@ namespace StaticCodeAnalysis
         }
     }
 
+
     public class Program
     {
         static void Main(string[] args)
         {
-            //string path = @"..\..\..\ExampleCode\ExampleCode4.cs";
-            //StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
+            string path = @"..\..\..\ExampleCode\ExampleCode4.cs";
+            StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
-            //YoYoGraph testGraph = new YoYoGraph();
-            //List<MethodDeclarationSyntax> methods = testAnalysis.GetAllMethods();
+            YoYoGraph testGraph = new YoYoGraph();
+            List<MethodDeclarationSyntax> methods = testAnalysis.GetAllMethods();
 
-            //// create a node for each method
-            //foreach (MethodDeclarationSyntax method in methods)
-            //{
-            //    YoYoGraph.Node newNode = new YoYoGraph.Node(method, testAnalysis.GetFullMethodName(method), testAnalysis.GetFullMethodName(method));
-            //    testGraph.AddNode(newNode);
-            //}
+            // create a node for each method
+            foreach (MethodDeclarationSyntax method in methods)
+            {
+                YoYoGraph.Node newNode = new YoYoGraph.Node(method, testAnalysis.GetFullMethodName(method), testAnalysis.GetFullMethodName(method));
+                testGraph.AddNode(newNode);
+            }
 
-            //// add the links (invocations)
-            //foreach (YoYoGraph.Node node in testGraph.Nodes)
-            //{
-            //    List<IMethodSymbol> invocs = testAnalysis.GetInvocations(node.MethDecl);
-            //    foreach (IMethodSymbol invoc in invocs)
-            //    {
-            //        // direct call
-            //        YoYoGraph.Link newLink = new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, invoc).Id, "direct");
-            //        testGraph.AddLink(newLink);
+            // add the links (invocations)
+            foreach (YoYoGraph.Node node in testGraph.Nodes)
+            {
+                List<MethodDeclarationSyntax> invocs = testAnalysis.GetInvocations(node.MethDecl);
+                foreach (MethodDeclarationSyntax invoc in invocs)
+                {
+                    // direct call
+                    YoYoGraph.Link newLink = new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, invoc).Id, "direct");
+                    testGraph.AddLink(newLink);
 
-            //        // overriding method calls
-            //        List<MethodDeclarationSyntax> overridingMethods = testAnalysis.GetOverridingMethods(invoc);
-            //        foreach (MethodDeclarationSyntax overridingMethod in overridingMethods)
-            //        {
-            //            newLink = new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, overridingMethod).Id, "overridden");
-            //            testGraph.AddLink(newLink);
-            //        }
-            //    }
-            //}
+                    // overriding method calls
+                    List<MethodDeclarationSyntax> overridingMethods = testAnalysis.GetOverridingMethods(invoc);
+                    foreach (MethodDeclarationSyntax overridingMethod in overridingMethods)
+                    {
+                        newLink = new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, overridingMethod).Id, "overridden");
+                        testGraph.AddLink(newLink);
+                    }
+                }
+            }
 
-            //testGraph.Serialize(@"..\..\..\ExampleCode\ExampleCode4YoYoGraph.dgml");
+            testGraph.Serialize(@"..\..\..\ExampleCode\ExampleCode4YoYoGraph.dgml");
         }
     }
 }
