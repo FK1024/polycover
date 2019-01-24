@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="ExampleCode.C1.M1" Label="ExampleCode.C1.M1" />
+    <Node Id="ExampleCode.C1.M2" Label="ExampleCode.C1.M2" />
+    <Node Id="ExampleCode.C1.M3" Label="ExampleCode.C1.M3" />
+    <Node Id="ExampleCode.C2.M2" Label="ExampleCode.C2.M2" />
+    <Node Id="ExampleCode.C2.M3" Label="ExampleCode.C2.M3" />
+    <Node Id="ExampleCode.C2.M4" Label="ExampleCode.C2.M4" />
+    <Node Id="ExampleCode.C3_1.M3" Label="ExampleCode.C3_1.M3" />
+    <Node Id="ExampleCode.C3_1.M4" Label="ExampleCode.C3_1.M4" />
+    <Node Id="ExampleCode.C3_2.M4" Label="ExampleCode.C3_2.M4" />
+    <Node Id="ExampleCode.C3_2.M5" Label="ExampleCode.C3_2.M5" />
+  </Nodes>
+  <Links>
+    <Link Source="ExampleCode.C1.M1" Target="ExampleCode.C1.M2" Label="direct" />
+    <Link Source="ExampleCode.C1.M1" Target="ExampleCode.C2.M2" Label="overridden" />
+    <Link Source="ExampleCode.C1.M1" Target="ExampleCode.C1.M3" Label="direct" />
+    <Link Source="ExampleCode.C1.M1" Target="ExampleCode.C2.M3" Label="overridden" />
+    <Link Source="ExampleCode.C1.M1" Target="ExampleCode.C3_1.M3" Label="overridden" />
+    <Link Source="ExampleCode.C1.M2" Target="ExampleCode.C1.M3" Label="direct" />
+    <Link Source="ExampleCode.C1.M2" Target="ExampleCode.C2.M3" Label="overridden" />
+    <Link Source="ExampleCode.C1.M2" Target="ExampleCode.C3_1.M3" Label="overridden" />
+  </Links>
+</DirectedGraph>

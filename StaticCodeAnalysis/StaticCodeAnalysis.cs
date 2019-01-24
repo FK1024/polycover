@@ -43,7 +43,10 @@ namespace StaticCodeAnalysis
                 baseClass = baseClass.BaseType;
             }
 
-            return baseClasses.Select(myBaseClass => GetClassDeclSyntax(myBaseClass)).ToList();
+            List<ClassDeclarationSyntax> baseClassesDeclarations = baseClasses.Select(myBaseClass => GetClassDeclSyntax(myBaseClass)).ToList();
+            baseClassesDeclarations.RemoveAll(item => item == null);
+
+            return baseClassesDeclarations;
 
             // works too:
             // classDecl.BaseList.Types.First().Type.ToString(); // problematic if class don't derives
@@ -71,7 +74,10 @@ namespace StaticCodeAnalysis
                 classes = subClasses;
             }
 
-            return derivedClasses.Select(myDerivedClass => GetClassDeclSyntax(myDerivedClass)).ToList();
+            List<ClassDeclarationSyntax> derivedClassesDeclarations = derivedClasses.Select(myDerivedClass => GetClassDeclSyntax(myDerivedClass)).ToList();
+            derivedClassesDeclarations.RemoveAll(item => item == null);
+
+            return derivedClassesDeclarations;
         }
 
         // returns a list of all methods declared in code
@@ -86,13 +92,16 @@ namespace StaticCodeAnalysis
             return classDecl.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
         }
 
-        // ToDo: should onyl return user defined methods, not .toString() or Math.Pow()!
         // returns a list of all methods called in a given method
         public List<MethodDeclarationSyntax> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
-            return methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
-                .Select(invoc => (IMethodSymbol)semMod.GetSymbolInfo(invoc).Symbol).ToList()
-                .Select(myInvoc => GetMethodDeclSyntax(myInvoc)).ToList();
+            List<IMethodSymbol> invocationSymbols = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
+                .Select(invoc => (IMethodSymbol)semMod.GetSymbolInfo(invoc).Symbol).ToList();
+
+            List<MethodDeclarationSyntax> invocationDeclarations = invocationSymbols.Select(invoc => GetMethodDeclSyntax(invoc)).ToList();
+            invocationDeclarations.RemoveAll(item => item == null);
+            
+            return invocationDeclarations;
         }
 
         // returns a list of all methods overriding a given method
@@ -135,7 +144,7 @@ namespace StaticCodeAnalysis
         {
             return (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
                     where semMod.GetDeclaredSymbol(myClass).Equals(classSymb)
-                    select myClass).First();
+                    select myClass).FirstOrDefault();
         }
 
         // returns the class declaration syntax node for a given class name
@@ -152,7 +161,7 @@ namespace StaticCodeAnalysis
         {
             return (from myMethod in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
                     where semMod.GetDeclaredSymbol(myMethod).Equals(methSymb)
-                    select myMethod).First();
+                    select myMethod).FirstOrDefault(); // ...OrDefault returns null for non user defined methods such as .toString()
         }
 
         // returns the method declaration syntax node for a given class name
@@ -161,7 +170,7 @@ namespace StaticCodeAnalysis
             return (from myMethod in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
                     where (semMod.GetDeclaredSymbol(myMethod).ContainingType.OriginalDefinition.ToString()
                            + "." + semMod.GetDeclaredSymbol(myMethod).Name) == fullMethodName
-                    select myMethod).First(); // assumes there is only one method with this specified name in the class -> need to be fixed!
+                    select myMethod).First(); // assumes there is only one method with this specified name in the class -> only to get the classDecls for checking test results
         }
 
 
@@ -186,7 +195,7 @@ namespace StaticCodeAnalysis
     {
         static void Main(string[] args)
         {
-            string path = @"..\..\..\ExampleCode\ExampleCode4.cs";
+            string path = @"..\..\..\ExampleCode\ExampleCode.cs";
             StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
             YoYoGraph testGraph = new YoYoGraph();
@@ -218,8 +227,8 @@ namespace StaticCodeAnalysis
                     }
                 }
             }
-
-            testGraph.Serialize(@"..\..\..\ExampleCode\ExampleCode4YoYoGraph.dgml");
+            string DGMLPath = path.Substring(0, path.Length - 3) + "YoYoGraph.dgml";
+            testGraph.Serialize(DGMLPath);
         }
     }
 }
