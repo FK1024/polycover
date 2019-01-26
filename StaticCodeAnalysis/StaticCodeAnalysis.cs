@@ -242,15 +242,13 @@ namespace StaticCodeAnalysis
                 foreach (MethodDeclarationSyntax invoc in invocs)
                 {
                     // direct call
-                    YoYoGraph.Link newLink = new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, invoc).Id, "direct");
-                    testGraph.AddLink(newLink);
+                    testGraph.AddLink(new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, invoc).Id));
 
                     // overriding method calls
                     List<MethodDeclarationSyntax> overridingMethods = testAnalysis.GetOverridingMethods(invoc);
                     foreach (MethodDeclarationSyntax overridingMethod in overridingMethods)
                     {
-                        newLink = new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, overridingMethod).Id, "overridden");
-                        testGraph.AddLink(newLink);
+                        testGraph.AddLink(new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, overridingMethod).Id));
                     }
                 }
             }

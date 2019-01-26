@@ -8,11 +8,11 @@
     <Node Id="ExampleCode4.C.D" Label="ExampleCode4.C.D" Category="ExampleCode4.C" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.A.D" Label="direct" />
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.B.D" Label="overridden" />
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.C.D" Label="overridden" />
-    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.B.D" Label="direct" />
-    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.C.D" Label="overridden" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.A.D" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.B.D" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.C.D" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.B.D" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.C.D" />
   </Links>
   <Categories>
     <Category Id="ExampleCode4.Prog" Background="#0000FF" />

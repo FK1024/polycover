@@ -41,14 +41,11 @@ namespace StaticCodeAnalysis
             public string Source;
             [XmlAttribute]
             public string Target;
-            [XmlAttribute]
-            public string Label;
 
-            public Link(string source, string target, string label)
+            public Link(string source, string target)
             {
                 this.Source = source;
                 this.Target = target;
-                this.Label = label;
             }
         }
 
