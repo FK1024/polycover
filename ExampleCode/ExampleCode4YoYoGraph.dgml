@@ -1,25 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="ExampleCode4.A.D" Bounds="-105,64.9200000000001,119.883333333333,25.96" Label="ExampleCode4.A.D" UseManualLocation="True" />
-    <Node Id="ExampleCode4.B.D" Bounds="114.429983723958,62.4399496185303,119.023333333333,25.96" Label="ExampleCode4.B.D" UseManualLocation="True" />
-    <Node Id="ExampleCode4.C.D" Bounds="324.154998982747,62.4000496185302,119.573333333333,25.96" Label="ExampleCode4.C.D" UseManualLocation="True" />
-    <Node Id="ExampleCode4.Prog.M1" Bounds="-10.0416666666667,-132,145.966666666667,25.96" Label="ExampleCode4.Prog.M1" UseManualLocation="True" />
-    <Node Id="ExampleCode4.Prog.M2" Bounds="380.958333333333,-132,145.966666666667,25.96" Label="ExampleCode4.Prog.M2" UseManualLocation="True" />
+    <Node Id="ExampleCode4.Prog.M1" Label="ExampleCode4.Prog.M1" Category="ExampleCode4.Prog" />
+    <Node Id="ExampleCode4.Prog.M2" Label="ExampleCode4.Prog.M2" Category="ExampleCode4.Prog" />
+    <Node Id="ExampleCode4.A.D" Label="ExampleCode4.A.D" Category="ExampleCode4.A" />
+    <Node Id="ExampleCode4.B.D" Label="ExampleCode4.B.D" Category="ExampleCode4.B" />
+    <Node Id="ExampleCode4.C.D" Label="ExampleCode4.C.D" Category="ExampleCode4.C" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.A.D" Bounds="-33.6116535136085,-106.040000457764,89.4344842156395,163.068882623284" Label="direct" LabelBounds="12.8591698265805,-23.5438144494989,30.0333333333333,15.96" />
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.B.D" Bounds="70.3515565065996,-106.040000457764,91.7182334931065,160.663881691385" Label="overridden" LabelBounds="117.947577107433,-42.6596063840329,57.5066666666666,15.96" />
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.C.D" Bounds="84.3746800203195,-106.040000457764,270.435640233348,163.777884455894" Label="overridden" LabelBounds="220.628536748927,-41.8217972919573,57.5066666666667,15.96" />
-    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.B.D" Bounds="200.025665444701,-106.040000457764,235.224366795019,163.346467057066" Label="direct" LabelBounds="318.778622615228,-22.7240146049906,30.0333333333335,15.96" />
-    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.C.D" Bounds="391.664624277517,-106.040000457764,57.603174242263,159.972284390354" Label="overridden" LabelBounds="424.473645455101,-31.2796801595886,57.5066666666668,15.96" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.A.D" Label="direct" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.B.D" Label="overridden" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.C.D" Label="overridden" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.B.D" Label="direct" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.C.D" Label="overridden" />
   </Links>
-  <Properties>
-    <Property Id="Bounds" DataType="System.Windows.Rect" />
-    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
-    <Property Id="LabelBounds" DataType="System.Windows.Rect" />
-    <Property Id="UseManualLocation" DataType="System.Boolean" />
-    <Property Id="xsd" DataType="System.String" />
-    <Property Id="xsi" DataType="System.String" />
-  </Properties>
+  <Categories>
+    <Category Id="ExampleCode4.Prog" Background="#0000FF" />
+    <Category Id="ExampleCode4.A" Background="#8A2BE2" />
+    <Category Id="ExampleCode4.B" Background="#A52A2A" />
+    <Category Id="ExampleCode4.C" Background="#DEB887" />
+  </Categories>
 </DirectedGraph>

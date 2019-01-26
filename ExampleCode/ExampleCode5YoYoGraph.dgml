@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="ExampleCode5.A.M" Category="ExampleCode5.A" Bounds="0,0,122.246666666667,25.96" Label="ExampleCode5.A.M" />
+    <Node Id="ExampleCode5.A.N" Category="ExampleCode5.A" Bounds="209.753333333333,56,120.446666666667,25.96" Label="ExampleCode5.A.N" />
+    <Node Id="ExampleCode5.A.O" Category="ExampleCode5.A" Bounds="390.233333333333,1.4210854715202E-14,120.516666666667,25.96" Label="ExampleCode5.A.O" />
+    <Node Id="ExampleCode5.B.N" Category="ExampleCode5.B" Bounds="210.183333333333,2.48689957516035E-14,119.586666666667,25.96" Label="ExampleCode5.B.N" />
+    <Node Id="ExampleCode5.C.P" Category="ExampleCode5.C" Bounds="571.275,56,117.88,25.96" Label="ExampleCode5.C.P" />
+    <Node Id="ExampleCode5.D.P" Category="ExampleCode5.D" Bounds="570.783333333333,0,118.863333333333,25.96" Label="ExampleCode5.D.P" />
+  </Nodes>
+  <Links>
+    <Link Source="ExampleCode5.A.M" Target="ExampleCode5.A.N" Bounds="86.3325729370117,25.9599990844727,114.449638366699,40.9783172607422" Label="direct" LabelBounds="151.445457832573,64.5921681502778,30.0333333333333,15.96" />
+    <Link Source="ExampleCode5.A.M" Target="ExampleCode5.B.N" Bounds="122.24666595459,12.9799995422363,78.9366683959961,0" Label="overridden" LabelBounds="137.246666666667,12.98,57.5066666666667,15.96" />
+    <Link Source="ExampleCode5.A.N" Target="ExampleCode5.A.O" Bounds="330.200012207031,30.580078125,90.8685607910156,36.3369216918945" Label="direct" LabelBounds="345.200355073494,64.9197665560479,30.0333333333333,15.96" />
+    <Link Source="ExampleCode5.A.O" Target="ExampleCode5.C.P" Bounds="472.191101074219,25.9599990844727,90.1749267578125,39.7699584960938" Label="direct" LabelBounds="526.156477679005,65.0553804737038,30.0333333333333,15.96" />
+    <Link Source="ExampleCode5.A.O" Target="ExampleCode5.D.P" Bounds="510.75,12.9799995422363,51.0333251953125,0" Label="direct" LabelBounds="525.75,12.98,30.0333333333333,15.96" />
+    <Link Source="ExampleCode5.B.N" Target="ExampleCode5.A.O" Bounds="329.769989013672,12.9799995422363,51.4633483886719,0" Label="direct" LabelBounds="345.2,12.98,30.0333333333333,15.96" />
+  </Links>
+  <Categories>
+    <Category Id="ExampleCode5.A" Background="#FF0000FF" />
+    <Category Id="ExampleCode5.B" Background="#FF8A2BE2" />
+    <Category Id="ExampleCode5.C" Background="#FFA52A2A" />
+    <Category Id="ExampleCode5.D" Background="#FFDEB887" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="LabelBounds" DataType="System.Windows.Rect" />
+    <Property Id="xsd" DataType="System.String" />
+    <Property Id="xsi" DataType="System.String" />
+  </Properties>
+</DirectedGraph>

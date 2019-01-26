@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis;
@@ -29,6 +30,12 @@ namespace StaticCodeAnalysis
             semMod = compilation.GetSemanticModel(tree, false);
         }
 
+
+        // returns a list of all classes defined in code
+        public List<ClassDeclarationSyntax> GetAllClasses()
+        {
+            return root.DescendantNodes().OfType<ClassDeclarationSyntax>().ToList();
+        }
 
         // returns a list of named type symbols of all classes which are direct or indirect base classes of a given class
         public List<ClassDeclarationSyntax> GetBaseClasses(ClassDeclarationSyntax classDecl)
@@ -78,12 +85,6 @@ namespace StaticCodeAnalysis
             derivedClassesDeclarations.RemoveAll(item => item == null);
 
             return derivedClassesDeclarations;
-        }
-
-        // returns a list of all methods declared in code
-        public List<MethodDeclarationSyntax> GetAllMethods()
-        {
-            return root.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
         }
 
         // returns a list of all methods declared in a given class
@@ -155,6 +156,12 @@ namespace StaticCodeAnalysis
                     select myClass).First();
         }
 
+        // returns the full name of a given class declaration syntax
+        public string GetFullClassName(ClassDeclarationSyntax classDecl)
+        {
+            return semMod.GetDeclaredSymbol(classDecl).OriginalDefinition.ToString();
+        }
+
 
         // returns the corresponding ClassDeclarationSyntax of a given MethodSymbol
         public MethodDeclarationSyntax GetMethodDeclSyntax(IMethodSymbol methSymb)
@@ -172,13 +179,12 @@ namespace StaticCodeAnalysis
                            + "." + semMod.GetDeclaredSymbol(myMethod).Name) == fullMethodName
                     select myMethod).First(); // assumes there is only one method with this specified name in the class -> only to get the classDecls for checking test results
         }
-
-
+        
         // returns the full name of a given method declaration syntax
-        public string GetFullMethodName(MethodDeclarationSyntax method)
+        public string GetFullMethodName(MethodDeclarationSyntax methodDecl)
         {
-            return semMod.GetDeclaredSymbol(method).ContainingType.OriginalDefinition.ToString()
-                   + "." + semMod.GetDeclaredSymbol(method).Name;
+            return semMod.GetDeclaredSymbol(methodDecl).ContainingType.OriginalDefinition.ToString()
+                   + "." + semMod.GetDeclaredSymbol(methodDecl).Name;
         }
         
         
@@ -195,17 +201,38 @@ namespace StaticCodeAnalysis
     {
         static void Main(string[] args)
         {
-            string path = @"..\..\..\ExampleCode\ExampleCode.cs";
-            StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
+            string codePath = @"..\..\..\ExampleCode\ExampleCode.cs";
+            StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(codePath);
 
             YoYoGraph testGraph = new YoYoGraph();
-            List<MethodDeclarationSyntax> methods = testAnalysis.GetAllMethods();
+            List<ClassDeclarationSyntax> classes = testAnalysis.GetAllClasses();
 
-            // create a node for each method
-            foreach (MethodDeclarationSyntax method in methods)
+            // Get all the values from the KnownColor enumeration.
+            Array colorsArray = Enum.GetValues(typeof(KnownColor));
+            KnownColor[] allColors = new KnownColor[colorsArray.Length];
+            Array.Copy(colorsArray, allColors, colorsArray.Length);
+            
+            int colorCounter = 36; // good index to start at to have at least 34 easily distinguishable colors
+            foreach (ClassDeclarationSyntax myClass in classes)
             {
-                YoYoGraph.Node newNode = new YoYoGraph.Node(method, testAnalysis.GetFullMethodName(method), testAnalysis.GetFullMethodName(method));
-                testGraph.AddNode(newNode);
+                // select a color for each class
+                string classColor = ColorTranslator.ToHtml(Color.FromArgb(Color.FromKnownColor(allColors[colorCounter]).ToArgb()));
+
+                // create a category for each class
+                string categoryName = testAnalysis.GetFullClassName(myClass);
+                YoYoGraph.Category newCategory = new YoYoGraph.Category(categoryName, classColor);
+                testGraph.AddCategory(newCategory);
+
+                // create a node for each method
+                List<MethodDeclarationSyntax> methods = testAnalysis.GetMethods(myClass);
+                foreach (MethodDeclarationSyntax method in methods)
+                {
+                    string nodeName = testAnalysis.GetFullMethodName(method);
+                    YoYoGraph.Node newNode = new YoYoGraph.Node(method, nodeName, nodeName, categoryName);
+                    testGraph.AddNode(newNode);
+                }
+
+                colorCounter++;
             }
 
             // add the links (invocations)
@@ -227,7 +254,8 @@ namespace StaticCodeAnalysis
                     }
                 }
             }
-            string DGMLPath = path.Substring(0, path.Length - 3) + "YoYoGraph.dgml";
+
+            string DGMLPath = codePath.Substring(0, codePath.Length - 3) + "YoYoGraph.dgml";
             testGraph.Serialize(DGMLPath);
         }
     }
