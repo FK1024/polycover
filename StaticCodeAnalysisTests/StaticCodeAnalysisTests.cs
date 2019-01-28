@@ -14,6 +14,22 @@ namespace StaticCodeAnalysis.Tests
         static string path = @"..\..\..\ExampleCode\ExampleCode.cs";
         StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
+        // GetAllClasses test:
+        // ===================
+        [TestMethod]
+        public void GetAllClassesTest()
+        {
+            var expected = new List<ClassDeclarationSyntax>
+            {
+                testAnalysis.GetClassDeclSyntax("ExampleCode.C1"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode.C2"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode.C3_1"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode.C3_2")
+            };
+            var actual = testAnalysis.GetAllClasses();
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
         // GetBaseClasses tests:
         // =====================
         [TestMethod()]
