@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph Layout="Sugiyama" ZoomLevel="-1" xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="ExampleCode5.A.M" Category="ExampleCode5.A" Bounds="0,0,122.246666666667,25.96" Label="ExampleCode5.A.M" />
+    <Node Id="ExampleCode5.A.M" Category="ExampleCode5.A" Bounds="0,2.8421709430404E-14,122.246666666667,25.96" Label="ExampleCode5.A.M" />
     <Node Id="ExampleCode5.A.N" Category="ExampleCode5.A" Bounds="152.246666666667,56,120.446666666667,25.96" Label="ExampleCode5.A.N" />
-    <Node Id="ExampleCode5.A.O" Category="ExampleCode5.A" Bounds="302.693333333333,1.06581410364015E-14,120.516666666667,25.96" Label="ExampleCode5.A.O" />
-    <Node Id="ExampleCode5.B.N" Category="ExampleCode5.B" Bounds="152.676666666667,2.1316282072803E-14,119.586666666667,25.96" Label="ExampleCode5.B.N" />
+    <Node Id="ExampleCode5.A.O" Category="ExampleCode5.A" Bounds="302.693333333334,0,120.516666666667,25.96" Label="ExampleCode5.A.O" />
+    <Node Id="ExampleCode5.B.N" Category="ExampleCode5.B" Bounds="152.676666666667,1.4210854715202E-14,119.586666666667,25.96" Label="ExampleCode5.B.N" />
     <Node Id="ExampleCode5.C.P" Category="ExampleCode5.C" Bounds="453.701666666667,56,117.88,25.96" Label="ExampleCode5.C.P" />
-    <Node Id="ExampleCode5.D.P" Category="ExampleCode5.D" Bounds="453.21,0,118.863333333333,25.96" Label="ExampleCode5.D.P" />
+    <Node Id="ExampleCode5.D.P" Category="ExampleCode5.D" Bounds="453.210000000001,0,118.863333333333,25.96" Label="ExampleCode5.D.P" />
   </Nodes>
   <Links>
     <Link Source="ExampleCode5.A.M" Target="ExampleCode5.A.N" Bounds="96.2033309936523,25.9599990844727,72.7459487915039,26.9168357849121" />
@@ -26,6 +26,8 @@
     <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
     <Property Id="Bounds" DataType="System.Windows.Rect" />
     <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="ZoomLevel" DataType="System.String" />
     <Property Id="xsd" DataType="System.String" />
     <Property Id="xsi" DataType="System.String" />
   </Properties>

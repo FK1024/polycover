@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph Layout="Sugiyama" ZoomLevel="-1" xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
     <Node Id="ExampleCode.C1.M1" Category="ExampleCode.C1" Bounds="0,32,128.406666666667,25.96" Label="ExampleCode.C1.M1" />
     <Node Id="ExampleCode.C1.M2" Category="ExampleCode.C1" Bounds="158.406666666667,76,128.406666666667,25.96" Label="ExampleCode.C1.M2" />
-    <Node Id="ExampleCode.C1.M3" Category="ExampleCode.C1" Bounds="322.538333333333,176,128.406666666667,25.96" Label="ExampleCode.C1.M3" />
+    <Node Id="ExampleCode.C1.M3" Category="ExampleCode.C1" Bounds="322.538333333334,176,128.406666666667,25.96" Label="ExampleCode.C1.M3" />
     <Node Id="ExampleCode.C2.M2" Category="ExampleCode.C2" Bounds="158.406666666667,132,128.406666666667,25.96" Label="ExampleCode.C2.M2" />
-    <Node Id="ExampleCode.C2.M3" Category="ExampleCode.C2" Bounds="322.538333333333,3.5527136788005E-15,128.406666666667,25.96" Label="ExampleCode.C2.M3" />
-    <Node Id="ExampleCode.C2.M4" Category="ExampleCode.C2" Bounds="0,231.96,128.406666666667,25.96" Label="ExampleCode.C2.M4" />
+    <Node Id="ExampleCode.C2.M3" Category="ExampleCode.C2" Bounds="322.538333333334,1.4210854715202E-14,128.406666666667,25.96" Label="ExampleCode.C2.M3" />
+    <Node Id="ExampleCode.C2.M4" Category="ExampleCode.C2" Bounds="1.13686837721616E-13,231.96,128.406666666667,25.96" Label="ExampleCode.C2.M4" />
     <Node Id="ExampleCode.C3_1.M3" Category="ExampleCode.C3_1" Bounds="316.813333333334,56,139.856666666667,25.96" Label="ExampleCode.C3_1.M3" />
     <Node Id="ExampleCode.C3_1.M4" Category="ExampleCode.C3_1" Bounds="158.406666666667,231.96,139.856666666667,25.96" Label="ExampleCode.C3_1.M4" />
-    <Node Id="ExampleCode.C3_2.M4" Category="ExampleCode.C3_2" Bounds="328.263333333333,231.96,139.856666666667,25.96" Label="ExampleCode.C3_2.M4" />
-    <Node Id="ExampleCode.C3_2.M5" Category="ExampleCode.C3_2" Bounds="0,287.92,139.856666666667,25.96" Label="ExampleCode.C3_2.M5" />
+    <Node Id="ExampleCode.C3_2.M4" Category="ExampleCode.C3_2" Bounds="328.263333333334,231.96,139.856666666667,25.96" Label="ExampleCode.C3_2.M4" />
+    <Node Id="ExampleCode.C3_2.M5" Category="ExampleCode.C3_2" Bounds="1.13686837721616E-13,287.92,139.856666666667,25.96" Label="ExampleCode.C3_2.M5" />
   </Nodes>
   <Links>
     <Link Source="ExampleCode.C1.M1" Target="ExampleCode.C1.M2" Bounds="110.933296203613,57.9599990844727,56.2750473022461,15.6313018798828" />
@@ -32,6 +32,8 @@
     <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
     <Property Id="Bounds" DataType="System.Windows.Rect" />
     <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="ZoomLevel" DataType="System.String" />
     <Property Id="xsd" DataType="System.String" />
     <Property Id="xsi" DataType="System.String" />
   </Properties>

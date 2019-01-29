@@ -1,23 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph Layout="Sugiyama" ZoomLevel="-1" xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="ExampleCode4.Prog.M1" Label="ExampleCode4.Prog.M1" Category="ExampleCode4.Prog" />
-    <Node Id="ExampleCode4.Prog.M2" Label="ExampleCode4.Prog.M2" Category="ExampleCode4.Prog" />
-    <Node Id="ExampleCode4.A.D" Label="ExampleCode4.A.D" Category="ExampleCode4.A" />
-    <Node Id="ExampleCode4.B.D" Label="ExampleCode4.B.D" Category="ExampleCode4.B" />
-    <Node Id="ExampleCode4.C.D" Label="ExampleCode4.C.D" Category="ExampleCode4.C" />
+    <Node Id="ExampleCode4.A.D" Category="ExampleCode4.A" Bounds="175.966666666667,112,119.883333333333,25.96" Label="ExampleCode4.A.D" />
+    <Node Id="ExampleCode4.B.D" Category="ExampleCode4.B" Bounds="176.396666666667,0,119.023333333333,25.96" Label="ExampleCode4.B.D" />
+    <Node Id="ExampleCode4.C.D" Category="ExampleCode4.C" Bounds="176.121666666667,56,119.573333333333,25.96" Label="ExampleCode4.C.D" />
+    <Node Id="ExampleCode4.Prog.M1" Category="ExampleCode4.Prog" Bounds="0,56,145.966666666667,25.96" Label="ExampleCode4.Prog.M1" />
+    <Node Id="ExampleCode4.Prog.M2" Category="ExampleCode4.Prog" Bounds="0,1.06581410364015E-14,145.966666666667,25.96" Label="ExampleCode4.Prog.M2" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.A.D" />
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.B.D" />
-    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.C.D" />
-    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.B.D" />
-    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.C.D" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.A.D" Bounds="110.747024536133,81.9599990844727,78.8863525390625,27.1145401000977" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.B.D" Bounds="110.747024536133,28.885461807251,78.8863525390625,27.114538192749" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.C.D" Bounds="145.966659545898,68.9800033569336,21.1550140380859,0" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.B.D" Bounds="145.966659545898,12.9799995422363,21.4300079345703,0" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.C.D" Bounds="110.747024536133,25.9599990844727,78.8863525390625,27.1145401000977" />
   </Links>
   <Categories>
-    <Category Id="ExampleCode4.Prog" Background="#0000FF" />
-    <Category Id="ExampleCode4.A" Background="#8A2BE2" />
-    <Category Id="ExampleCode4.B" Background="#A52A2A" />
-    <Category Id="ExampleCode4.C" Background="#DEB887" />
+    <Category Id="ExampleCode4.A" Background="#FF8A2BE2" />
+    <Category Id="ExampleCode4.B" Background="#FFA52A2A" />
+    <Category Id="ExampleCode4.C" Background="#FFDEB887" />
+    <Category Id="ExampleCode4.Prog" Background="#FF0000FF" />
   </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+    <Property Id="xsd" DataType="System.String" />
+    <Property Id="xsi" DataType="System.String" />
+  </Properties>
 </DirectedGraph>

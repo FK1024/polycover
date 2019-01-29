@@ -93,6 +93,7 @@ namespace StaticCodeAnalysis
             return classDecl.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
         }
 
+        //ToDo: if invoced method is defined in an interface, return the corresponding method of the class which implements this interface
         // returns a list of all methods called in a given method
         public List<MethodDeclarationSyntax> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
@@ -217,19 +218,17 @@ namespace StaticCodeAnalysis
             {
                 // select a color for each class
                 string classColor = ColorTranslator.ToHtml(Color.FromArgb(Color.FromKnownColor(allColors[colorCounter]).ToArgb()));
-
+                
                 // create a category for each class
                 string categoryName = testAnalysis.GetFullClassName(myClass);
-                YoYoGraph.Category newCategory = new YoYoGraph.Category(categoryName, classColor);
-                testGraph.AddCategory(newCategory);
+                testGraph.AddCategory(new YoYoGraph.Category(categoryName, classColor));
 
                 // create a node for each method
                 List<MethodDeclarationSyntax> methods = testAnalysis.GetMethods(myClass);
                 foreach (MethodDeclarationSyntax method in methods)
                 {
                     string nodeName = testAnalysis.GetFullMethodName(method);
-                    YoYoGraph.Node newNode = new YoYoGraph.Node(method, nodeName, nodeName, categoryName);
-                    testGraph.AddNode(newNode);
+                    testGraph.AddNode(new YoYoGraph.Node(method, nodeName, nodeName, categoryName));
                 }
 
                 colorCounter++;
