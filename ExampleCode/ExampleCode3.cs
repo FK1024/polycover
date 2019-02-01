@@ -4,10 +4,10 @@
         Class Structure:
 
             <<interface>>
-                 IA
-                 ^
-                 |
-                 A
+                   IA
+                   ^^
+                  /  \
+                 A    D
                  ^
                  |
                  B
@@ -48,6 +48,19 @@
         public override int N()
         {
             return 3;
+        }
+    }
+
+    public class D : IA
+    {
+        public int M(IA a)
+        {
+            return 0;
+        }
+
+        public int N()
+        {
+            return 4;
         }
     }
 }
