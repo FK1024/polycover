@@ -152,7 +152,6 @@ namespace StaticCodeAnalysis.Tests
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        // toString() method should not be listed -> only user defined methods!
         [TestMethod()]
         public void GetInvocationsTest2()
         {
@@ -180,7 +179,6 @@ namespace StaticCodeAnalysis.Tests
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        // Math.Pow should not be listed -> only user defined functions!
         [TestMethod()]
         public void GetInvocationsTest5()
         {
