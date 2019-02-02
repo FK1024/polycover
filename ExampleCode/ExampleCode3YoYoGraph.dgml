@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" ZoomLevel="-1" xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="ExampleCode3.A.M" Category="ExampleCode3.A" Bounds="0,56,122.246666666667,25.96" Label="ExampleCode3.A.M" />
+    <Node Id="ExampleCode3.A.N" Category="ExampleCode3.A" Bounds="152.583333333333,168,120.446666666667,25.96" Label="ExampleCode3.A.N" />
+    <Node Id="ExampleCode3.B.N" Category="ExampleCode3.B" Bounds="153.013333333333,112,119.586666666667,25.96" Label="ExampleCode3.B.N" />
+    <Node Id="ExampleCode3.C.N" Category="ExampleCode3.C" Bounds="152.738333333333,56,120.136666666667,25.96" Label="ExampleCode3.C.N" />
+    <Node Id="ExampleCode3.D.M" Category="ExampleCode3.D" Bounds="303.366666666667,0,122.92,25.96" Label="ExampleCode3.D.M" />
+    <Node Id="ExampleCode3.D.N" Category="ExampleCode3.D" Bounds="152.246666666667,-7.105427357601E-15,121.12,25.96" Label="ExampleCode3.D.N" />
+  </Nodes>
+  <Links>
+    <Link Source="ExampleCode3.A.M" Target="ExampleCode3.A.N" Bounds="77.5054244995117,81.9599990844727,108.089561462402,81.0876998901367" />
+    <Link Source="ExampleCode3.A.M" Target="ExampleCode3.B.N" Bounds="96.281364440918,81.9599990844727,72.9242935180664,26.9229354858398" />
+    <Link Source="ExampleCode3.A.M" Target="ExampleCode3.C.N" Bounds="122.24666595459,68.9800033569336,21.4916610717773,0" />
+    <Link Source="ExampleCode3.A.M" Target="ExampleCode3.D.N" Bounds="96.281364440918,29.0770645141602,72.9242935180664,26.9229354858398" />
+  </Links>
+  <Categories>
+    <Category Id="ExampleCode3.A" Background="#FF0000FF" />
+    <Category Id="ExampleCode3.B" Background="#FF8A2BE2" />
+    <Category Id="ExampleCode3.C" Background="#FFA52A2A" />
+    <Category Id="ExampleCode3.D" Background="#FFDEB887" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+    <Property Id="xsd" DataType="System.String" />
+    <Property Id="xsi" DataType="System.String" />
+  </Properties>
+</DirectedGraph>

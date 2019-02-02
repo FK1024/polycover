@@ -93,17 +93,31 @@ namespace StaticCodeAnalysis
             return classDecl.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
         }
 
-        //ToDo: if invoced method is defined in an interface, return the corresponding method of the class which implements this interface
+        //ToDo: remove duplicate invocations!
         // returns a list of all methods called in a given method
         public List<MethodDeclarationSyntax> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
-            List<IMethodSymbol> invocationSymbols = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
-                .Select(invoc => (IMethodSymbol)semMod.GetSymbolInfo(invoc).Symbol).ToList();
+            List<MethodDeclarationSyntax> invocationDecls = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
+                .Select(invoc => GetMethodDeclSyntax(semMod.GetSymbolInfo(invoc).Symbol as IMethodSymbol)).ToList();
 
-            List<MethodDeclarationSyntax> invocationDeclarations = invocationSymbols.Select(invoc => GetMethodDeclSyntax(invoc)).ToList();
-            invocationDeclarations.RemoveAll(item => item == null);
-            
-            return invocationDeclarations;
+            invocationDecls.RemoveAll(item => item == null); // remove non user defined methods which are null
+
+            List<MethodDeclarationSyntax> invocationDecls2 = new List<MethodDeclarationSyntax>();
+
+            foreach (MethodDeclarationSyntax invoc in invocationDecls)
+            {
+                if (invoc.Parent is InterfaceDeclarationSyntax)
+                {
+                    // if method is declared in an interface add all implementing methods instead
+                    invocationDecls2.AddRange(GetInterfaceMethodImplementingMethod(invoc));
+                }
+                else
+                {
+                    invocationDecls2.Add(invoc);
+                }
+            }
+
+            return invocationDecls2;
         }
 
         // returns a list of all methods overriding a given method
@@ -180,15 +194,32 @@ namespace StaticCodeAnalysis
                            + "." + semMod.GetDeclaredSymbol(myMethod).Name) == fullMethodName
                     select myMethod).First(); // assumes there is only one method with this specified name in the class -> only to get the classDecls for checking test results
         }
-        
+
         // returns the full name of a given method declaration syntax
         public string GetFullMethodName(MethodDeclarationSyntax methodDecl)
         {
             return semMod.GetDeclaredSymbol(methodDecl).ContainingType.OriginalDefinition.ToString()
                    + "." + semMod.GetDeclaredSymbol(methodDecl).Name;
         }
-        
-        
+
+
+        // returns all methods which implements a given method declared in an interface
+        public List<MethodDeclarationSyntax> GetInterfaceMethodImplementingMethod(MethodDeclarationSyntax methodDecl)
+        {
+            List<MethodDeclarationSyntax> implementingMethods = new List<MethodDeclarationSyntax>();
+            foreach (ClassDeclarationSyntax myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>())
+            {
+                MethodDeclarationSyntax implementingMethod = GetMethodDeclSyntax(semMod.GetDeclaredSymbol(myClass)
+                    .FindImplementationForInterfaceMember(semMod.GetDeclaredSymbol(methodDecl)) as IMethodSymbol);
+                if (!implementingMethods.Contains(implementingMethod))
+                {
+                    implementingMethods.Add(implementingMethod);
+                }
+            }
+            return implementingMethods;
+        }
+
+
         public YoYoGraph.Node GetCorrespondingNode(YoYoGraph graph, MethodDeclarationSyntax methDecl)
         {
             return (from node in graph.Nodes
@@ -202,9 +233,9 @@ namespace StaticCodeAnalysis
     {
         static void Main(string[] args)
         {
-            string codePath = @"..\..\..\ExampleCode\ExampleCode.cs";
+            string codePath = @"..\..\..\ExampleCode\ExampleCode3.cs";
             StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(codePath);
-
+            
             YoYoGraph testGraph = new YoYoGraph();
             List<ClassDeclarationSyntax> classes = testAnalysis.GetAllClasses();
 
@@ -212,13 +243,13 @@ namespace StaticCodeAnalysis
             Array colorsArray = Enum.GetValues(typeof(KnownColor));
             KnownColor[] allColors = new KnownColor[colorsArray.Length];
             Array.Copy(colorsArray, allColors, colorsArray.Length);
-            
+
             int colorCounter = 36; // good index to start at to have at least 34 easily distinguishable colors
             foreach (ClassDeclarationSyntax myClass in classes)
             {
                 // select a color for each class
                 string classColor = ColorTranslator.ToHtml(Color.FromArgb(Color.FromKnownColor(allColors[colorCounter]).ToArgb()));
-                
+
                 // create a category for each class
                 string categoryName = testAnalysis.GetFullClassName(myClass);
                 testGraph.AddCategory(new YoYoGraph.Category(categoryName, classColor));
