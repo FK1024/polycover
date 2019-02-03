@@ -38,7 +38,7 @@ namespace StaticCodeAnalysis.Tests
                 testAnalysis.GetMethodDeclSyntax("ExampleCode3.A.N"),
                 testAnalysis.GetMethodDeclSyntax("ExampleCode3.D.N")
             };
-            var actual = testAnalysis.GetInterfaceMethodImplementingMethod(testAnalysis.GetMethodDeclSyntax("ExampleCode3.IA.N"));
+            var actual = testAnalysis.GetInterfaceMethodImplementingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode3.IA.N"));
             CollectionAssert.AreEqual(expected, actual);
         }
     }

@@ -17,21 +17,21 @@ namespace StaticCodeAnalysis
 
         public struct Node
         {
+            [XmlAttribute]
+            public string Category;
             [XmlIgnore]
             public MethodDeclarationSyntax MethDecl;
             [XmlAttribute]
             public string Id;
             [XmlAttribute]
             public string Label;
-            [XmlAttribute]
-            public string Category;
             
-            public Node(MethodDeclarationSyntax methDecl, string id, string label, string category)
+            public Node(string category, MethodDeclarationSyntax methDecl, string id, string label)
             {
+                this.Category = category;
                 this.MethDecl = methDecl;
                 this.Id = id;
                 this.Label = label;
-                this.Category = category;
             }
         }
 

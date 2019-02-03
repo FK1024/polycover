@@ -1,34 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph Layout="Sugiyama" ZoomLevel="-1" xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="ExampleCode5.A.M" Category="ExampleCode5.A" Bounds="0,2.8421709430404E-14,122.246666666667,25.96" Label="ExampleCode5.A.M" />
-    <Node Id="ExampleCode5.A.N" Category="ExampleCode5.A" Bounds="152.246666666667,56,120.446666666667,25.96" Label="ExampleCode5.A.N" />
-    <Node Id="ExampleCode5.A.O" Category="ExampleCode5.A" Bounds="302.693333333334,0,120.516666666667,25.96" Label="ExampleCode5.A.O" />
-    <Node Id="ExampleCode5.B.N" Category="ExampleCode5.B" Bounds="152.676666666667,1.4210854715202E-14,119.586666666667,25.96" Label="ExampleCode5.B.N" />
-    <Node Id="ExampleCode5.C.P" Category="ExampleCode5.C" Bounds="453.701666666667,56,117.88,25.96" Label="ExampleCode5.C.P" />
-    <Node Id="ExampleCode5.D.P" Category="ExampleCode5.D" Bounds="453.210000000001,0,118.863333333333,25.96" Label="ExampleCode5.D.P" />
+    <Node Category="method" Id="ExampleCode5.A.M" Label="ExampleCode5.A.M" />
+    <Node Category="method" Id="ExampleCode5.A.N" Label="ExampleCode5.A.N" />
+    <Node Category="method" Id="ExampleCode5.A.O" Label="ExampleCode5.A.O" />
+    <Node Category="method" Id="ExampleCode5.B.N" Label="ExampleCode5.B.N" />
+    <Node Category="method" Id="ExampleCode5.C.P" Label="ExampleCode5.C.P" />
+    <Node Category="method" Id="ExampleCode5.D.P" Label="ExampleCode5.D.P" />
+    <Node Category="invocation" Id="0" Label="invocs" />
+    <Node Category="invocation" Id="1" Label="invocs" />
+    <Node Category="invocation" Id="2" Label="invocs" />
+    <Node Category="invocation" Id="3" Label="invocs" />
+    <Node Category="invocation" Id="4" Label="invocs" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode5.A.M" Target="ExampleCode5.A.N" Bounds="96.2033309936523,25.9599990844727,72.7459487915039,26.9168357849121" />
-    <Link Source="ExampleCode5.A.M" Target="ExampleCode5.B.N" Bounds="122.24666595459,12.9799995422363,21.4300003051758,0" />
-    <Link Source="ExampleCode5.A.N" Target="ExampleCode5.A.O" Bounds="247.349502563477,29.0989398956299,72.2877960205078,26.9010601043701" />
-    <Link Source="ExampleCode5.A.O" Target="ExampleCode5.C.P" Bounds="397.647674560547,25.9599990844727,71.8685607910156,26.8864936828613" />
-    <Link Source="ExampleCode5.A.O" Target="ExampleCode5.D.P" Bounds="423.209991455078,12.9799995422363,21,0" />
-    <Link Source="ExampleCode5.B.N" Target="ExampleCode5.A.O" Bounds="272.263336181641,12.9799995422363,21.4299926757813,0" />
+    <Link Source="ExampleCode5.A.M" Target="0" />
+    <Link Source="0" Target="ExampleCode5.A.N" />
+    <Link Source="0" Target="ExampleCode5.B.N" />
+    <Link Source="ExampleCode5.A.N" Target="1" />
+    <Link Source="1" Target="ExampleCode5.A.O" />
+    <Link Source="ExampleCode5.A.O" Target="2" />
+    <Link Source="2" Target="ExampleCode5.C.P" />
+    <Link Source="2" Target="ExampleCode5.D.P" />
+    <Link Source="ExampleCode5.A.O" Target="3" />
+    <Link Source="3" Target="ExampleCode5.D.P" />
+    <Link Source="ExampleCode5.B.N" Target="4" />
+    <Link Source="4" Target="ExampleCode5.A.O" />
   </Links>
   <Categories>
-    <Category Id="ExampleCode5.A" Background="#FF0000FF" />
-    <Category Id="ExampleCode5.B" Background="#FF8A2BE2" />
-    <Category Id="ExampleCode5.C" Background="#FFA52A2A" />
-    <Category Id="ExampleCode5.D" Background="#FFDEB887" />
+    <Category Id="method" Background="#ADD8E6" />
+    <Category Id="invocation" Background="#F08080" />
   </Categories>
-  <Properties>
-    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
-    <Property Id="Bounds" DataType="System.Windows.Rect" />
-    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
-    <Property Id="Layout" DataType="System.String" />
-    <Property Id="ZoomLevel" DataType="System.String" />
-    <Property Id="xsd" DataType="System.String" />
-    <Property Id="xsi" DataType="System.String" />
-  </Properties>
 </DirectedGraph>

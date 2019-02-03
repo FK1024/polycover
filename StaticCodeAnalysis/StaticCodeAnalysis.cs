@@ -87,37 +87,51 @@ namespace StaticCodeAnalysis
             return derivedClassesDeclarations;
         }
 
-        // returns a list of all methods declared in a given class
-        public List<MethodDeclarationSyntax> GetMethods(ClassDeclarationSyntax classDecl)
+        // returns all methods declared in a class
+        public List<MethodDeclarationSyntax> GetAllMethods()
         {
-            return classDecl.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
+            return (from method in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
+                    where method.Parent is ClassDeclarationSyntax
+                    select method).ToList();
         }
 
         //ToDo: remove duplicate invocations!
-        // returns a list of all methods called in a given method
-        public List<MethodDeclarationSyntax> GetInvocations(MethodDeclarationSyntax methodDecl)
+        // for a given method returns a list of all invocations which are lists of all possible called methods (due to interfaces and overriding)
+        public List<List<MethodDeclarationSyntax>> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
-            List<MethodDeclarationSyntax> invocationDecls = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
+            List<MethodDeclarationSyntax> directInvocations = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
                 .Select(invoc => GetMethodDeclSyntax(semMod.GetSymbolInfo(invoc).Symbol as IMethodSymbol)).ToList();
 
-            invocationDecls.RemoveAll(item => item == null); // remove non user defined methods which are null
+            directInvocations.RemoveAll(item => item == null); // remove non user defined methods which are null
 
-            List<MethodDeclarationSyntax> invocationDecls2 = new List<MethodDeclarationSyntax>();
+            List<List<MethodDeclarationSyntax>> allPossibleInvocations = new List<List<MethodDeclarationSyntax>>();
 
-            foreach (MethodDeclarationSyntax invoc in invocationDecls)
+            foreach (MethodDeclarationSyntax invoc in directInvocations)
             {
                 if (invoc.Parent is InterfaceDeclarationSyntax)
                 {
-                    // if method is declared in an interface add all implementing methods instead
-                    invocationDecls2.AddRange(GetInterfaceMethodImplementingMethod(invoc));
+                    // if method is declared in an interface add the list of all implementing methods instead + each overrides
+                    List<MethodDeclarationSyntax> possibleInvocations = new List<MethodDeclarationSyntax>();
+                    List<MethodDeclarationSyntax> implemMeths = GetInterfaceMethodImplementingMethods(invoc);
+                    foreach (MethodDeclarationSyntax implemMeth in implemMeths)
+                    {
+                        List<MethodDeclarationSyntax> overrMethsAndSelf = GetOverridingMethods(implemMeth);
+                        overrMethsAndSelf.Insert(0, implemMeth);
+                        possibleInvocations.AddRange(overrMethsAndSelf);
+                    }
+                    allPossibleInvocations.Add(possibleInvocations);
                 }
                 else
                 {
-                    invocationDecls2.Add(invoc);
+                    // add the method itself and the overrides
+                    List<MethodDeclarationSyntax> overrMethsAndSelf = GetOverridingMethods(invoc);
+                    overrMethsAndSelf.Insert(0, invoc);
+
+                    allPossibleInvocations.Add(overrMethsAndSelf);
                 }
             }
 
-            return invocationDecls2;
+            return allPossibleInvocations;
         }
 
         // returns a list of all methods overriding a given method
@@ -204,7 +218,7 @@ namespace StaticCodeAnalysis
 
 
         // returns all methods which implements a given method declared in an interface
-        public List<MethodDeclarationSyntax> GetInterfaceMethodImplementingMethod(MethodDeclarationSyntax methodDecl)
+        public List<MethodDeclarationSyntax> GetInterfaceMethodImplementingMethods(MethodDeclarationSyntax methodDecl)
         {
             List<MethodDeclarationSyntax> implementingMethods = new List<MethodDeclarationSyntax>();
             foreach (ClassDeclarationSyntax myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>())
@@ -237,52 +251,40 @@ namespace StaticCodeAnalysis
             StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(codePath);
             
             YoYoGraph testGraph = new YoYoGraph();
-            List<ClassDeclarationSyntax> classes = testAnalysis.GetAllClasses();
 
-            // Get all the values from the KnownColor enumeration.
-            Array colorsArray = Enum.GetValues(typeof(KnownColor));
-            KnownColor[] allColors = new KnownColor[colorsArray.Length];
-            Array.Copy(colorsArray, allColors, colorsArray.Length);
+            // create the two categories of nodes: method and invocation
+            testGraph.AddCategory(new YoYoGraph.Category("method", ColorTranslator.ToHtml(Color.FromArgb(Color.LightBlue.ToArgb()))));
+            testGraph.AddCategory(new YoYoGraph.Category("invocation", ColorTranslator.ToHtml(Color.FromArgb(Color.LightCoral.ToArgb()))));
+            
+            // create a node for each method
+            List<MethodDeclarationSyntax> methods = testAnalysis.GetAllMethods();
 
-            int colorCounter = 36; // good index to start at to have at least 34 easily distinguishable colors
-            foreach (ClassDeclarationSyntax myClass in classes)
+            foreach (MethodDeclarationSyntax method in methods)
             {
-                // select a color for each class
-                string classColor = ColorTranslator.ToHtml(Color.FromArgb(Color.FromKnownColor(allColors[colorCounter]).ToArgb()));
-
-                // create a category for each class
-                string categoryName = testAnalysis.GetFullClassName(myClass);
-                testGraph.AddCategory(new YoYoGraph.Category(categoryName, classColor));
-
-                // create a node for each method
-                List<MethodDeclarationSyntax> methods = testAnalysis.GetMethods(myClass);
-                foreach (MethodDeclarationSyntax method in methods)
-                {
-                    string nodeName = testAnalysis.GetFullMethodName(method);
-                    testGraph.AddNode(new YoYoGraph.Node(method, nodeName, nodeName, categoryName));
-                }
-
-                colorCounter++;
+                string nodeName = testAnalysis.GetFullMethodName(method);
+                testGraph.AddNode(new YoYoGraph.Node("method", method, nodeName, nodeName));
             }
 
-            // add the links (invocations)
-            foreach (YoYoGraph.Node node in testGraph.Nodes)
+            // create a node for each invocation and add the links
+            List<YoYoGraph.Node> methodNodes = new List<YoYoGraph.Node>(testGraph.Nodes);
+            int invocCount = 0;
+            foreach (YoYoGraph.Node methodNode in methodNodes)
             {
-                List<MethodDeclarationSyntax> invocs = testAnalysis.GetInvocations(node.MethDecl);
-                foreach (MethodDeclarationSyntax invoc in invocs)
+                List<List<MethodDeclarationSyntax>> invocs = testAnalysis.GetInvocations(methodNode.MethDecl);
+                foreach (List<MethodDeclarationSyntax> invoc in invocs)
                 {
-                    // direct call
-                    testGraph.AddLink(new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, invoc).Id));
+                    YoYoGraph.Node invocNode = new YoYoGraph.Node("invocation", null, invocCount.ToString(), "invocs");
+                    testGraph.AddNode(invocNode);
+                    invocCount++;
+                    testGraph.AddLink(new YoYoGraph.Link(methodNode.Id, invocNode.Id));
 
-                    // overriding method calls
-                    List<MethodDeclarationSyntax> overridingMethods = testAnalysis.GetOverridingMethods(invoc);
-                    foreach (MethodDeclarationSyntax overridingMethod in overridingMethods)
+                    foreach (MethodDeclarationSyntax invocOption in invoc)
                     {
-                        testGraph.AddLink(new YoYoGraph.Link(node.Id, testAnalysis.GetCorrespondingNode(testGraph, overridingMethod).Id));
+                        testGraph.AddLink(new YoYoGraph.Link(invocNode.Id, testAnalysis.GetCorrespondingNode(testGraph, invocOption).Id));
                     }
                 }
             }
-
+            
             string DGMLPath = codePath.Substring(0, codePath.Length - 3) + "YoYoGraph.dgml";
             testGraph.Serialize(DGMLPath);
         }

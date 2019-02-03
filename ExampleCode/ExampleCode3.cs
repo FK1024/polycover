@@ -26,6 +26,8 @@
     {
         public int M(IA a)
         {
+            B b = new B();
+            int useless = b.N();
             return a.N();
         }
 
