@@ -28,6 +28,7 @@
         {
             B b = new B();
             int useless = b.N();
+            int useless2 = b.N();
             return a.N();
         }
 

@@ -89,12 +89,12 @@ namespace StaticCodeAnalysis
                     select method).ToList();
         }
 
-        //ToDo: remove duplicate invocations!
         // for a given method returns a list of all invocations which are lists of all possible called methods (due to interfaces and overriding)
         public List<List<MethodDeclarationSyntax>> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
             List<MethodDeclarationSyntax> directInvocations = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
-                .Select(invoc => GetMethodDeclSyntax(semMod.GetSymbolInfo(invoc).Symbol as IMethodSymbol)).ToList();
+                .Select(invoc => GetMethodDeclSyntax(semMod.GetSymbolInfo(invoc).Symbol as IMethodSymbol))
+                .Distinct().ToList();
 
             directInvocations.RemoveAll(item => item == null); // remove non user defined methods which are null
 

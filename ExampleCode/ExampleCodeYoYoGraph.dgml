@@ -1,35 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Category="method" Id="ExampleCode.C1.M1" Label="ExampleCode.C1.M1" />
-    <Node Category="method" Id="ExampleCode.C1.M2" Label="ExampleCode.C1.M2" />
-    <Node Category="method" Id="ExampleCode.C1.M3" Label="ExampleCode.C1.M3" />
-    <Node Category="method" Id="ExampleCode.C2.M2" Label="ExampleCode.C2.M2" />
-    <Node Category="method" Id="ExampleCode.C2.M3" Label="ExampleCode.C2.M3" />
-    <Node Category="method" Id="ExampleCode.C2.M4" Label="ExampleCode.C2.M4" />
-    <Node Category="method" Id="ExampleCode.C3_1.M3" Label="ExampleCode.C3_1.M3" />
-    <Node Category="method" Id="ExampleCode.C3_1.M4" Label="ExampleCode.C3_1.M4" />
-    <Node Category="method" Id="ExampleCode.C3_2.M4" Label="ExampleCode.C3_2.M4" />
-    <Node Category="method" Id="ExampleCode.C3_2.M5" Label="ExampleCode.C3_2.M5" />
-    <Node Category="invocation" Id="0" Label="invocs" />
-    <Node Category="invocation" Id="1" Label="invocs" />
-    <Node Category="invocation" Id="2" Label="invocs" />
+    <Node Id="0" Category="invocation" Bounds="158.406666666667,44,53.11,25.96" Label="invocs" />
+    <Node Id="1" Category="invocation" Bounds="399.923333333333,7.105427357601E-15,53.11,25.96" Label="invocs" />
+    <Node Id="2" Category="invocation" Bounds="399.923333333333,56,53.11,25.96" Label="invocs" />
+    <Node Id="ExampleCode.C1.M1" Category="method" Bounds="0,0,128.406666666667,25.96" Label="ExampleCode.C1.M1" />
+    <Node Id="ExampleCode.C1.M2" Category="method" Bounds="241.516666666667,44,128.406666666667,25.96" Label="ExampleCode.C1.M2" />
+    <Node Id="ExampleCode.C1.M3" Category="method" Bounds="488.758333333333,3.5527136788005E-15,128.406666666667,25.96" Label="ExampleCode.C1.M3" />
+    <Node Id="ExampleCode.C2.M2" Category="method" Bounds="241.516666666667,100,128.406666666667,25.96" Label="ExampleCode.C2.M2" />
+    <Node Id="ExampleCode.C2.M3" Category="method" Bounds="488.758333333333,112,128.406666666667,25.96" Label="ExampleCode.C2.M3" />
+    <Node Id="ExampleCode.C2.M4" Category="method" Bounds="0,167.96,128.406666666667,25.96" Label="ExampleCode.C2.M4" />
+    <Node Id="ExampleCode.C3_1.M3" Category="method" Bounds="483.033333333333,56,139.856666666667,25.96" Label="ExampleCode.C3_1.M3" />
+    <Node Id="ExampleCode.C3_1.M4" Category="method" Bounds="158.406666666667,167.96,139.856666666667,25.96" Label="ExampleCode.C3_1.M4" />
+    <Node Id="ExampleCode.C3_2.M4" Category="method" Bounds="328.263333333333,167.96,139.856666666667,25.96" Label="ExampleCode.C3_2.M4" />
+    <Node Id="ExampleCode.C3_2.M5" Category="method" Bounds="498.12,167.96,139.856666666667,25.96" Label="ExampleCode.C3_2.M5" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode.C1.M1" Target="0" />
-    <Link Source="0" Target="ExampleCode.C1.M2" />
-    <Link Source="0" Target="ExampleCode.C2.M2" />
-    <Link Source="ExampleCode.C1.M1" Target="1" />
-    <Link Source="1" Target="ExampleCode.C1.M3" />
-    <Link Source="1" Target="ExampleCode.C2.M3" />
-    <Link Source="1" Target="ExampleCode.C3_1.M3" />
-    <Link Source="ExampleCode.C1.M2" Target="2" />
-    <Link Source="2" Target="ExampleCode.C1.M3" />
-    <Link Source="2" Target="ExampleCode.C2.M3" />
-    <Link Source="2" Target="ExampleCode.C3_1.M3" />
+    <Link Source="0" Target="ExampleCode.C1.M2" Bounds="211.516662597656,56.9799995422363,21,0" />
+    <Link Source="0" Target="ExampleCode.C2.M2" Bounds="210.765167236328,68.9460144042969,58.7999877929688,27.2676773071289" />
+    <Link Source="1" Target="ExampleCode.C1.M3" Bounds="453.033325195313,12.9799995422363,26.7250061035156,0" />
+    <Link Source="1" Target="ExampleCode.C2.M3" Bounds="435.988464355469,25.9599990844727,74.5297241210938,82.8214111328125" />
+    <Link Source="1" Target="ExampleCode.C3_1.M3" Bounds="452.584533691406,24.5384159088135,62.8306274414063,27.8180141448975" />
+    <Link Source="2" Target="ExampleCode.C1.M3" Bounds="452.584533691406,29.6035709381104,62.8306274414063,27.8180141448975" />
+    <Link Source="2" Target="ExampleCode.C2.M3" Bounds="452.584533691406,80.5384140014648,62.8306274414063,27.8180160522461" />
+    <Link Source="2" Target="ExampleCode.C3_1.M3" Bounds="453.033325195313,68.9800033569336,21,0" />
+    <Link Source="ExampleCode.C1.M1" Target="0" Bounds="99.8270416259766,25.9599990844727,50.1234588623047,18.2631912231445" />
+    <Link Source="ExampleCode.C1.M1" Target="1" Bounds="128.406661987305,12.9799995422363,262.516677856445,0" />
+    <Link Source="ExampleCode.C1.M2" Target="2" Bounds="369.92333984375,63.3600158691406,21.0440979003906,2.09119415283203" />
   </Links>
   <Categories>
-    <Category Id="method" Background="#ADD8E6" />
-    <Category Id="invocation" Background="#F08080" />
+    <Category Id="invocation" Background="#FFF08080" />
+    <Category Id="method" Background="#FFADD8E6" />
   </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="xsd" DataType="System.String" />
+    <Property Id="xsi" DataType="System.String" />
+  </Properties>
 </DirectedGraph>
