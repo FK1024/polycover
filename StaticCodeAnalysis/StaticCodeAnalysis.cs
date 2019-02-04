@@ -31,12 +31,6 @@ namespace StaticCodeAnalysis
         }
 
 
-        // returns a list of all classes defined in code
-        public List<ClassDeclarationSyntax> GetAllClasses()
-        {
-            return root.DescendantNodes().OfType<ClassDeclarationSyntax>().ToList();
-        }
-
         // returns a list of named type symbols of all classes which are direct or indirect base classes of a given class
         public List<ClassDeclarationSyntax> GetBaseClasses(ClassDeclarationSyntax classDecl)
         {

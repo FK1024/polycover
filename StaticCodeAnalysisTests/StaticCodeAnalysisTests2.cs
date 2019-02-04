@@ -14,21 +14,6 @@ namespace StaticCodeAnalysis.Tests
         static string path = @"..\..\..\ExampleCode\ExampleCode2.cs";
         StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
-        // GetAllClasses test:
-        // ===================
-        [TestMethod]
-        public void GetAllClassesTest()
-        {
-            var expected = new List<ClassDeclarationSyntax>
-            {
-                testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass"),
-                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass"),
-                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass")
-            };
-            var actual = testAnalysis.GetAllClasses();
-            CollectionAssert.AreEqual(expected, actual);
-        }
-
         // GetBaseClasses tests:
         // =====================
         [TestMethod()]
@@ -95,40 +80,20 @@ namespace StaticCodeAnalysis.Tests
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        // GetMethods tests:
-        // =================
+        // GetAllMethods test:
+        // ===================
         [TestMethod()]
-        public void GetMethodsTest1()
+        public void GetAllMethodsTest()
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.BaseClass.Method1")
-            };
-            var actual = testAnalysis.GetMethods(testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass"));
-            CollectionAssert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void GetMethodsTest2()
-        {
-            var expected = new List<MethodDeclarationSyntax>
-            {
+                testAnalysis.GetMethodDeclSyntax("ExampleCode2.BaseClass.Method1"),
                 testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method1"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method2")
-            };
-            var actual = testAnalysis.GetMethods(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass"));
-            CollectionAssert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void GetMethodsTest3()
-        {
-            var expected = new List<MethodDeclarationSyntax>
-            {
+                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method2"),
                 testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method2"),
                 testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method3")
             };
-            var actual = testAnalysis.GetMethods(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass"));
+            var actual = testAnalysis.GetAllMethods();
             CollectionAssert.AreEqual(expected, actual);
         }
         
