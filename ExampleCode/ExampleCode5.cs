@@ -11,36 +11,29 @@
 
     public class A
     {
-        public virtual int M(bool b)
+        public virtual int M()
         {
-            return N(b);
+            return N();
         }
 
-        public virtual int N(bool b)
+        public virtual int N()
         {
-            return O(b);
+            C c = new C();
+            return O(c);
         }
 
-        public int O(bool b)
+        public int O(C obj)
         {
-            if (b)
-            {
-                C c = new C();
-                return c.P();
-            }
-            else
-            {
-                D d = new D();
-                return d.P();
-            }
+            return obj.P();
         }
     }
 
     public class B : A
     {
-        public override int N(bool b)
+        public override int N()
         {
-            return O(b);
+            D d = new D();
+            return O(d);
         }
     }
 
