@@ -10,9 +10,9 @@ using System.Linq;
 namespace StaticCodeAnalysis.Tests
 {
     [TestClass()]
-    public class StaticCodeAnalysisTests
+    public class StaticCodeAnalysisTests1
     {
-        static string path = @"..\..\..\ExampleCode\ExampleCode.cs";
+        static string path = @"..\..\..\ExampleCode\ExampleCode1.cs";
         StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
 
@@ -32,7 +32,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetBaseClassesTest1()
         {
             var expected = new List<ClassDeclarationSyntax> { };
-            var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode.C1"));
+            var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -41,9 +41,9 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C1")
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C1")
             };
-            var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode.C2"));
+            var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C2"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -52,10 +52,10 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C2"),
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C1")
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C2"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C1")
             };
-            var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode.C3_1"));
+            var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -66,11 +66,11 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C2"),
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C3_1"),
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C3_2")
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C2"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_1"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_2")
             };
-            var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode.C1"));
+            var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -79,10 +79,10 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<ClassDeclarationSyntax>
             {
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C3_1"),
-                testAnalysis.GetClassDeclSyntax("ExampleCode.C3_2")
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_1"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_2")
             };
-            var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode.C2"));
+            var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C2"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -90,7 +90,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetDerivedClassesTest3()
         {
             var expected = new List<ClassDeclarationSyntax> { };
-            var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode.C3_1"));
+            var actual = testAnalysis.GetDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -101,16 +101,16 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M1"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M2"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M2"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_2.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_2.M5")
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M1"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M4"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M4"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M4"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M5")
             };
             var actual = testAnalysis.GetAllMethods();
             CollectionAssert.AreEqual(expected, actual);
@@ -125,17 +125,17 @@ namespace StaticCodeAnalysis.Tests
             {
                 new List<MethodDeclarationSyntax>
                 {
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M2"),
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M2")
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"),
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2")
                 },
                 new List<MethodDeclarationSyntax>
                 {
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M3"),
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M3"),
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M3")
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"),
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
                 }
             };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M1"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M1"));
             Assert.IsTrue(NestedListsAreEqual(expected, actual));
         }
 
@@ -146,12 +146,12 @@ namespace StaticCodeAnalysis.Tests
             {
                 new List<MethodDeclarationSyntax>
                 {
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M3"),
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M3"),
-                    testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M3")
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"),
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
+                    testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
                 }
             };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M2"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"));
             Assert.IsTrue(NestedListsAreEqual(expected, actual));
         }
 
@@ -159,7 +159,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetInvocationsTest3()
         {
             var expected = new List<List<MethodDeclarationSyntax>> { };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M3"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"));
             Assert.IsTrue(NestedListsAreEqual(expected, actual));
         }
 
@@ -167,7 +167,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetInvocationsTest4()
         {
             var expected = new List<List<MethodDeclarationSyntax>> { };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M2"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2"));
             Assert.IsTrue(NestedListsAreEqual(expected, actual));
         }
 
@@ -175,7 +175,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetInvocationsTest5()
         {
             var expected = new List<List<MethodDeclarationSyntax>> { };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M4"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M4"));
             Assert.IsTrue(NestedListsAreEqual(expected, actual));
         }
 
@@ -185,7 +185,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetOverridingMethodsTest1()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M1"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -194,9 +194,9 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M2")
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M2"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -205,10 +205,10 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M3")
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode.C1.M3"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -217,9 +217,9 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M3")
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M3"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -228,10 +228,10 @@ namespace StaticCodeAnalysis.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_1.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_2.M4")
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M4"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M4")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode.C2.M4"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M4"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -239,7 +239,7 @@ namespace StaticCodeAnalysis.Tests
         public void GetOverridingMethodsTest6()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode.C3_2.M4"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M4"));
             CollectionAssert.AreEqual(expected, actual);
         }
     }

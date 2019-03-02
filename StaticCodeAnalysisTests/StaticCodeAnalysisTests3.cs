@@ -35,7 +35,7 @@ namespace StaticCodeAnalysis.Tests
                 }
             };
             var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode3.A.M"));
-            var t = new StaticCodeAnalysisTests();
+            var t = new StaticCodeAnalysisTests1();
             Assert.IsTrue(t.NestedListsAreEqual(expected, actual));
         }
 

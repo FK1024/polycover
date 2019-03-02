@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ExampleCode.Tests
+namespace ExampleCode1.Tests
 {
     [TestClass()]
     public class C1Tests

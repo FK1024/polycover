@@ -61,7 +61,7 @@
     <Compile Include="ExampleCode4Tests.cs" />
     <Compile Include="ExampleCode5Tests.cs" />
     <Compile Include="ExampleCode6Tests.cs" />
-    <Compile Include="ExampleCodeTests.cs" />
+    <Compile Include="ExampleCode1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-namespace ExampleCode
+namespace ExampleCode1
 {
     /*
         Class Structure:
