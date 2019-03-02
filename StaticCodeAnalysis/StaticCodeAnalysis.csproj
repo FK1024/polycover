@@ -190,6 +190,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="StaticCodeAnalysis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YoYoGraph.cs" />
