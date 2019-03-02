@@ -1,0 +1,144 @@
+{
+  "ExampleCode.dll": {
+    "C:\\Users\\fkeck\\EigeneDokumente\\Studium\\Thesis\\StaticCodeAnalysis\\ExampleCode\\ExampleCode6.cs": {
+      "ExampleCode6.A": {
+        "System.Int32 ExampleCode6.A::N(System.Boolean)": {
+          "Lines": {
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "21": 1,
+            "24": 0,
+            "25": 0,
+            "27": 1
+          },
+          "Branches": [
+            {
+              "Line": 19,
+              "Offset": 4,
+              "EndOffset": 6,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 19,
+              "Offset": 4,
+              "EndOffset": 20,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Int32 ExampleCode6.A::M()": {
+          "Lines": {
+            "30": 0,
+            "31": 0,
+            "32": 0
+          },
+          "Branches": []
+        }
+      },
+      "ExampleCode6.B": {
+        "System.Int32 ExampleCode6.B::M()": {
+          "Lines": {
+            "38": 1,
+            "39": 1,
+            "40": 1,
+            "41": 1,
+            "42": 1,
+            "44": 1,
+            "45": 1,
+            "47": 1,
+            "48": 1,
+            "49": 0,
+            "51": 0,
+            "53": 1,
+            "54": 1
+          },
+          "Branches": [
+            {
+              "Line": 44,
+              "Offset": 41,
+              "EndOffset": 43,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 44,
+              "Offset": 41,
+              "EndOffset": 50,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 44,
+              "Offset": 55,
+              "EndOffset": 57,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 44,
+              "Offset": 55,
+              "EndOffset": 59,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            },
+            {
+              "Line": 48,
+              "Offset": 66,
+              "EndOffset": 68,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 1
+            },
+            {
+              "Line": 48,
+              "Offset": 66,
+              "EndOffset": 75,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 48,
+              "Offset": 80,
+              "EndOffset": 82,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 48,
+              "Offset": 80,
+              "EndOffset": 84,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "ExampleCodeTests.dll": {
+    "C:\\Users\\fkeck\\EigeneDokumente\\Studium\\Thesis\\StaticCodeAnalysis\\ExampleCodeTests\\ExampleCode6Tests.cs": {
+      "ExampleCode6.Tests.ATests": {
+        "System.Void ExampleCode6.Tests.ATests::NTest()": {
+          "Lines": {
+            "10": 1,
+            "11": 1,
+            "12": 1
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}
