@@ -18,6 +18,7 @@ namespace ExampleCode6
         {
             if (b)
             {
+                new B().M();
                 return new B().M();
             }
             else
@@ -36,20 +37,11 @@ namespace ExampleCode6
     {
         public override int M()
         {
-            StackFrame callerStackFrame = new StackFrame(1, true);
-            string callerFileName = callerStackFrame.GetFileName();
-            int callerLineNumber = callerStackFrame.GetFileLineNumber();
-            string thisFileName = Path.GetFullPath(@"..\..\..\ExampleCode\ExampleCode6.cs");
-            
-            if (callerFileName == thisFileName && callerLineNumber == 21)
-            {
-                
-            }
-            if (callerFileName == thisFileName && callerLineNumber == 25)
-            {
-                
-            }
-
+            int ln = new StackFrame(1, true).GetFileLineNumber();
+            if (ln == 21 || ln == 22)
+            { }
+            if (ln == 26)
+            { }
             return 2;
         }
     }

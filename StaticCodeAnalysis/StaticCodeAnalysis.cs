@@ -241,7 +241,7 @@ namespace StaticCodeAnalysis
     {
         static void Main(string[] args)
         {
-            string codePath = @"..\..\..\ExampleCode\ExampleCode3.cs";
+            string codePath = @"..\..\..\ExampleCode\ExampleCode6.cs";
             StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(codePath);
             
             YoYoGraph testGraph = new YoYoGraph();

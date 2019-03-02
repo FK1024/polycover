@@ -51,10 +51,13 @@
     <Compile Include="ExampleCode4.cs" />
     <Compile Include="ExampleCode5.cs" />
     <Compile Include="ExampleCode6.cs" />
+    <Compile Include="ExampleCode7.cs" />
+    <Compile Include="ExampleCode8.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ExampleCode1YoYoGraph.dgml" />
     <None Include="ExampleCode3YoYoGraph.dgml" />
     <None Include="ExampleCode4YoYoGraph.dgml">
       <SubType>Designer</SubType>
@@ -63,7 +66,8 @@
     <None Include="ExampleCode6YoYoGraph.dgml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="ExampleCode1YoYoGraph.dgml" />
+    <None Include="ExampleCode7YoYoGraph.dgml" />
+    <None Include="ExampleCode8YoYoGraph.dgml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

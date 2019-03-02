@@ -8,9 +8,10 @@
             "19": 1,
             "20": 1,
             "21": 1,
-            "24": 0,
+            "22": 1,
             "25": 0,
-            "27": 1
+            "26": 0,
+            "28": 1
           },
           "Branches": [
             {
@@ -24,7 +25,7 @@
             {
               "Line": 19,
               "Offset": 4,
-              "EndOffset": 20,
+              "EndOffset": 31,
               "Path": 1,
               "Ordinal": 1,
               "Hits": 0
@@ -33,9 +34,9 @@
         },
         "System.Int32 ExampleCode6.A::M()": {
           "Lines": {
-            "30": 0,
             "31": 0,
-            "32": 0
+            "32": 0,
+            "33": 0
           },
           "Branches": []
         }
@@ -43,84 +44,63 @@
       "ExampleCode6.B": {
         "System.Int32 ExampleCode6.B::M()": {
           "Lines": {
-            "38": 1,
-            "39": 1,
-            "40": 1,
-            "41": 1,
-            "42": 1,
-            "44": 1,
-            "45": 1,
-            "47": 1,
-            "48": 1,
-            "49": 0,
-            "51": 0,
-            "53": 1,
-            "54": 1
+            "39": 2,
+            "40": 2,
+            "41": 2,
+            "42": 4,
+            "43": 2,
+            "44": 0,
+            "45": 2,
+            "46": 2
           },
           "Branches": [
             {
-              "Line": 44,
-              "Offset": 41,
-              "EndOffset": 43,
+              "Line": 41,
+              "Offset": 17,
+              "EndOffset": 19,
               "Path": 0,
               "Ordinal": 0,
               "Hits": 1
             },
             {
-              "Line": 44,
-              "Offset": 41,
-              "EndOffset": 50,
+              "Line": 41,
+              "Offset": 17,
+              "EndOffset": 26,
               "Path": 1,
               "Ordinal": 1,
-              "Hits": 0
+              "Hits": 1
             },
             {
-              "Line": 44,
-              "Offset": 55,
-              "EndOffset": 57,
+              "Line": 41,
+              "Offset": 29,
+              "EndOffset": 31,
               "Path": 0,
               "Ordinal": 2,
-              "Hits": 1
+              "Hits": 2
             },
             {
-              "Line": 44,
-              "Offset": 55,
-              "EndOffset": 59,
+              "Line": 41,
+              "Offset": 29,
+              "EndOffset": 33,
               "Path": 1,
               "Ordinal": 3,
-              "Hits": 1
+              "Hits": 2
             },
             {
-              "Line": 48,
-              "Offset": 66,
-              "EndOffset": 68,
+              "Line": 43,
+              "Offset": 40,
+              "EndOffset": 42,
               "Path": 0,
               "Ordinal": 4,
-              "Hits": 1
+              "Hits": 0
             },
             {
-              "Line": 48,
-              "Offset": 66,
-              "EndOffset": 75,
+              "Line": 43,
+              "Offset": 40,
+              "EndOffset": 44,
               "Path": 1,
               "Ordinal": 5,
-              "Hits": 0
-            },
-            {
-              "Line": 48,
-              "Offset": 80,
-              "EndOffset": 82,
-              "Path": 0,
-              "Ordinal": 6,
-              "Hits": 0
-            },
-            {
-              "Line": 48,
-              "Offset": 80,
-              "EndOffset": 84,
-              "Path": 1,
-              "Ordinal": 7,
-              "Hits": 1
+              "Hits": 2
             }
           ]
         }
