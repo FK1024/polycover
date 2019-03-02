@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph Layout="Sugiyama" ZoomLevel="-1" xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="0" Category="invocation" Bounds="152.446666666667,121,66.37,25.96" Label="IC_A.N_2" UseManualLocation="True" />
+    <Node Id="1" Category="invocation" Bounds="152.446666666667,57,66.37,25.96" Label="IC_A.N_1" UseManualLocation="True" />
+    <Node Id="ExampleCode8.A.M" Category="method" Bounds="264.556666666667,57,50,25.96" Label="A.M" UseManualLocation="True" />
+    <Node Id="ExampleCode8.A.N" Category="method" Bounds="46,83,50,25.96" Label="A.N" UseManualLocation="True" />
+    <Node Id="ExampleCode8.B.M" Category="method" Bounds="264.986666666667,121,50,25.96" Label="B.M" UseManualLocation="True" />
+  </Nodes>
+  <Links>
+    <Link Source="0" Target="ExampleCode8.B.M" Bounds="218.816666666667,133.98,37.1700000000002,0" />
+    <Link Source="1" Target="ExampleCode8.A.M" Bounds="218.816666666667,69.98,36.7400000000001,1.4210854715202E-14" />
+    <Link Source="1" Target="ExampleCode8.B.M" Bounds="206.796165104167,82.96,54.3539182269767,33.334778079886" />
+    <Link Source="ExampleCode8.A.N" Target="0" Bounds="96,104.267412951365,48.0641362333446,15.9330946847361" />
+    <Link Source="ExampleCode8.A.N" Target="1" Bounds="96,79.4975594236908,47.6696005687656,10.8121047962299" />
+  </Links>
+  <Categories>
+    <Category Id="invocation" Background="#FFF08080" />
+    <Category Id="method" Background="#FFADD8E6" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+    <Property Id="xsd" DataType="System.String" />
+    <Property Id="xsi" DataType="System.String" />
+  </Properties>
+</DirectedGraph>

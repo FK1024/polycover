@@ -1,38 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="0" Category="invocation" Bounds="152.246666666667,3.19744231092045E-14,53.11,25.96" Label="invocs" />
-    <Node Id="1" Category="invocation" Bounds="385.803333333334,56,53.11,25.96" Label="invocs" />
-    <Node Id="2" Category="invocation" Bounds="619.43,3.5527136788005E-15,53.11,25.96" Label="invocs" />
-    <Node Id="3" Category="invocation" Bounds="385.803333333334,1.77635683940025E-14,53.11,25.96" Label="invocs" />
-    <Node Id="ExampleCode5.A.M" Category="method" Bounds="0,0,122.246666666667,25.96" Label="ExampleCode5.A.M" />
-    <Node Id="ExampleCode5.A.N" Category="method" Bounds="235.356666666667,56,120.446666666667,25.96" Label="ExampleCode5.A.N" />
-    <Node Id="ExampleCode5.A.O" Category="method" Bounds="468.913333333333,1.4210854715202E-14,120.516666666667,25.96" Label="ExampleCode5.A.O" />
-    <Node Id="ExampleCode5.B.N" Category="method" Bounds="235.786666666667,2.8421709430404E-14,119.586666666667,25.96" Label="ExampleCode5.B.N" />
-    <Node Id="ExampleCode5.C.P" Category="method" Bounds="703.031666666667,56,117.88,25.96" Label="ExampleCode5.C.P" />
-    <Node Id="ExampleCode5.D.P" Category="method" Bounds="702.54,0,118.863333333333,25.96" Label="ExampleCode5.D.P" />
+    <Node Category="method" Id="ExampleCode5.A.M" Label="ExampleCode5.A.M" />
+    <Node Category="method" Id="ExampleCode5.A.N" Label="ExampleCode5.A.N" />
+    <Node Category="method" Id="ExampleCode5.A.O" Label="ExampleCode5.A.O" />
+    <Node Category="method" Id="ExampleCode5.B.N" Label="ExampleCode5.B.N" />
+    <Node Category="method" Id="ExampleCode5.C.P" Label="ExampleCode5.C.P" />
+    <Node Category="method" Id="ExampleCode5.D.P" Label="ExampleCode5.D.P" />
+    <Node Category="invocation" Id="0" Label="invocs" />
+    <Node Category="invocation" Id="1" Label="invocs" />
+    <Node Category="invocation" Id="2" Label="invocs" />
+    <Node Category="invocation" Id="3" Label="invocs" />
   </Nodes>
   <Links>
-    <Link Source="0" Target="ExampleCode5.A.N" Bounds="204.328338623047,25.2210865020752,56.0689392089844,26.8873615264893" />
-    <Link Source="0" Target="ExampleCode5.B.N" Bounds="205.356674194336,12.9799995422363,21.4299926757813,0" />
-    <Link Source="1" Target="ExampleCode5.A.O" Bounds="437.887725830078,29.8506031036377,56.0926513671875,26.8906803131104" />
-    <Link Source="2" Target="ExampleCode5.C.P" Bounds="671.448913574219,25.2743282318115,55.533935546875,26.8125667572021" />
-    <Link Source="2" Target="ExampleCode5.D.P" Bounds="672.539978027344,12.9799995422363,21,0" />
-    <Link Source="3" Target="ExampleCode5.A.O" Bounds="438.913330078125,12.9799995422363,21,0" />
-    <Link Source="ExampleCode5.A.M" Target="0" Bounds="122.24666595459,12.9799995422363,21.0000076293945,0" />
-    <Link Source="ExampleCode5.A.N" Target="1" Bounds="355.803344726563,68.9800033569336,21,0" />
-    <Link Source="ExampleCode5.A.O" Target="2" Bounds="589.429992675781,12.9799995422363,21,0" />
-    <Link Source="ExampleCode5.B.N" Target="3" Bounds="355.373321533203,12.9799995422363,21.4300231933594,0" />
+    <Link Source="ExampleCode5.A.M" Target="0" />
+    <Link Source="0" Target="ExampleCode5.A.N" />
+    <Link Source="0" Target="ExampleCode5.B.N" />
+    <Link Source="ExampleCode5.A.N" Target="1" />
+    <Link Source="1" Target="ExampleCode5.A.O" />
+    <Link Source="ExampleCode5.A.O" Target="2" />
+    <Link Source="2" Target="ExampleCode5.C.P" />
+    <Link Source="2" Target="ExampleCode5.D.P" />
+    <Link Source="ExampleCode5.B.N" Target="3" />
+    <Link Source="3" Target="ExampleCode5.A.O" />
   </Links>
   <Categories>
-    <Category Id="invocation" Background="#FFF08080" />
-    <Category Id="method" Background="#FFADD8E6" />
+    <Category Id="method" Background="#ADD8E6" />
+    <Category Id="invocation" Background="#F08080" />
   </Categories>
-  <Properties>
-    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
-    <Property Id="Bounds" DataType="System.Windows.Rect" />
-    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
-    <Property Id="xsd" DataType="System.String" />
-    <Property Id="xsi" DataType="System.String" />
-  </Properties>
 </DirectedGraph>

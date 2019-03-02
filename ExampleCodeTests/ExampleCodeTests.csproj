@@ -58,8 +58,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ExampleCode3Tests.cs" />
-    <Compile Include="ExampleCode5Tests.cs" />
     <Compile Include="ExampleCode4Tests.cs" />
+    <Compile Include="ExampleCode5Tests.cs" />
+    <Compile Include="ExampleCode6Tests.cs" />
     <Compile Include="ExampleCodeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
