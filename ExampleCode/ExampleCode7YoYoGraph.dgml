@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph Layout="Sugiyama" ZoomLevel="-1" xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="0" Category="invocation" Bounds="167.696666666667,156,53.11,25.96" Label="invocs" />
+    <Node Id="1" Category="invocation" Bounds="167.696666666667,100,53.11,25.96" Label="invocs" />
+    <Node Id="2" Category="invocation" Bounds="167.696666666667,44,53.11,25.96" Label="invocs" />
+    <Node Id="3" Category="invocation" Bounds="758.153333333334,-1.77635683940025E-15,53.11,25.96" Label="invocs" UseManualLocation="True" />
+    <Node Id="4" Category="invocation" Bounds="484.213333333334,156,53.11,25.96" Label="invocs" UseManualLocation="True" />
+    <Node Id="5" Category="invocation" Bounds="484.213333333334,100,53.11,25.96" Label="invocs" UseManualLocation="True" />
+    <Node Id="6" Category="invocation" Bounds="484.213333333334,44,53.11,25.96" Label="invocs" UseManualLocation="True" />
+    <Node Id="ExampleCode6.C1.M" Category="method" Bounds="325.806666666667,156,128.406666666667,25.96" Label="ExampleCode6.C1.M" UseManualLocation="True" />
+    <Node Id="ExampleCode6.C2.M" Category="method" Bounds="325.806666666667,100,128.406666666667,25.96" Label="ExampleCode6.C2.M" UseManualLocation="True" />
+    <Node Id="ExampleCode6.C3.M" Category="method" Bounds="325.806666666667,44,128.406666666667,25.96" Label="ExampleCode6.C3.M" UseManualLocation="True" />
+    <Node Id="ExampleCode6.Prog.MyInc" Category="method" Bounds="567.323333333334,44,160.83,25.96" Label="ExampleCode6.Prog.MyInc" UseManualLocation="True" />
+    <Node Id="ExampleCode6.Prog.N" Category="method" Bounds="0,1.06581410364015E-14,137.696666666667,25.96" Label="ExampleCode6.Prog.N" />
+  </Nodes>
+  <Links>
+    <Link Source="0" Target="ExampleCode6.C1.M" Bounds="220.806670837402,168.979995727539,95.9999903361002,0" />
+    <Link Source="0" Target="ExampleCode6.C2.M" Bounds="220.806670837402,128.435311218646,115.176428818382,32.9481753499163" />
+    <Link Source="0" Target="ExampleCode6.C3.M" Bounds="216.938663049664,74.4294036617626,142.572525958845,81.5705920657765" />
+    <Link Source="1" Target="ExampleCode6.C2.M" Bounds="220.806670837402,112.979999542236,95.9999903361002,1.4210854715202E-14" />
+    <Link Source="1" Target="ExampleCode6.C3.M" Bounds="220.806670837402,72.4353113745087,115.176431953826,32.9481784912801" />
+    <Link Source="2" Target="ExampleCode6.C3.M" Bounds="220.806670837402,56.9799995422363,95.9999903361002,0" />
+    <Link Source="3" Target="ExampleCode6.Prog.N" Bounds="146.696668599447,12.9799995422363,611.456644388834,3.5527136788005E-15" />
+    <Link Source="4" Target="ExampleCode6.Prog.MyInc" Bounds="526.642196343076,75.6571183147142,98.2550063778345,80.3428774128249" />
+    <Link Source="5" Target="ExampleCode6.Prog.MyInc" Bounds="537.206485260412,73.3659672108382,70.4535182664386,28.8048354116897" />
+    <Link Source="6" Target="ExampleCode6.Prog.MyInc" Bounds="537.323356323242,56.9799995422363,20.9999554443359,0" />
+    <Link Source="ExampleCode6.C1.M" Target="4" Bounds="454.213327840169,168.979995727539,21.0000284830729,0" />
+    <Link Source="ExampleCode6.C2.M" Target="5" Bounds="454.213327840169,112.979999542236,21.0000284830729,0" />
+    <Link Source="ExampleCode6.C3.M" Target="6" Bounds="454.213327840169,56.9799995422363,21.0000284830729,0" />
+    <Link Source="ExampleCode6.Prog.MyInc" Target="3" Bounds="688.144462127686,24.2630848767101,61.4401187688646,19.7369146655262" />
+    <Link Source="ExampleCode6.Prog.N" Target="0" Bounds="79.2825361348226,25.9599995422363,98.8961517719436,123.025430136138" />
+    <Link Source="ExampleCode6.Prog.N" Target="1" Bounds="85.1256882232666,25.9599995422363,85.8119870434363,68.4287915090217" />
+    <Link Source="ExampleCode6.Prog.N" Target="2" Bounds="105.842319259644,25.9599995422363,53.3619269772411,18.7229851287637" />
+  </Links>
+  <Categories>
+    <Category Id="invocation" Background="#FFF08080" />
+    <Category Id="method" Background="#FFADD8E6" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+    <Property Id="xsd" DataType="System.String" />
+    <Property Id="xsi" DataType="System.String" />
+  </Properties>
+</DirectedGraph>
