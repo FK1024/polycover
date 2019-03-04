@@ -195,6 +195,7 @@ namespace StaticCodeAnalysis
             return overridingMethods;
         }
 
+        // returns a list of all methods overriding a given method and the method itself
         public List<MethodDeclarationSyntax> GetOverridingMethodsAndSelf(MethodDeclarationSyntax method)
         {
             List<MethodDeclarationSyntax> result = GetOverridingMethods(method);
