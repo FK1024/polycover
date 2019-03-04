@@ -19,24 +19,27 @@ namespace StaticCodeAnalysis.Tests
         [TestMethod()]
         public void GetInvocationsTest()
         {
-            var expected = new List<List<MethodDeclarationSyntax>>
+            var expected = new List<StaticCodeAnalysis.Invocation>
             {
-                new List<MethodDeclarationSyntax>
-                {
+                new StaticCodeAnalysis.Invocation(
+                    new List<int> { 29, 30, 32 },
+                    new List<MethodDeclarationSyntax>
+                    {
                     testAnalysis.GetMethodDeclSyntax("ExampleCode3.B.N"),
                     testAnalysis.GetMethodDeclSyntax("ExampleCode3.C.N")
-                },
-                new List<MethodDeclarationSyntax>
-                {
+                    }),
+                new StaticCodeAnalysis.Invocation(
+                    new List<int> { 31, 33 },
+                    new List<MethodDeclarationSyntax>
+                    {
                     testAnalysis.GetMethodDeclSyntax("ExampleCode3.A.N"),
                     testAnalysis.GetMethodDeclSyntax("ExampleCode3.B.N"),
                     testAnalysis.GetMethodDeclSyntax("ExampleCode3.C.N"),
                     testAnalysis.GetMethodDeclSyntax("ExampleCode3.D.N")
-                }
+                    })
             };
             var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode3.A.M"));
-            var t = new StaticCodeAnalysisTests1();
-            Assert.IsTrue(t.NestedListsAreEqual(expected, actual));
+            CollectionAssert.AreEqual(expected, actual);
         }
 
         // GetInterfaceMethodImplementingMethods test:

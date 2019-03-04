@@ -87,46 +87,89 @@ namespace StaticCodeAnalysis
                     where method.Parent is ClassDeclarationSyntax
                     select method).ToList();
         }
-
-        // for a given method returns a list of all invocations which are lists of all possible called methods (due to interfaces and overriding)
-        public List<List<MethodDeclarationSyntax>> GetInvocations(MethodDeclarationSyntax methodDecl)
+        
+        public struct Invocation
         {
-            List<MethodDeclarationSyntax> directInvocations = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>()
-                .Select(invoc => GetMethodDeclSyntax(semMod.GetSymbolInfo(invoc).Symbol as IMethodSymbol))
-                .Distinct().ToList();
+            public List<int> Lines; // the line numbers where the invocation is written
+            public List<MethodDeclarationSyntax> Methods; // the callee options (due to interfaces and overriding)
 
-            directInvocations.RemoveAll(item => item == null); // remove non user defined methods which are null
-
-            List<List<MethodDeclarationSyntax>> allPossibleInvocations = new List<List<MethodDeclarationSyntax>>();
-
-            foreach (MethodDeclarationSyntax invoc in directInvocations)
+            public Invocation(List<int> lines, List<MethodDeclarationSyntax> methods)
             {
-                if (invoc.Parent is InterfaceDeclarationSyntax)
+                this.Lines = lines;
+                this.Methods = methods;
+            }
+
+            public override bool Equals(object obj)
+            {
+                Invocation? testObj = obj as Invocation?;
+
+                if (testObj.Value.Methods == null)
+                {
+                    return false;
+                }
+
+                return testObj.Value.Lines.SequenceEqual(this.Lines)
+                    && testObj.Value.Methods.SequenceEqual(this.Methods);
+            }
+
+            public override int GetHashCode()
+            {
+                return (this.Lines, this.Methods).GetHashCode();
+            }
+        }
+
+        // for a given method returns a list of all Invocations
+        public List<Invocation> GetInvocations(MethodDeclarationSyntax methodDecl)
+        {
+            // get all invocation expressions
+            List<InvocationExpressionSyntax> invocationExpressions = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>().ToList();
+
+            // transform each invocation to the struct Invocation(callee, line number)
+            List<Invocation> directInvocations = invocationExpressions.Select(invocExpr => new Invocation(
+                new List<int> { invocExpr.GetLocation().GetMappedLineSpan().StartLinePosition.Line }, // the line number of the invocation, NOTE: the line numbers start at 0!
+                new List<MethodDeclarationSyntax> { GetMethodDeclSyntax(semMod.GetSymbolInfo(invocExpr).Symbol as IMethodSymbol) })) // the invoced method
+                .ToList();
+
+            // remove non user defined callee's which are null
+            directInvocations.RemoveAll(invoc => invoc.Methods.FirstOrDefault() == null);
+
+            // remove duplicate invocations but add the line numbers to the unique one
+            directInvocations = (from invoc in directInvocations
+                                group invoc.Lines by invoc.Methods.First() into grouped
+                                select new Invocation(grouped.SelectMany(l => l).ToList(), new List<MethodDeclarationSyntax> { grouped.Key })).ToList();
+            
+            // output list
+            List<Invocation> allPossibleInvocations = new List<Invocation>();
+
+            foreach (Invocation invoc in directInvocations)
+            {
+                if (invoc.Methods.First().Parent is InterfaceDeclarationSyntax)
                 {
                     // if method is declared in an interface add the list of all implementing methods instead + each overrides
                     List<MethodDeclarationSyntax> possibleInvocations = new List<MethodDeclarationSyntax>();
-                    List<MethodDeclarationSyntax> implemMeths = GetInterfaceMethodImplementingMethods(invoc);
+                    List<MethodDeclarationSyntax> implemMeths = GetInterfaceMethodImplementingMethods(invoc.Methods.First());
                     foreach (MethodDeclarationSyntax implemMeth in implemMeths)
                     {
                         List<MethodDeclarationSyntax> overrMethsAndSelf = GetOverridingMethods(implemMeth);
                         overrMethsAndSelf.Insert(0, implemMeth);
                         possibleInvocations.AddRange(overrMethsAndSelf);
                     }
-                    allPossibleInvocations.Add(possibleInvocations);
+                    allPossibleInvocations.Add(new Invocation(invoc.Lines, possibleInvocations));
                 }
                 else
                 {
                     // add the method itself and the overrides
-                    List<MethodDeclarationSyntax> overrMethsAndSelf = GetOverridingMethods(invoc);
-                    overrMethsAndSelf.Insert(0, invoc);
+                    List<MethodDeclarationSyntax> overrMethsAndSelf = GetOverridingMethods(invoc.Methods.First());
+                    overrMethsAndSelf.Insert(0, invoc.Methods.First());
 
-                    allPossibleInvocations.Add(overrMethsAndSelf);
+                    allPossibleInvocations.Add(new Invocation(invoc.Lines, overrMethsAndSelf));
                 }
+
             }
 
             return allPossibleInvocations;
         }
-
+        
         // returns a list of all methods overriding a given method
         public List<MethodDeclarationSyntax> GetOverridingMethods(MethodDeclarationSyntax method)
         {
@@ -208,7 +251,7 @@ namespace StaticCodeAnalysis
             return semMod.GetDeclaredSymbol(methodDecl).ContainingType.OriginalDefinition.ToString()
                    + "." + semMod.GetDeclaredSymbol(methodDecl).Name;
         }
-
+        
 
         // returns all methods which implements a given method declared in an interface
         public List<MethodDeclarationSyntax> GetInterfaceMethodImplementingMethods(MethodDeclarationSyntax methodDecl)

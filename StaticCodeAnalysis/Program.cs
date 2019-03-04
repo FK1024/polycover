@@ -12,7 +12,7 @@ namespace StaticCodeAnalysis
     {
         static void Main(string[] args)
         {
-            string codePath = @"..\..\..\ExampleCode\ExampleCode6.cs";
+            string codePath = @"..\..\..\ExampleCode\ExampleCode3.cs";
             StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(codePath);
 
             YoYoGraph testGraph = new YoYoGraph();
@@ -35,15 +35,15 @@ namespace StaticCodeAnalysis
             int invocCount = 0;
             foreach (YoYoGraph.Node methodNode in methodNodes)
             {
-                List<List<MethodDeclarationSyntax>> invocs = testAnalysis.GetInvocations(methodNode.MethDecl);
-                foreach (List<MethodDeclarationSyntax> invoc in invocs)
+                List<StaticCodeAnalysis.Invocation> invocs = testAnalysis.GetInvocations(methodNode.MethDecl);
+                foreach (StaticCodeAnalysis.Invocation invoc in invocs)
                 {
                     YoYoGraph.Node invocNode = new YoYoGraph.Node("invocation", null, invocCount.ToString(), "invocs");
                     testGraph.AddNode(invocNode);
                     invocCount++;
                     testGraph.AddLink(new YoYoGraph.Link(methodNode.Id, invocNode.Id));
 
-                    foreach (MethodDeclarationSyntax invocOption in invoc)
+                    foreach (MethodDeclarationSyntax invocOption in invoc.Methods)
                     {
                         testGraph.AddLink(new YoYoGraph.Link(invocNode.Id, testAnalysis.GetCorrespondingNode(testGraph, invocOption).Id));
                     }
