@@ -150,21 +150,15 @@ namespace StaticCodeAnalysis
                     List<MethodDeclarationSyntax> implemMeths = GetInterfaceMethodImplementingMethods(invoc.Methods.First());
                     foreach (MethodDeclarationSyntax implemMeth in implemMeths)
                     {
-                        List<MethodDeclarationSyntax> overrMethsAndSelf = GetOverridingMethods(implemMeth);
-                        overrMethsAndSelf.Insert(0, implemMeth);
-                        possibleInvocations.AddRange(overrMethsAndSelf);
+                        possibleInvocations.AddRange(GetOverridingMethodsAndSelf(implemMeth));
                     }
                     allPossibleInvocations.Add(new Invocation(invoc.Lines, possibleInvocations));
                 }
                 else
                 {
                     // add the method itself and the overrides
-                    List<MethodDeclarationSyntax> overrMethsAndSelf = GetOverridingMethods(invoc.Methods.First());
-                    overrMethsAndSelf.Insert(0, invoc.Methods.First());
-
-                    allPossibleInvocations.Add(new Invocation(invoc.Lines, overrMethsAndSelf));
+                    allPossibleInvocations.Add(new Invocation(invoc.Lines, GetOverridingMethodsAndSelf(invoc.Methods.First())));
                 }
-
             }
 
             return allPossibleInvocations;
@@ -199,6 +193,13 @@ namespace StaticCodeAnalysis
             }
 
             return overridingMethods;
+        }
+
+        public List<MethodDeclarationSyntax> GetOverridingMethodsAndSelf(MethodDeclarationSyntax method)
+        {
+            List<MethodDeclarationSyntax> result = GetOverridingMethods(method);
+            result.Insert(0, method);
+            return result;
         }
 
 
