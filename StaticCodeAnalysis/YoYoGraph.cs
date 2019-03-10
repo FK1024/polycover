@@ -1,82 +1,54 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace StaticCodeAnalysis
 {
+    [XmlRoot("DirectedGraph", Namespace = "http://schemas.microsoft.com/vs/2009/dgml")]
     public class YoYoGraph
     {
-        public struct Graph
-        {
-            public Node[] Nodes;
-            public Link[] Links;
-            public Category[] Categories;
-        }
-
-        public struct Node
-        {
-            [XmlAttribute]
-            public string Category;
-            [XmlIgnore]
-            public MethodDeclarationSyntax MethDecl;
-            [XmlAttribute]
-            public string Id;
-            [XmlAttribute]
-            public string Label;
-            
-            public Node(string category, MethodDeclarationSyntax methDecl, string id, string label)
-            {
-                this.Category = category;
-                this.MethDecl = methDecl;
-                this.Id = id;
-                this.Label = label;
-            }
-        }
-
-        public struct Link
-        {
-            [XmlAttribute]
-            public string Source;
-            [XmlAttribute]
-            public string Target;
-
-            public Link(string source, string target)
-            {
-                this.Source = source;
-                this.Target = target;
-            }
-        }
-
-        public struct Category
-        {
-            [XmlAttribute]
-            public string Id;
-            [XmlAttribute]
-            public string Background;
-
-            public Category(string id, string background)
-            {
-                this.Id = id;
-                this.Background = background;
-            }
-        }
-
-        public List<Node> Nodes { get; protected set; }
-        public List<Link> Links { get; protected set; }
-        public List<Category> Categories { get; protected set; }
+        [XmlAttribute]
+        public string Layout = "Sugiyama"; // (= tree layout), neccessary for selcting graph direction
+        [XmlAttribute]
+        public string GraphDirection = "LeftToRight";
+        [XmlArray]
+        public List<Node> Nodes;
+        [XmlArray]
+        public List<Link> Links;
+        [XmlArray]
+        public readonly List<Category> Categories;
 
         public YoYoGraph()
         {
-            Nodes = new List<Node>();
-            Links = new List<Link>();
-            Categories = new List<Category>();
+            this.Nodes = new List<Node>();
+            this.Links = new List<Link>();
+            this.Categories = new List<Category>
+            {
+                new Category("method", ColorTranslator.ToHtml(Color.FromArgb(Color.LightBlue.ToArgb()))),
+                new Category("invocation", ColorTranslator.ToHtml(Color.FromArgb(Color.LightCoral.ToArgb())))
+            };
+        }
+
+
+        public Node GetNode(string id)
+        {
+            return this.Nodes.Where(n => n.Id == id).FirstOrDefault();
         }
 
         public void AddNode(Node n)
         {
-            this.Nodes.Add(n);
+            if (GetNode(n.Id) == null)
+            {
+                this.Nodes.Add(n);
+            }
+            else
+            {
+                throw new ArgumentException("The graph already has a node with identifier " + n.Id);
+            }
         }
 
         public void AddLink(Link l)
@@ -84,25 +56,77 @@ namespace StaticCodeAnalysis
             this.Links.Add(l);
         }
 
-        public void AddCategory(Category c)
-        {
-            this.Categories.Add(c);
-        }
-
         public void Serialize(string xmlpath)
         {
-            Graph g = new Graph();
-            g.Nodes = this.Nodes.ToArray();
-            g.Links = this.Links.ToArray();
-            g.Categories = this.Categories.ToArray();
-
-            XmlRootAttribute root = new XmlRootAttribute("DirectedGraph");
-            root.Namespace = "http://schemas.microsoft.com/vs/2009/dgml";
-            XmlSerializer serializer = new XmlSerializer(typeof(Graph), root);
+            XmlSerializer serializer = new XmlSerializer(typeof(YoYoGraph));
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             XmlWriter xmlWriter = XmlWriter.Create(xmlpath, settings);
-            serializer.Serialize(xmlWriter, g);
+            serializer.Serialize(xmlWriter, this);
+        }
+    }
+
+    public class Node
+    {
+        [XmlAttribute]
+        public string Id;
+        [XmlAttribute]
+        public string Label;
+        [XmlAttribute]
+        public string Category;
+        [XmlIgnore]
+        public MethodDeclarationSyntax Method;
+        [XmlIgnore]
+        public StaticCodeAnalysis.Invocation Invocation;
+
+        private Node() { }
+
+        public Node(string id, string label, MethodDeclarationSyntax method)
+        {
+            this.Id = id;
+            this.Label = label;
+            this.Category = "method";
+            this.Method = method;
+        }
+
+        public Node(string id, string label, StaticCodeAnalysis.Invocation invocation)
+        {
+            this.Id = id;
+            this.Label = label;
+            this.Category = "invocation";
+            this.Invocation = invocation;
+        }
+    }
+
+    public class Link
+    {
+        [XmlAttribute]
+        public string Source;
+        [XmlAttribute]
+        public string Target;
+
+        private Link() { }
+
+        public Link(string source, string target)
+        {
+            this.Source = source;
+            this.Target = target;
+        }
+    }
+
+    public class Category
+    {
+        [XmlAttribute]
+        public string Id;
+        [XmlAttribute]
+        public string Background;
+
+        private Category() { }
+
+        public Category(string id, string background)
+        {
+            this.Id = id;
+            this.Background = background;
         }
     }
 }

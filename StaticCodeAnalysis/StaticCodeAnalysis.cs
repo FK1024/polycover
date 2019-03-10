@@ -126,7 +126,7 @@ namespace StaticCodeAnalysis
 
             // transform each invocation to the struct Invocation(callee, line number)
             List<Invocation> directInvocations = invocationExpressions.Select(invocExpr => new Invocation(
-                new List<int> { invocExpr.GetLocation().GetMappedLineSpan().StartLinePosition.Line }, // the line number of the invocation, NOTE: the line numbers start at 0!
+                new List<int> { invocExpr.GetLocation().GetLineSpan().StartLinePosition.Line }, // the line number of the invocation, NOTE: the line numbers start at 0!
                 new List<MethodDeclarationSyntax> { GetMethodDeclSyntax(semMod.GetSymbolInfo(invocExpr).Symbol as IMethodSymbol) })) // the invoced method
                 .ToList();
 
@@ -269,14 +269,6 @@ namespace StaticCodeAnalysis
                 }
             }
             return implementingMethods;
-        }
-
-
-        public YoYoGraph.Node GetCorrespondingNode(YoYoGraph graph, MethodDeclarationSyntax methDecl)
-        {
-            return (from node in graph.Nodes
-                    where node.MethDecl == methDecl
-                    select node).First();
         }
     }
 }

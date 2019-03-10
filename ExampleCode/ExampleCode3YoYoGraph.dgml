@@ -1,34 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xsd="http://www.w3.org/2001/XMLSchema" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Layout="Sugiyama" GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="0" Category="invocation" Bounds="152.246666666667,3.5527136788005E-15,53.11,25.96" Label="invocs" />
-    <Node Id="1" Category="invocation" Bounds="152.246666666667,56,53.11,25.96" Label="invocs" />
-    <Node Id="ExampleCode3.A.M" Category="method" Bounds="0,0,122.246666666667,25.96" Label="ExampleCode3.A.M" />
-    <Node Id="ExampleCode3.A.N" Category="method" Bounds="235.693333333333,112,120.446666666667,25.96" Label="ExampleCode3.A.N" />
-    <Node Id="ExampleCode3.B.N" Category="method" Bounds="236.123333333333,0,119.586666666667,25.96" Label="ExampleCode3.B.N" />
-    <Node Id="ExampleCode3.C.N" Category="method" Bounds="235.848333333333,56,120.136666666667,25.96" Label="ExampleCode3.C.N" />
-    <Node Id="ExampleCode3.D.M" Category="method" Bounds="7.105427357601E-15,223.96,122.92,25.96" Label="ExampleCode3.D.M" />
-    <Node Id="ExampleCode3.D.N" Category="method" Bounds="235.356666666667,168,121.12,25.96" Label="ExampleCode3.D.N" />
+    <Node Id="ExampleCode3.A.M" Label="ExampleCode3.A.M" Category="method" />
+    <Node Id="ExampleCode3.A.N" Label="ExampleCode3.A.N" Category="method" />
+    <Node Id="ExampleCode3.B.N" Label="ExampleCode3.B.N" Category="method" />
+    <Node Id="ExampleCode3.C.N" Label="ExampleCode3.C.N" Category="method" />
+    <Node Id="ExampleCode3.D.M" Label="ExampleCode3.D.M" Category="method" />
+    <Node Id="ExampleCode3.D.N" Label="ExampleCode3.D.N" Category="method" />
+    <Node Id="0" Label="invocs" Category="invocation" />
+    <Node Id="1" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="0" Target="ExampleCode3.B.N" Bounds="205.356674194336,12.9799995422363,21.7666625976563,0" />
-    <Link Source="0" Target="ExampleCode3.C.N" Bounds="204.354202270508,25.1982669830322,56.2973480224609,26.919282913208" />
-    <Link Source="1" Target="ExampleCode3.A.N" Bounds="204.354202270508,81.1982650756836,56.2973480224609,26.9192886352539" />
-    <Link Source="1" Target="ExampleCode3.B.N" Bounds="204.354202270508,29.8424491882324,56.2973480224609,26.9192848205566" />
-    <Link Source="1" Target="ExampleCode3.C.N" Bounds="205.356674194336,68.9800033569336,21.4916534423828,0" />
-    <Link Source="1" Target="ExampleCode3.D.N" Bounds="186.839630126953,81.9599990844727,74.5538330078125,82.0741348266602" />
-    <Link Source="ExampleCode3.A.M" Target="0" Bounds="122.24666595459,12.9799995422363,21.0000076293945,0" />
-    <Link Source="ExampleCode3.A.M" Target="1" Bounds="88.3994903564453,25.9599990844727,56.6806793212891,26.9728355407715" />
+    <Link Source="ExampleCode3.A.M" Target="0" />
+    <Link Source="0" Target="ExampleCode3.B.N" />
+    <Link Source="0" Target="ExampleCode3.C.N" />
+    <Link Source="ExampleCode3.A.M" Target="1" />
+    <Link Source="1" Target="ExampleCode3.A.N" />
+    <Link Source="1" Target="ExampleCode3.B.N" />
+    <Link Source="1" Target="ExampleCode3.C.N" />
+    <Link Source="1" Target="ExampleCode3.D.N" />
   </Links>
   <Categories>
-    <Category Id="invocation" Background="#FFF08080" />
-    <Category Id="method" Background="#FFADD8E6" />
+    <Category Id="method" Background="#ADD8E6" />
+    <Category Id="invocation" Background="#F08080" />
   </Categories>
-  <Properties>
-    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
-    <Property Id="Bounds" DataType="System.Windows.Rect" />
-    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
-    <Property Id="xsd" DataType="System.String" />
-    <Property Id="xsi" DataType="System.String" />
-  </Properties>
 </DirectedGraph>

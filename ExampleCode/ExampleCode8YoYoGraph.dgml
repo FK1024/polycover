@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Layout="Sugiyama" GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Category="method" Id="ExampleCode8.C1.M1" Label="ExampleCode8.C1.M1" />
-    <Node Category="method" Id="ExampleCode8.C1.M2" Label="ExampleCode8.C1.M2" />
-    <Node Category="method" Id="ExampleCode8.C1.M3" Label="ExampleCode8.C1.M3" />
-    <Node Category="method" Id="ExampleCode8.C1.M4" Label="ExampleCode8.C1.M4" />
-    <Node Category="method" Id="ExampleCode8.C1.M5" Label="ExampleCode8.C1.M5" />
-    <Node Category="method" Id="ExampleCode8.C1.M6" Label="ExampleCode8.C1.M6" />
-    <Node Category="method" Id="ExampleCode8.C2.M3" Label="ExampleCode8.C2.M3" />
-    <Node Category="method" Id="ExampleCode8.C3.M2" Label="ExampleCode8.C3.M2" />
-    <Node Category="method" Id="ExampleCode8.C3.M3" Label="ExampleCode8.C3.M3" />
-    <Node Category="invocation" Id="0" Label="invocs" />
-    <Node Category="invocation" Id="1" Label="invocs" />
-    <Node Category="invocation" Id="2" Label="invocs" />
-    <Node Category="invocation" Id="3" Label="invocs" />
-    <Node Category="invocation" Id="4" Label="invocs" />
-    <Node Category="invocation" Id="5" Label="invocs" />
-    <Node Category="invocation" Id="6" Label="invocs" />
-    <Node Category="invocation" Id="7" Label="invocs" />
-    <Node Category="invocation" Id="8" Label="invocs" />
-    <Node Category="invocation" Id="9" Label="invocs" />
-    <Node Category="invocation" Id="10" Label="invocs" />
-    <Node Category="invocation" Id="11" Label="invocs" />
-    <Node Category="invocation" Id="12" Label="invocs" />
-    <Node Category="invocation" Id="13" Label="invocs" />
+    <Node Id="ExampleCode8.C1.M1" Label="ExampleCode8.C1.M1" Category="method" />
+    <Node Id="ExampleCode8.C1.M2" Label="ExampleCode8.C1.M2" Category="method" />
+    <Node Id="ExampleCode8.C1.M3" Label="ExampleCode8.C1.M3" Category="method" />
+    <Node Id="ExampleCode8.C1.M4" Label="ExampleCode8.C1.M4" Category="method" />
+    <Node Id="ExampleCode8.C1.M5" Label="ExampleCode8.C1.M5" Category="method" />
+    <Node Id="ExampleCode8.C1.M6" Label="ExampleCode8.C1.M6" Category="method" />
+    <Node Id="ExampleCode8.C2.M3" Label="ExampleCode8.C2.M3" Category="method" />
+    <Node Id="ExampleCode8.C3.M2" Label="ExampleCode8.C3.M2" Category="method" />
+    <Node Id="ExampleCode8.C3.M3" Label="ExampleCode8.C3.M3" Category="method" />
+    <Node Id="0" Label="invocs" Category="invocation" />
+    <Node Id="1" Label="invocs" Category="invocation" />
+    <Node Id="2" Label="invocs" Category="invocation" />
+    <Node Id="3" Label="invocs" Category="invocation" />
+    <Node Id="4" Label="invocs" Category="invocation" />
+    <Node Id="5" Label="invocs" Category="invocation" />
+    <Node Id="6" Label="invocs" Category="invocation" />
+    <Node Id="7" Label="invocs" Category="invocation" />
+    <Node Id="8" Label="invocs" Category="invocation" />
+    <Node Id="9" Label="invocs" Category="invocation" />
+    <Node Id="10" Label="invocs" Category="invocation" />
+    <Node Id="11" Label="invocs" Category="invocation" />
+    <Node Id="12" Label="invocs" Category="invocation" />
+    <Node Id="13" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
     <Link Source="ExampleCode8.C1.M1" Target="0" />

@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Layout="Sugiyama" GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Category="method" Id="ExampleCode5.A.M" Label="ExampleCode5.A.M" />
-    <Node Category="method" Id="ExampleCode5.A.N" Label="ExampleCode5.A.N" />
-    <Node Category="method" Id="ExampleCode5.A.O" Label="ExampleCode5.A.O" />
-    <Node Category="method" Id="ExampleCode5.B.N" Label="ExampleCode5.B.N" />
-    <Node Category="method" Id="ExampleCode5.C.P" Label="ExampleCode5.C.P" />
-    <Node Category="method" Id="ExampleCode5.D.P" Label="ExampleCode5.D.P" />
-    <Node Category="invocation" Id="0" Label="invocs" />
-    <Node Category="invocation" Id="1" Label="invocs" />
-    <Node Category="invocation" Id="2" Label="invocs" />
-    <Node Category="invocation" Id="3" Label="invocs" />
+    <Node Id="ExampleCode5.A.M" Label="ExampleCode5.A.M" Category="method" />
+    <Node Id="ExampleCode5.A.N" Label="ExampleCode5.A.N" Category="method" />
+    <Node Id="ExampleCode5.A.O" Label="ExampleCode5.A.O" Category="method" />
+    <Node Id="ExampleCode5.B.N" Label="ExampleCode5.B.N" Category="method" />
+    <Node Id="ExampleCode5.C.P" Label="ExampleCode5.C.P" Category="method" />
+    <Node Id="ExampleCode5.D.P" Label="ExampleCode5.D.P" Category="method" />
+    <Node Id="0" Label="invocs" Category="invocation" />
+    <Node Id="1" Label="invocs" Category="invocation" />
+    <Node Id="2" Label="invocs" Category="invocation" />
+    <Node Id="3" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
     <Link Source="ExampleCode5.A.M" Target="0" />

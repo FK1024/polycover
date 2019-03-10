@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Layout="Sugiyama" GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Category="method" Id="ExampleCode4.Prog.M1" Label="ExampleCode4.Prog.M1" />
-    <Node Category="method" Id="ExampleCode4.Prog.M2" Label="ExampleCode4.Prog.M2" />
-    <Node Category="method" Id="ExampleCode4.A.D" Label="ExampleCode4.A.D" />
-    <Node Category="method" Id="ExampleCode4.B.D" Label="ExampleCode4.B.D" />
-    <Node Category="method" Id="ExampleCode4.C.D" Label="ExampleCode4.C.D" />
-    <Node Category="invocation" Id="0" Label="invocs" />
-    <Node Category="invocation" Id="1" Label="invocs" />
+    <Node Id="ExampleCode4.Prog.M1" Label="ExampleCode4.Prog.M1" Category="method" />
+    <Node Id="ExampleCode4.Prog.M2" Label="ExampleCode4.Prog.M2" Category="method" />
+    <Node Id="ExampleCode4.A.D" Label="ExampleCode4.A.D" Category="method" />
+    <Node Id="ExampleCode4.B.D" Label="ExampleCode4.B.D" Category="method" />
+    <Node Id="ExampleCode4.C.D" Label="ExampleCode4.C.D" Category="method" />
+    <Node Id="0" Label="invocs" Category="invocation" />
+    <Node Id="1" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
     <Link Source="ExampleCode4.Prog.M1" Target="0" />
