@@ -27,13 +27,13 @@ namespace StaticCodeAnalysis
 
             // create a node for each invocation and add the links
             List<Node> methodNodes = new List<Node>(testGraph.Nodes);
-            int invocCount = 0;
             foreach (Node methodNode in methodNodes)
             {
+                int invocCount = 0;
                 List<StaticCodeAnalysis.Invocation> invocations = testAnalysis.GetInvocations(methodNode.Method);
                 foreach (StaticCodeAnalysis.Invocation invocation in invocations)
                 {
-                    Node invocNode = new Node(invocCount.ToString(), "invocs", invocation);
+                    Node invocNode = new Node(methodNode.Id + "_I" + invocCount.ToString(), "invocs", invocation);
                     testGraph.AddNode(invocNode);
                     invocCount++;
                     testGraph.AddLink(new Link(methodNode.Id, invocNode.Id));

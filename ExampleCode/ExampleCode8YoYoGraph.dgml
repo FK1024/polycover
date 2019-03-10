@@ -10,55 +10,55 @@
     <Node Id="ExampleCode8.C2.M3" Label="ExampleCode8.C2.M3" Category="method" />
     <Node Id="ExampleCode8.C3.M2" Label="ExampleCode8.C3.M2" Category="method" />
     <Node Id="ExampleCode8.C3.M3" Label="ExampleCode8.C3.M3" Category="method" />
-    <Node Id="0" Label="invocs" Category="invocation" />
-    <Node Id="1" Label="invocs" Category="invocation" />
-    <Node Id="2" Label="invocs" Category="invocation" />
-    <Node Id="3" Label="invocs" Category="invocation" />
-    <Node Id="4" Label="invocs" Category="invocation" />
-    <Node Id="5" Label="invocs" Category="invocation" />
-    <Node Id="6" Label="invocs" Category="invocation" />
-    <Node Id="7" Label="invocs" Category="invocation" />
-    <Node Id="8" Label="invocs" Category="invocation" />
-    <Node Id="9" Label="invocs" Category="invocation" />
-    <Node Id="10" Label="invocs" Category="invocation" />
-    <Node Id="11" Label="invocs" Category="invocation" />
-    <Node Id="12" Label="invocs" Category="invocation" />
-    <Node Id="13" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M1_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M1_I1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M1_I2" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M2_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M2_I1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M2_I2" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M3_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M4_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M4_I1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M5_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C1.M6_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C3.M2_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C3.M2_I1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode8.C3.M3_I0" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode8.C1.M1" Target="0" />
-    <Link Source="0" Target="ExampleCode8.C3.M2" />
-    <Link Source="ExampleCode8.C1.M1" Target="1" />
-    <Link Source="1" Target="ExampleCode8.C1.M4" />
-    <Link Source="ExampleCode8.C1.M1" Target="2" />
-    <Link Source="2" Target="ExampleCode8.C1.M2" />
-    <Link Source="ExampleCode8.C1.M2" Target="3" />
-    <Link Source="3" Target="ExampleCode8.C2.M3" />
-    <Link Source="ExampleCode8.C1.M2" Target="4" />
-    <Link Source="4" Target="ExampleCode8.C1.M5" />
-    <Link Source="ExampleCode8.C1.M2" Target="5" />
-    <Link Source="5" Target="ExampleCode8.C1.M3" />
-    <Link Source="5" Target="ExampleCode8.C2.M3" />
-    <Link Source="5" Target="ExampleCode8.C3.M3" />
-    <Link Source="ExampleCode8.C1.M3" Target="6" />
-    <Link Source="6" Target="ExampleCode8.C1.M5" />
-    <Link Source="ExampleCode8.C1.M4" Target="7" />
-    <Link Source="7" Target="ExampleCode8.C1.M5" />
-    <Link Source="ExampleCode8.C1.M4" Target="8" />
-    <Link Source="8" Target="ExampleCode8.C1.M2" />
-    <Link Source="ExampleCode8.C1.M5" Target="9" />
-    <Link Source="9" Target="ExampleCode8.C1.M1" />
-    <Link Source="ExampleCode8.C1.M6" Target="10" />
-    <Link Source="10" Target="ExampleCode8.C1.M3" />
-    <Link Source="10" Target="ExampleCode8.C2.M3" />
-    <Link Source="ExampleCode8.C3.M2" Target="11" />
-    <Link Source="11" Target="ExampleCode8.C2.M3" />
-    <Link Source="ExampleCode8.C3.M2" Target="12" />
-    <Link Source="12" Target="ExampleCode8.C1.M3" />
-    <Link Source="12" Target="ExampleCode8.C2.M3" />
-    <Link Source="12" Target="ExampleCode8.C3.M3" />
-    <Link Source="ExampleCode8.C3.M3" Target="13" />
-    <Link Source="13" Target="ExampleCode8.C1.M1" />
+    <Link Source="ExampleCode8.C1.M1" Target="ExampleCode8.C1.M1_I0" />
+    <Link Source="ExampleCode8.C1.M1_I0" Target="ExampleCode8.C3.M2" />
+    <Link Source="ExampleCode8.C1.M1" Target="ExampleCode8.C1.M1_I1" />
+    <Link Source="ExampleCode8.C1.M1_I1" Target="ExampleCode8.C1.M4" />
+    <Link Source="ExampleCode8.C1.M1" Target="ExampleCode8.C1.M1_I2" />
+    <Link Source="ExampleCode8.C1.M1_I2" Target="ExampleCode8.C1.M2" />
+    <Link Source="ExampleCode8.C1.M2" Target="ExampleCode8.C1.M2_I0" />
+    <Link Source="ExampleCode8.C1.M2_I0" Target="ExampleCode8.C2.M3" />
+    <Link Source="ExampleCode8.C1.M2" Target="ExampleCode8.C1.M2_I1" />
+    <Link Source="ExampleCode8.C1.M2_I1" Target="ExampleCode8.C1.M5" />
+    <Link Source="ExampleCode8.C1.M2" Target="ExampleCode8.C1.M2_I2" />
+    <Link Source="ExampleCode8.C1.M2_I2" Target="ExampleCode8.C1.M3" />
+    <Link Source="ExampleCode8.C1.M2_I2" Target="ExampleCode8.C2.M3" />
+    <Link Source="ExampleCode8.C1.M2_I2" Target="ExampleCode8.C3.M3" />
+    <Link Source="ExampleCode8.C1.M3" Target="ExampleCode8.C1.M3_I0" />
+    <Link Source="ExampleCode8.C1.M3_I0" Target="ExampleCode8.C1.M5" />
+    <Link Source="ExampleCode8.C1.M4" Target="ExampleCode8.C1.M4_I0" />
+    <Link Source="ExampleCode8.C1.M4_I0" Target="ExampleCode8.C1.M5" />
+    <Link Source="ExampleCode8.C1.M4" Target="ExampleCode8.C1.M4_I1" />
+    <Link Source="ExampleCode8.C1.M4_I1" Target="ExampleCode8.C1.M2" />
+    <Link Source="ExampleCode8.C1.M5" Target="ExampleCode8.C1.M5_I0" />
+    <Link Source="ExampleCode8.C1.M5_I0" Target="ExampleCode8.C1.M1" />
+    <Link Source="ExampleCode8.C1.M6" Target="ExampleCode8.C1.M6_I0" />
+    <Link Source="ExampleCode8.C1.M6_I0" Target="ExampleCode8.C1.M3" />
+    <Link Source="ExampleCode8.C1.M6_I0" Target="ExampleCode8.C2.M3" />
+    <Link Source="ExampleCode8.C3.M2" Target="ExampleCode8.C3.M2_I0" />
+    <Link Source="ExampleCode8.C3.M2_I0" Target="ExampleCode8.C2.M3" />
+    <Link Source="ExampleCode8.C3.M2" Target="ExampleCode8.C3.M2_I1" />
+    <Link Source="ExampleCode8.C3.M2_I1" Target="ExampleCode8.C1.M3" />
+    <Link Source="ExampleCode8.C3.M2_I1" Target="ExampleCode8.C2.M3" />
+    <Link Source="ExampleCode8.C3.M2_I1" Target="ExampleCode8.C3.M3" />
+    <Link Source="ExampleCode8.C3.M3" Target="ExampleCode8.C3.M3_I0" />
+    <Link Source="ExampleCode8.C3.M3_I0" Target="ExampleCode8.C1.M1" />
   </Links>
   <Categories>
     <Category Id="method" Background="#ADD8E6" />

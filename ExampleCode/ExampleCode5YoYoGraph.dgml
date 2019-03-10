@@ -7,22 +7,22 @@
     <Node Id="ExampleCode5.B.N" Label="ExampleCode5.B.N" Category="method" />
     <Node Id="ExampleCode5.C.P" Label="ExampleCode5.C.P" Category="method" />
     <Node Id="ExampleCode5.D.P" Label="ExampleCode5.D.P" Category="method" />
-    <Node Id="0" Label="invocs" Category="invocation" />
-    <Node Id="1" Label="invocs" Category="invocation" />
-    <Node Id="2" Label="invocs" Category="invocation" />
-    <Node Id="3" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode5.A.M_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode5.A.N_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode5.A.O_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode5.B.N_I0" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode5.A.M" Target="0" />
-    <Link Source="0" Target="ExampleCode5.A.N" />
-    <Link Source="0" Target="ExampleCode5.B.N" />
-    <Link Source="ExampleCode5.A.N" Target="1" />
-    <Link Source="1" Target="ExampleCode5.A.O" />
-    <Link Source="ExampleCode5.A.O" Target="2" />
-    <Link Source="2" Target="ExampleCode5.C.P" />
-    <Link Source="2" Target="ExampleCode5.D.P" />
-    <Link Source="ExampleCode5.B.N" Target="3" />
-    <Link Source="3" Target="ExampleCode5.A.O" />
+    <Link Source="ExampleCode5.A.M" Target="ExampleCode5.A.M_I0" />
+    <Link Source="ExampleCode5.A.M_I0" Target="ExampleCode5.A.N" />
+    <Link Source="ExampleCode5.A.M_I0" Target="ExampleCode5.B.N" />
+    <Link Source="ExampleCode5.A.N" Target="ExampleCode5.A.N_I0" />
+    <Link Source="ExampleCode5.A.N_I0" Target="ExampleCode5.A.O" />
+    <Link Source="ExampleCode5.A.O" Target="ExampleCode5.A.O_I0" />
+    <Link Source="ExampleCode5.A.O_I0" Target="ExampleCode5.C.P" />
+    <Link Source="ExampleCode5.A.O_I0" Target="ExampleCode5.D.P" />
+    <Link Source="ExampleCode5.B.N" Target="ExampleCode5.B.N_I0" />
+    <Link Source="ExampleCode5.B.N_I0" Target="ExampleCode5.A.O" />
   </Links>
   <Categories>
     <Category Id="method" Background="#ADD8E6" />

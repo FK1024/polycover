@@ -6,17 +6,17 @@
     <Node Id="ExampleCode4.A.D" Label="ExampleCode4.A.D" Category="method" />
     <Node Id="ExampleCode4.B.D" Label="ExampleCode4.B.D" Category="method" />
     <Node Id="ExampleCode4.C.D" Label="ExampleCode4.C.D" Category="method" />
-    <Node Id="0" Label="invocs" Category="invocation" />
-    <Node Id="1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode4.Prog.M1_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode4.Prog.M2_I0" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode4.Prog.M1" Target="0" />
-    <Link Source="0" Target="ExampleCode4.A.D" />
-    <Link Source="0" Target="ExampleCode4.B.D" />
-    <Link Source="0" Target="ExampleCode4.C.D" />
-    <Link Source="ExampleCode4.Prog.M2" Target="1" />
-    <Link Source="1" Target="ExampleCode4.B.D" />
-    <Link Source="1" Target="ExampleCode4.C.D" />
+    <Link Source="ExampleCode4.Prog.M1" Target="ExampleCode4.Prog.M1_I0" />
+    <Link Source="ExampleCode4.Prog.M1_I0" Target="ExampleCode4.A.D" />
+    <Link Source="ExampleCode4.Prog.M1_I0" Target="ExampleCode4.B.D" />
+    <Link Source="ExampleCode4.Prog.M1_I0" Target="ExampleCode4.C.D" />
+    <Link Source="ExampleCode4.Prog.M2" Target="ExampleCode4.Prog.M2_I0" />
+    <Link Source="ExampleCode4.Prog.M2_I0" Target="ExampleCode4.B.D" />
+    <Link Source="ExampleCode4.Prog.M2_I0" Target="ExampleCode4.C.D" />
   </Links>
   <Categories>
     <Category Id="method" Background="#ADD8E6" />

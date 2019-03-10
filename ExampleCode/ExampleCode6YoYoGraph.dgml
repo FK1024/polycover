@@ -4,15 +4,15 @@
     <Node Id="ExampleCode6.A.N" Label="ExampleCode6.A.N" Category="method" />
     <Node Id="ExampleCode6.A.M" Label="ExampleCode6.A.M" Category="method" />
     <Node Id="ExampleCode6.B.M" Label="ExampleCode6.B.M" Category="method" />
-    <Node Id="0" Label="invocs" Category="invocation" />
-    <Node Id="1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode6.A.N_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode6.A.N_I1" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode6.A.N" Target="0" />
-    <Link Source="0" Target="ExampleCode6.B.M" />
-    <Link Source="ExampleCode6.A.N" Target="1" />
-    <Link Source="1" Target="ExampleCode6.A.M" />
-    <Link Source="1" Target="ExampleCode6.B.M" />
+    <Link Source="ExampleCode6.A.N" Target="ExampleCode6.A.N_I0" />
+    <Link Source="ExampleCode6.A.N_I0" Target="ExampleCode6.B.M" />
+    <Link Source="ExampleCode6.A.N" Target="ExampleCode6.A.N_I1" />
+    <Link Source="ExampleCode6.A.N_I1" Target="ExampleCode6.A.M" />
+    <Link Source="ExampleCode6.A.N_I1" Target="ExampleCode6.B.M" />
   </Links>
   <Categories>
     <Category Id="method" Background="#ADD8E6" />

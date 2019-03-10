@@ -11,22 +11,22 @@
     <Node Id="ExampleCode1.C3_1.M4" Label="ExampleCode1.C3_1.M4" Category="method" />
     <Node Id="ExampleCode1.C3_2.M4" Label="ExampleCode1.C3_2.M4" Category="method" />
     <Node Id="ExampleCode1.C3_2.M5" Label="ExampleCode1.C3_2.M5" Category="method" />
-    <Node Id="0" Label="invocs" Category="invocation" />
-    <Node Id="1" Label="invocs" Category="invocation" />
-    <Node Id="2" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode1.C1.M1_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode1.C1.M1_I1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode1.C1.M2_I0" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode1.C1.M1" Target="0" />
-    <Link Source="0" Target="ExampleCode1.C1.M2" />
-    <Link Source="0" Target="ExampleCode1.C2.M2" />
-    <Link Source="ExampleCode1.C1.M1" Target="1" />
-    <Link Source="1" Target="ExampleCode1.C1.M3" />
-    <Link Source="1" Target="ExampleCode1.C2.M3" />
-    <Link Source="1" Target="ExampleCode1.C3_1.M3" />
-    <Link Source="ExampleCode1.C1.M2" Target="2" />
-    <Link Source="2" Target="ExampleCode1.C1.M3" />
-    <Link Source="2" Target="ExampleCode1.C2.M3" />
-    <Link Source="2" Target="ExampleCode1.C3_1.M3" />
+    <Link Source="ExampleCode1.C1.M1" Target="ExampleCode1.C1.M1_I0" />
+    <Link Source="ExampleCode1.C1.M1_I0" Target="ExampleCode1.C1.M2" />
+    <Link Source="ExampleCode1.C1.M1_I0" Target="ExampleCode1.C2.M2" />
+    <Link Source="ExampleCode1.C1.M1" Target="ExampleCode1.C1.M1_I1" />
+    <Link Source="ExampleCode1.C1.M1_I1" Target="ExampleCode1.C1.M3" />
+    <Link Source="ExampleCode1.C1.M1_I1" Target="ExampleCode1.C2.M3" />
+    <Link Source="ExampleCode1.C1.M1_I1" Target="ExampleCode1.C3_1.M3" />
+    <Link Source="ExampleCode1.C1.M2" Target="ExampleCode1.C1.M2_I0" />
+    <Link Source="ExampleCode1.C1.M2_I0" Target="ExampleCode1.C1.M3" />
+    <Link Source="ExampleCode1.C1.M2_I0" Target="ExampleCode1.C2.M3" />
+    <Link Source="ExampleCode1.C1.M2_I0" Target="ExampleCode1.C3_1.M3" />
   </Links>
   <Categories>
     <Category Id="method" Background="#ADD8E6" />

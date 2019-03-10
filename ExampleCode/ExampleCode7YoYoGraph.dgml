@@ -6,32 +6,32 @@
     <Node Id="ExampleCode7.C1.M" Label="ExampleCode7.C1.M" Category="method" />
     <Node Id="ExampleCode7.C2.M" Label="ExampleCode7.C2.M" Category="method" />
     <Node Id="ExampleCode7.C3.M" Label="ExampleCode7.C3.M" Category="method" />
-    <Node Id="0" Label="invocs" Category="invocation" />
-    <Node Id="1" Label="invocs" Category="invocation" />
-    <Node Id="2" Label="invocs" Category="invocation" />
-    <Node Id="3" Label="invocs" Category="invocation" />
-    <Node Id="4" Label="invocs" Category="invocation" />
-    <Node Id="5" Label="invocs" Category="invocation" />
-    <Node Id="6" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode7.Prog.N_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode7.Prog.N_I1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode7.Prog.N_I2" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode7.Prog.MyInc_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode7.C1.M_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode7.C2.M_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode7.C3.M_I0" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode7.Prog.N" Target="0" />
-    <Link Source="0" Target="ExampleCode7.C1.M" />
-    <Link Source="0" Target="ExampleCode7.C2.M" />
-    <Link Source="0" Target="ExampleCode7.C3.M" />
-    <Link Source="ExampleCode7.Prog.N" Target="1" />
-    <Link Source="1" Target="ExampleCode7.C2.M" />
-    <Link Source="1" Target="ExampleCode7.C3.M" />
-    <Link Source="ExampleCode7.Prog.N" Target="2" />
-    <Link Source="2" Target="ExampleCode7.C3.M" />
-    <Link Source="ExampleCode7.Prog.MyInc" Target="3" />
-    <Link Source="3" Target="ExampleCode7.Prog.N" />
-    <Link Source="ExampleCode7.C1.M" Target="4" />
-    <Link Source="4" Target="ExampleCode7.Prog.MyInc" />
-    <Link Source="ExampleCode7.C2.M" Target="5" />
-    <Link Source="5" Target="ExampleCode7.Prog.MyInc" />
-    <Link Source="ExampleCode7.C3.M" Target="6" />
-    <Link Source="6" Target="ExampleCode7.Prog.MyInc" />
+    <Link Source="ExampleCode7.Prog.N" Target="ExampleCode7.Prog.N_I0" />
+    <Link Source="ExampleCode7.Prog.N_I0" Target="ExampleCode7.C1.M" />
+    <Link Source="ExampleCode7.Prog.N_I0" Target="ExampleCode7.C2.M" />
+    <Link Source="ExampleCode7.Prog.N_I0" Target="ExampleCode7.C3.M" />
+    <Link Source="ExampleCode7.Prog.N" Target="ExampleCode7.Prog.N_I1" />
+    <Link Source="ExampleCode7.Prog.N_I1" Target="ExampleCode7.C2.M" />
+    <Link Source="ExampleCode7.Prog.N_I1" Target="ExampleCode7.C3.M" />
+    <Link Source="ExampleCode7.Prog.N" Target="ExampleCode7.Prog.N_I2" />
+    <Link Source="ExampleCode7.Prog.N_I2" Target="ExampleCode7.C3.M" />
+    <Link Source="ExampleCode7.Prog.MyInc" Target="ExampleCode7.Prog.MyInc_I0" />
+    <Link Source="ExampleCode7.Prog.MyInc_I0" Target="ExampleCode7.Prog.N" />
+    <Link Source="ExampleCode7.C1.M" Target="ExampleCode7.C1.M_I0" />
+    <Link Source="ExampleCode7.C1.M_I0" Target="ExampleCode7.Prog.MyInc" />
+    <Link Source="ExampleCode7.C2.M" Target="ExampleCode7.C2.M_I0" />
+    <Link Source="ExampleCode7.C2.M_I0" Target="ExampleCode7.Prog.MyInc" />
+    <Link Source="ExampleCode7.C3.M" Target="ExampleCode7.C3.M_I0" />
+    <Link Source="ExampleCode7.C3.M_I0" Target="ExampleCode7.Prog.MyInc" />
   </Links>
   <Categories>
     <Category Id="method" Background="#ADD8E6" />

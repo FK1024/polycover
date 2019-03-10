@@ -7,18 +7,18 @@
     <Node Id="ExampleCode3.C.N" Label="ExampleCode3.C.N" Category="method" />
     <Node Id="ExampleCode3.D.M" Label="ExampleCode3.D.M" Category="method" />
     <Node Id="ExampleCode3.D.N" Label="ExampleCode3.D.N" Category="method" />
-    <Node Id="0" Label="invocs" Category="invocation" />
-    <Node Id="1" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode3.A.M_I0" Label="invocs" Category="invocation" />
+    <Node Id="ExampleCode3.A.M_I1" Label="invocs" Category="invocation" />
   </Nodes>
   <Links>
-    <Link Source="ExampleCode3.A.M" Target="0" />
-    <Link Source="0" Target="ExampleCode3.B.N" />
-    <Link Source="0" Target="ExampleCode3.C.N" />
-    <Link Source="ExampleCode3.A.M" Target="1" />
-    <Link Source="1" Target="ExampleCode3.A.N" />
-    <Link Source="1" Target="ExampleCode3.B.N" />
-    <Link Source="1" Target="ExampleCode3.C.N" />
-    <Link Source="1" Target="ExampleCode3.D.N" />
+    <Link Source="ExampleCode3.A.M" Target="ExampleCode3.A.M_I0" />
+    <Link Source="ExampleCode3.A.M_I0" Target="ExampleCode3.B.N" />
+    <Link Source="ExampleCode3.A.M_I0" Target="ExampleCode3.C.N" />
+    <Link Source="ExampleCode3.A.M" Target="ExampleCode3.A.M_I1" />
+    <Link Source="ExampleCode3.A.M_I1" Target="ExampleCode3.A.N" />
+    <Link Source="ExampleCode3.A.M_I1" Target="ExampleCode3.B.N" />
+    <Link Source="ExampleCode3.A.M_I1" Target="ExampleCode3.C.N" />
+    <Link Source="ExampleCode3.A.M_I1" Target="ExampleCode3.D.N" />
   </Links>
   <Categories>
     <Category Id="method" Background="#ADD8E6" />
