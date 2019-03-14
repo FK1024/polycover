@@ -10,25 +10,28 @@ namespace StaticCodeAnalysis
 {
     public class StaticCodeAnalysis
     {
-        private string code;
-        private SyntaxTree tree;
         private SyntaxNode root;
-        private CSharpCompilation compilation;
         private SemanticModel semMod;
 
 
-        public StaticCodeAnalysis(string path)
+        public StaticCodeAnalysis(string file)
         {
-            code = File.ReadAllText(path);
-            tree = CSharpSyntaxTree.ParseText(code);
+            string code = File.ReadAllText(file);
+            SyntaxTree tree = CSharpSyntaxTree.ParseText(code);
             root = tree.GetRoot();
-            compilation = CSharpCompilation.Create(null)
+            CSharpCompilation compilation = CSharpCompilation.Create(null)
                 .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
                 .WithReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location))
                 .AddSyntaxTrees(tree);
             semMod = compilation.GetSemanticModel(tree, false);
         }
 
+
+        // returns the root
+        public SyntaxNode GetRoot()
+        {
+            return root;
+        }
 
         // returns a list of named type symbols of all classes which are direct or indirect base classes of a given class
         public List<ClassDeclarationSyntax> GetBaseClasses(ClassDeclarationSyntax classDecl)

@@ -34,9 +34,21 @@ namespace StaticCodeAnalysis
         }
 
 
+        // Node methods
+
         public Node GetNode(string id)
         {
             return this.Nodes.Where(n => n.Id == id).FirstOrDefault();
+        }
+
+        public List<Node> GetMethodNodes()
+        {
+            return this.Nodes.Where(n => n.Method != null).ToList();
+        }
+
+        public List<Node> GetInvocationNodes()
+        {
+            return this.Nodes.Where(n => n.Method == null).ToList();
         }
 
         public void AddNode(Node n)
@@ -51,9 +63,21 @@ namespace StaticCodeAnalysis
             }
         }
 
+        // Link methods
+
         public void AddLink(Link l)
         {
             this.Links.Add(l);
+        }
+
+        public List<Link> GetIncomingLinks() // incoming links are links from an invocation node to a method node
+        {
+            return this.Links.Where(l => GetMethodNodes().Select(mn => mn.Id).Contains(l.Target)).ToList();
+        }
+
+        public List<Link> GetIncomingLinks(string methodNodeId)
+        {
+            return this.Links.Where(l => l.Target == methodNodeId).ToList();
         }
 
         public void Serialize(string xmlpath)
