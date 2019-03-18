@@ -4,10 +4,12 @@ OOEdgeCoverage is a source code file edge coverage tool for .NET Framework with 
 
 ## Requirements
 
-You will need coverlet as global tool which can be installed via
+* You will need coverlet as global tool which can be installed via
 ```
 dotnet tool install --global coverlet.console
 ```
+
+* Currently OOEdgeCoverage only supports **one** user-defined method call per line
 
 ## Installation
 
