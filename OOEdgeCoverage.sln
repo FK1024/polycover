@@ -3,18 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticCodeAnalysis", "StaticCodeAnalysis\StaticCodeAnalysis.csproj", "{53F474BE-86F7-4068-B23D-C26C934E67F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOEdgeCoverage", "src\OOEdgeCoverage\OOEdgeCoverage.csproj", "{53F474BE-86F7-4068-B23D-C26C934E67F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticCodeAnalysisTests", "StaticCodeAnalysisTests\StaticCodeAnalysisTests.csproj", "{EE360A6B-8E90-4F35-95DF-3A9607342021}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOEdgeCoverageTests", "test\OOEdgeCoverageTests\OOEdgeCoverageTests.csproj", "{EE360A6B-8E90-4F35-95DF-3A9607342021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleCode", "ExampleCode\ExampleCode.csproj", "{5286393B-2414-4D7D-A633-5AFD20B1219E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleCode", "test\ExampleCode\ExampleCode.csproj", "{5286393B-2414-4D7D-A633-5AFD20B1219E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleCodeTests", "ExampleCodeTests\ExampleCodeTests.csproj", "{5DE553DB-3657-4490-8509-6A26476A7D9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleCodeTests", "test\ExampleCodeTests\ExampleCodeTests.csproj", "{5DE553DB-3657-4490-8509-6A26476A7D9B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E3DCE9F-AF82-4AB6-9B4B-B5D0F3D60BF7}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1E9F3CA7-C080-4189-AC66-4557093F5805}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B0806B16-BD66-4124-87C6-E096E30EA344}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53F474BE-86F7-4068-B23D-C26C934E67F8} = {1E9F3CA7-C080-4189-AC66-4557093F5805}
+		{EE360A6B-8E90-4F35-95DF-3A9607342021} = {B0806B16-BD66-4124-87C6-E096E30EA344}
+		{5286393B-2414-4D7D-A633-5AFD20B1219E} = {B0806B16-BD66-4124-87C6-E096E30EA344}
+		{5DE553DB-3657-4490-8509-6A26476A7D9B} = {B0806B16-BD66-4124-87C6-E096E30EA344}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD7861C2-9136-4482-9ED7-F3FFB7C89B06}

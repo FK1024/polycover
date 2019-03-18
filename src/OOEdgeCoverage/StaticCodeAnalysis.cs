@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace StaticCodeAnalysis
+namespace OOEdgeCoverage
 {
     public class StaticCodeAnalysis
     {

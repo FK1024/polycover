@@ -7,7 +7,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace StaticCodeAnalysis
+namespace OOEdgeCoverage
 {
     public class Program
     {
@@ -135,7 +135,7 @@ namespace StaticCodeAnalysis
                 graph.Serialize(graphPath);
                 Console.WriteLine($"Generated YoYo-graph '{graphPath}'");
 
-                Console.WriteLine(Environment.NewLine + "OO Edge Pair Coverage Result: {0:P2}" + Environment.NewLine, result);
+                Console.WriteLine(Environment.NewLine + "OO Edge Pair Coverage Result: {0:P2}", result);
             }
             finally
             {

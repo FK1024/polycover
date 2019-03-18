@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace StaticCodeAnalysis
+namespace OOEdgeCoverage
 {
     [XmlRoot("DirectedGraph", Namespace = "http://schemas.microsoft.com/vs/2009/dgml")]
     public class YoYoGraph
