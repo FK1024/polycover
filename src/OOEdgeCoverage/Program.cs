@@ -131,7 +131,7 @@ namespace OOEdgeCoverage
                 double result = coverage.Calculate();
 
                 // create dgml file
-                string graphPath = codePath.Substring(0, codePath.Length - 3) + "YoYoGraph.dgml";
+                string graphPath = codePath.Substring(0, codePath.Length - 3) + "_YoYoGraph.dgml";
                 graph.Serialize(graphPath);
                 Console.WriteLine($"Generated YoYo-graph '{graphPath}'");
 
