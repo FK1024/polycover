@@ -135,7 +135,7 @@ namespace OOEdgeCoverage
                 graph.Serialize(graphPath);
                 Console.WriteLine($"Generated YoYo-graph '{graphPath}'");
 
-                Console.WriteLine(Environment.NewLine + "OO Edge Pair Coverage Result: {0:P2}", result);
+                Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", result);
             }
             finally
             {
