@@ -16,8 +16,14 @@ namespace OOEdgeCoverage
         {
             this.graph = graph;
             JToken coverage = JObject.Parse(File.ReadAllText(jsonPath));
-            JToken projectCov = coverage.Values().First();
-            this.fileCov = projectCov[codePath];
+            foreach (JToken projectCov in coverage.Values())
+            {
+                if (projectCov[codePath] != null)
+                {
+                    this.fileCov = projectCov[codePath];
+                    break;
+                }
+            }
         }
 
 
