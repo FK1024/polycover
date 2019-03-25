@@ -124,8 +124,13 @@ namespace OOEdgeCoverage
         // for a given method returns a list of all Invocations
         public List<Invocation> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
+            // output list
+            List<Invocation> allPossibleInvocations = new List<Invocation>();
+
             // get all invocation expressions
             List<InvocationExpressionSyntax> invocationExpressions = methodDecl.DescendantNodes().OfType<InvocationExpressionSyntax>().ToList();
+
+            if (!invocationExpressions.Any()) return allPossibleInvocations;
 
             // transform each invocation to the struct Invocation(callee, line number)
             List<Invocation> directInvocations = invocationExpressions.Select(invocExpr => new Invocation(
@@ -136,14 +141,13 @@ namespace OOEdgeCoverage
             // remove non user defined callee's which are null
             directInvocations.RemoveAll(invoc => invoc.Methods.FirstOrDefault() == null);
 
+            if (!directInvocations.Any()) return allPossibleInvocations;
+
             // remove duplicate invocations but add the line numbers to the unique one
             directInvocations = (from invoc in directInvocations
                                 group invoc.Lines by invoc.Methods.First() into grouped
                                 select new Invocation(grouped.SelectMany(l => l).ToList(), new List<MethodDeclarationSyntax> { grouped.Key })).ToList();
             
-            // output list
-            List<Invocation> allPossibleInvocations = new List<Invocation>();
-
             foreach (Invocation invoc in directInvocations)
             {
                 if (invoc.Methods.First().Parent is InterfaceDeclarationSyntax)
