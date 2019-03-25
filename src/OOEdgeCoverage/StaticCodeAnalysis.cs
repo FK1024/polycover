@@ -266,7 +266,7 @@ namespace OOEdgeCoverage
             {
                 MethodDeclarationSyntax implementingMethod = GetMethodDeclSyntax(semMod.GetDeclaredSymbol(myClass)
                     .FindImplementationForInterfaceMember(semMod.GetDeclaredSymbol(methodDecl)) as IMethodSymbol);
-                if (!implementingMethods.Contains(implementingMethod))
+                if (implementingMethod != null && !implementingMethods.Contains(implementingMethod))
                 {
                     implementingMethods.Add(implementingMethod);
                 }
