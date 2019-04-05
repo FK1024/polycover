@@ -11,6 +11,7 @@ namespace OOEdgeCoverage
 {
     public class Program
     {
+        private static string codePath;
         private static string backupDirectory;
 
         private static void DisplayHelp()
@@ -64,7 +65,7 @@ namespace OOEdgeCoverage
             backupDirectory = FindBackupDirectory();
 
             // input parameters:
-            string codePath = args[0];
+            codePath = args[0];
             string solPath = args[1];
             string testProjPath = args[2];
             string testDllPath = args[3];
@@ -81,6 +82,18 @@ namespace OOEdgeCoverage
             StaticCodeAnalysis codeAnalysis = new StaticCodeAnalysis(codePath);
 
             YoYoGraph graph = CreateYoYoGraph(codeAnalysis);
+            // if the source code doesn't contain invocations then output the graph, 100% coverage and return
+            if (!graph.GetInvocationNodes().Any())
+            {
+                Console.WriteLine(Environment.NewLine + "The given source code does not contain any invocations" + Environment.NewLine);
+                // mark every method node as covered
+                foreach (Node methodNode in graph.Nodes)
+                {
+                    methodNode.IsCovered = true;
+                }
+                OutputResultAndGraph(1, graph);
+                return 0;
+            }
 
             BackupFile(codePath);
 
@@ -93,13 +106,13 @@ namespace OOEdgeCoverage
                 File.WriteAllText(codePath, newRoot.GetText().ToString(), Encoding.Default);
                 Console.WriteLine(Environment.NewLine + $"Instrumented file '{codePath}'");
 
-                // re-build the project
+                // re-build the solution
                 Process buildProcess = new Process();
                 buildProcess.StartInfo.FileName = "cmd.exe";
                 buildProcess.StartInfo.Arguments = "/C " + buildCall;
                 buildProcess.StartInfo.RedirectStandardOutput = true; // don't write stdout to console
                 buildProcess.StartInfo.UseShellExecute = false; // don't create new window
-                Console.WriteLine(Environment.NewLine + "Re-building project ...");
+                Console.WriteLine(Environment.NewLine + "Re-building solution ...");
                 buildProcess.Start();
                 buildProcess.WaitForExit();
                 if (buildProcess.ExitCode != 0)
@@ -130,12 +143,7 @@ namespace OOEdgeCoverage
                 Coverage coverage = new Coverage(coveragePath, codePath, graph);
                 double result = coverage.Calculate();
 
-                // create dgml file
-                string graphPath = codePath.Substring(0, codePath.Length - 3) + "_YoYoGraph.dgml";
-                graph.Serialize(graphPath);
-                Console.WriteLine($"Generated YoYo-graph '{graphPath}'");
-
-                Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", result);
+                OutputResultAndGraph(result, graph);
             }
             finally
             {
@@ -143,6 +151,17 @@ namespace OOEdgeCoverage
             }
             
             return 0;
+        }
+
+
+        // creates a file for the graph and writes the percentage result to console
+        public static void OutputResultAndGraph(double result, YoYoGraph graph)
+        {
+            string graphPath = codePath.Substring(0, codePath.Length - 3) + "_YoYoGraph.dgml";
+            graph.Serialize(graphPath);
+            Console.WriteLine($"Generated YoYo-graph '{graphPath}'");
+
+            Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", result);
         }
 
 
