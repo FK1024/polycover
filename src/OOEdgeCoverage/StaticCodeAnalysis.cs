@@ -27,13 +27,13 @@ namespace OOEdgeCoverage
         }
 
 
-        // returns the root
+        // returns the root of the syntax tree
         public SyntaxNode GetRoot()
         {
             return root;
         }
 
-        // returns a list of named type symbols of all classes which are direct or indirect base classes of a given class
+        // returns a list of all classes which are direct or indirect base classes of a given class
         public List<ClassDeclarationSyntax> GetBaseClasses(ClassDeclarationSyntax classDecl)
         {
             List<INamedTypeSymbol> baseClasses = new List<INamedTypeSymbol>();
@@ -50,12 +50,9 @@ namespace OOEdgeCoverage
             baseClassesDeclarations.RemoveAll(item => item == null);
 
             return baseClassesDeclarations;
-
-            // works too:
-            // classDecl.BaseList.Types.First().Type.ToString(); // problematic if class don't derives
         }
 
-        // returns a list of named type symbols of all classes which are direct or indirect derived classes of a given class
+        // returns a list of all classes which are direct or indirect derived classes of a given class
         public List<ClassDeclarationSyntax> GetDerivedClasses(ClassDeclarationSyntax classDecl)
         {
             List<INamedTypeSymbol> derivedClasses = new List<INamedTypeSymbol>();
@@ -121,7 +118,7 @@ namespace OOEdgeCoverage
             }
         }
 
-        // for a given method returns a list of all Invocations
+        // returns a list of all Invocations in a given method
         public List<Invocation> GetInvocations(MethodDeclarationSyntax methodDecl)
         {
             // output list
