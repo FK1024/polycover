@@ -210,7 +210,15 @@ namespace OOEdgeCoverage
 
             foreach (Node methodNode in graph.GetMethodNodes())
             {
-                int methodBodyStartLine = methodNode.Method.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line;
+                int methodBodyStartLine;
+                if (methodNode.Method.Body.Statements != null)
+                {
+                    methodBodyStartLine = methodNode.Method.Body.Statements.First().GetLocation().GetLineSpan().StartLinePosition.Line;
+                }
+                else
+                {
+                    methodBodyStartLine =  methodNode.Method.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+                }
                 int NoIncomingInvocs = graph.GetIncomingLinks(methodNode.Id).Count;
                 int NoLinesToInsert = NoIncomingInvocs > 0 ? 1 + 2 * NoIncomingInvocs : 0;
                 LinesToInsertAtLine.Add(methodBodyStartLine, NoLinesToInsert);

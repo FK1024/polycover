@@ -32,7 +32,15 @@ namespace OOEdgeCoverage
             }
             else
             {
-                int methodBodyStartLine = node.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line + insertedLines;
+                int methodBodyStartLine;
+                if (node.Body.Statements != null)
+                {
+                    methodBodyStartLine = node.Body.Statements.First().GetLocation().GetLineSpan().StartLinePosition.Line + insertedLines;
+                }
+                else
+                {
+                    methodBodyStartLine = node.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line + 1 + insertedLines;
+                }
                 int linesToInsert = 1 + 2 * NoIncomingInvocs;
                 insertedLines += linesToInsert;
                 
