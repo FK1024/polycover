@@ -91,13 +91,21 @@ namespace OOEdgeCoverage
         // returns the line of the first statement of a given method
         public int GetMethodBodyStartLine(MethodDeclarationSyntax method)
         {
-            if (method.Body.Statements != null)
+            if (method.Body.Statements.Any())
             {
                 return method.Body.Statements.First().GetLocation().GetLineSpan().StartLinePosition.Line;
             }
             else
             {
-                return method.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+                int openBraceLine = method.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line;
+                if (openBraceLine == method.Body.CloseBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line)
+                {
+                    return openBraceLine;
+                }
+                else
+                {
+                    return openBraceLine + 1;
+                }
             }
         }
         
