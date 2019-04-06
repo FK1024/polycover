@@ -9,7 +9,13 @@ OOEdgeCoverage is a source code file edge coverage tool for .NET Framework with 
 dotnet tool install --global coverlet.console
 ```
 
+## Limitations
+
+* Only **one** source code file can be covered but
+  * it can be located in a whole project but need to be encapsulated and
+  * a whole test suit is supported
 * Currently OOEdgeCoverage only supports **one** user-defined method call per line
+* Currently there is a problem with umlauts so avoid them
 
 ## Installation
 
