@@ -187,7 +187,7 @@ namespace OOEdgeCoverage
                 List<StaticCodeAnalysis.Invocation> invocations = codeAnalysis.GetInvocations(methodNode.Method);
                 foreach (StaticCodeAnalysis.Invocation invocation in invocations)
                 {
-                    Node invocNode = new Node(methodNode.Id + "_I" + invocCount.ToString(), "invocs", invocation);
+                    Node invocNode = new Node(methodNode.Id + "_I" + invocCount.ToString(), $"invocs (L {String.Join(", ", invocation.Lines.Select(l => l + 1))})", invocation);
                     graph.AddNode(invocNode);
                     invocCount++;
                     graph.AddLink(new Link(methodNode.Id, invocNode.Id));
