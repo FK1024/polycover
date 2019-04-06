@@ -87,6 +87,19 @@ namespace OOEdgeCoverage
                     where method.Parent is ClassDeclarationSyntax
                     select method).ToList();
         }
+
+        // returns the line of the first statement of a given method
+        public int GetMethodBodyStartLine(MethodDeclarationSyntax method)
+        {
+            if (method.Body.Statements != null)
+            {
+                return method.Body.Statements.First().GetLocation().GetLineSpan().StartLinePosition.Line;
+            }
+            else
+            {
+                return method.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+            }
+        }
         
         public struct Invocation
         {

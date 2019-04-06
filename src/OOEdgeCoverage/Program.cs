@@ -100,7 +100,7 @@ namespace OOEdgeCoverage
             try
             {
                 // manipulate the source code file to be able to gather information needed
-                PreCorrectLineNumbers(graph);
+                PreCorrectLineNumbers(graph, codeAnalysis);
                 SyntaxRewriter rewriter = new SyntaxRewriter(codeAnalysis, graph);
                 SyntaxNode newRoot = rewriter.Visit(codeAnalysis.GetRoot());
                 File.WriteAllText(codePath, newRoot.GetText().ToString(), Encoding.Default);
@@ -203,22 +203,14 @@ namespace OOEdgeCoverage
         }
 
         // corrects all saved line numbers of invocations with respect to the code which will be insterted
-        public static void PreCorrectLineNumbers(YoYoGraph graph)
+        public static void PreCorrectLineNumbers(YoYoGraph graph, StaticCodeAnalysis codeAnalysis)
         {
             // first create a dictionary ["method body start line", "number of lines to insert"]
             var LinesToInsertAtLine = new Dictionary<int, int>();
 
             foreach (Node methodNode in graph.GetMethodNodes())
             {
-                int methodBodyStartLine;
-                if (methodNode.Method.Body.Statements != null)
-                {
-                    methodBodyStartLine = methodNode.Method.Body.Statements.First().GetLocation().GetLineSpan().StartLinePosition.Line;
-                }
-                else
-                {
-                    methodBodyStartLine =  methodNode.Method.Body.OpenBraceToken.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
-                }
+                int methodBodyStartLine = codeAnalysis.GetMethodBodyStartLine(methodNode.Method);
                 int NoIncomingInvocs = graph.GetIncomingLinks(methodNode.Id).Count;
                 int NoLinesToInsert = NoIncomingInvocs > 0 ? 1 + 2 * NoIncomingInvocs : 0;
                 LinesToInsertAtLine.Add(methodBodyStartLine, NoLinesToInsert);
