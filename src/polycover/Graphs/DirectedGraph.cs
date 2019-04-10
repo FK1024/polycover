@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace polycover
+namespace polycover.Graphs
 {
     public abstract class DirectedGraph
     {
