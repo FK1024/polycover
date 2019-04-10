@@ -17,6 +17,7 @@ namespace polycover.Graphs
         [XmlArray]
         public readonly List<Category> Categories;
 
+
         public YoYoGraph()
         {
             this.Categories = new List<Category>

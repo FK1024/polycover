@@ -15,6 +15,7 @@ namespace polycover.Graphs
         [XmlAttribute]
         public string GraphDirection = "TopToBottom";
 
+
         public InheritanceGraph()
         {
             this.Styles = new List<Style>

@@ -195,6 +195,7 @@
   <ItemGroup>
     <Compile Include="Coverage.cs" />
     <Compile Include="Graphs\DirectedGraph.cs" />
+    <Compile Include="Graphs\GraphCreator.cs" />
     <Compile Include="InheritanceNode.cs" />
     <Compile Include="SyntaxRewriter.cs" />
     <Compile Include="Program.cs" />

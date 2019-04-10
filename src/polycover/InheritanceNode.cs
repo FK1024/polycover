@@ -9,11 +9,13 @@ namespace polycover
         private ClassDeclarationSyntax classDecl;
         private List<InheritanceNode> subClasses;
 
+
         public InheritanceNode(ClassDeclarationSyntax baseClass)
         {
             this.classDecl = baseClass;
             this.subClasses = new List<InheritanceNode>();
         }
+
 
         public InheritanceNode(ClassDeclarationSyntax baseClass, List<InheritanceNode> subClasses)
         {
