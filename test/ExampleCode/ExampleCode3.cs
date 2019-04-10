@@ -47,6 +47,11 @@
 
     public class B : A
     {
+        public static void StaticMethod()
+        {
+
+        }
+
         public override int N()
         {
             return 2;
@@ -57,15 +62,15 @@
             return 43;
         }
 
-        public int O(double x) // doesn't hide A.O() because parameter types don't match
-        {
-            return 44;
-        }
+        //public int O(double x) // doesn't hide A.O() because parameter types don't match
+        //{
+        //    return 44;
+        //}
 
-        public double O(float x) // doesn't hide A.O() because return types don't match
-        {
-            return 45;
-        }
+        //public double O(float x) // doesn't hide A.O() because return types don't match
+        //{
+        //    return 45;
+        //}
     }
 
     public class C1 : B

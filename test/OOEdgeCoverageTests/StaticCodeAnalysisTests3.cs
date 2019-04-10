@@ -116,6 +116,26 @@ namespace OOEdgeCoverage.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        // GetAllNonStaticMethods test:
+        // ============================
+        [TestMethod]
+        public void GetAllNonStaticMethodsTest()
+        {
+            var expected = new List<MethodDeclarationSyntax>
+            {
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.A.M"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.A.N"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.A.O"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.B.N"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.B.O"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.C1.N"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.D.M"),
+                testAnalysis.GetMethodDeclSyntax("ExampleCode3.D.N")
+            };
+            var actual = testAnalysis.GetAllNonStaticMethods();
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
         // GetInvocations test:
         // ====================
         [TestMethod()]

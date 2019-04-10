@@ -240,7 +240,7 @@ namespace OOEdgeCoverage
         {
             InheritanceGraph graph = new InheritanceGraph();
 
-            List<MethodDeclarationSyntax> methods = codeAnalysis.GetAllMethods();
+            List<MethodDeclarationSyntax> methods = codeAnalysis.GetAllNonStaticMethods();
 
             foreach (MethodDeclarationSyntax method in methods)
             {

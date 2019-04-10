@@ -150,6 +150,15 @@ namespace OOEdgeCoverage
                     select method).ToList();
         }
 
+        // returns all non-static methods declared in a class
+        public List<MethodDeclarationSyntax> GetAllNonStaticMethods()
+        {
+            return (from method in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
+                    where method.Parent is ClassDeclarationSyntax
+                    && !semMod.GetDeclaredSymbol(method).IsStatic
+                    select method).ToList();
+        }
+
         // returns the class in which a given method is contained in
         public ClassDeclarationSyntax GetClass(MethodDeclarationSyntax method)
         {
