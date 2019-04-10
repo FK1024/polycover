@@ -18,7 +18,7 @@ namespace polycover
 
         private static void DisplayHelp()
         {
-            Console.WriteLine(".NET Framework source code edge coverage tool" + Environment.NewLine);
+            Console.WriteLine(".NET Framework source code coverage tool" + Environment.NewLine);
 
             Console.WriteLine("Usage: polycover [options] [arguments]" + Environment.NewLine);
 

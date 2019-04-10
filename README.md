@@ -30,7 +30,7 @@ polycover --help
 
 The arguments are:
 ```
-.NET Framework source code edge coverage tool
+.NET Framework source code coverage tool
 
 Usage: polycover [options] [arguments]
 
