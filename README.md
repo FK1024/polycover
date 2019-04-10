@@ -1,6 +1,6 @@
-# OOEdgeCoverage
+# polycover
 
-OOEdgeCoverage is a source code coverage tool for .NET Framework with support for object-oriented features.
+Polycover is a source code coverage tool for .NET Framework with focus on polymorphic structures.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ dotnet tool install --global coverlet.console
 * Currently only **one** source code file can be covered but
   * it can be located in a whole project but need to be encapsulated and
   * a whole test suit is supported
-* Currently OOEdgeCoverage only supports **one** user-defined method call per line
+* Currently polycover only supports **one** user-defined method call per line
 * Currently there is a problem with umlauts so avoid them
 
 ## Installation
@@ -25,14 +25,14 @@ Just clone or download this repo.
 
 To see the list of arguments, run:
 ```
-OOEdgeCoverage --help
+polycover --help
 ```
 
 The arguments are:
 ```
 .NET Framework source code edge coverage tool
 
-Usage: OOEdgeCoverage [options] [arguments]
+Usage: polycover [options] [arguments]
 
 Options:
         -v|--variant    the variant of coverage to be calculated: 'edge' or 'type'
@@ -46,7 +46,7 @@ Arguments:
 
 An example call could look like following:
 ```
-OOEdgeCoverage --variant "edge" "C:\MyApp\MyProject\MyCodeFile.cs" "C:\MyApp\MySolution.sln" "C:\MyApp\MyProjectTests\MyProjectTests.csproj" "C:\MyApp\MyProjectTests\bin\Debug\MyProjectTests.dll"
+polycover --variant "edge" "C:\MyApp\MyProject\MyCodeFile.cs" "C:\MyApp\MySolution.sln" "C:\MyApp\MyProjectTests\MyProjectTests.csproj" "C:\MyApp\MyProjectTests\bin\Debug\MyProjectTests.dll"
 ```
 
 _Note: Mayby you have to add_ `<IsTestProject>true</IsTestProject>` _to your test.csproj file to get the tests run._
@@ -61,11 +61,11 @@ The `--variant` option has to be either `edge` or `type`. It specifies what kind
 
 ## Output
 
-A file named the same as the source code file with "\_YoYoGraph.dgml" (for variant `edge`) or "\_InheritanceGraph.dgml" (for variant `type`) appended will be generated in the same directory.
+A file named the same as the source code file with "\_YoYoGraph.dgml" (for variant `edge`) -or- "\_InheritanceGraph.dgml" (for variant `type`) appended will be generated in the same directory.
 
 ## How It Works
 
-OOEdgeCoverage basically goes throgh the following pipeline:
+polycover basically goes throgh the following pipeline:
 1. Analyzes the given source code file using the [.NET Compiler Platform ("Roslyn")](https://github.com/dotnet/roslyn)
 2. Either creates a "YoYo-Graph" from the analyzed code which is a call graph with consideration of polymorphism -or- creates a "inheritance graph" which displays the inheritance graph for each method seperatly
 3. Modifies the source code file by inserting code to record either caller's line numbers -or- caller's type
