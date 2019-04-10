@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOEdgeCoverage", "src\OOEdgeCoverage\OOEdgeCoverage.csproj", "{53F474BE-86F7-4068-B23D-C26C934E67F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "polycover", "src\polycover\polycover.csproj", "{53F474BE-86F7-4068-B23D-C26C934E67F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOEdgeCoverageTests", "test\OOEdgeCoverageTests\OOEdgeCoverageTests.csproj", "{EE360A6B-8E90-4F35-95DF-3A9607342021}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "polycoverTests", "test\polycoverTests\polycoverTests.csproj", "{EE360A6B-8E90-4F35-95DF-3A9607342021}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleCode", "test\ExampleCode\ExampleCode.csproj", "{5286393B-2414-4D7D-A633-5AFD20B1219E}"
 EndProject

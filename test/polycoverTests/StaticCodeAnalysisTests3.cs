@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OOEdgeCoverage;
+using polycover;
 using System;
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace OOEdgeCoverage.Tests
+namespace polycover.Tests
 {
     [TestClass()]
     public class StaticCodeAnalysisTests3

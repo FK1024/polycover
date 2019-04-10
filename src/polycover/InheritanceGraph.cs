@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace OOEdgeCoverage
+namespace polycover
 {
     [XmlRoot("DirectedGraph")]
     [XmlInclude(typeof(IHNode))]

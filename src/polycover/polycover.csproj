@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53F474BE-86F7-4068-B23D-C26C934E67F8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>OOEdgeCoverage</RootNamespace>
-    <AssemblyName>OOEdgeCoverage</AssemblyName>
+    <RootNamespace>polycover</RootNamespace>
+    <AssemblyName>polycover</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

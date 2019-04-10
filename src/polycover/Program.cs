@@ -7,7 +7,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace OOEdgeCoverage
+namespace polycover
 {
     public class Program
     {
@@ -19,7 +19,7 @@ namespace OOEdgeCoverage
         {
             Console.WriteLine(".NET Framework source code edge coverage tool" + Environment.NewLine);
 
-            Console.WriteLine("Usage: OOEdgeCoverage [options] [arguments]" + Environment.NewLine);
+            Console.WriteLine("Usage: polycover [options] [arguments]" + Environment.NewLine);
 
             Console.WriteLine("Options:");
             Console.WriteLine("\t" + "-v|--variant" + "\t" + "the variant of coverage to be calculated: 'edge' or 'type'" + Environment.NewLine);

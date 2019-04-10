@@ -7,8 +7,8 @@
     <ProjectGuid>{EE360A6B-8E90-4F35-95DF-3A9607342021}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OOEdgeCoverageTests</RootNamespace>
-    <AssemblyName>OOEdgeCoverageTests</AssemblyName>
+    <RootNamespace>polycoverTests</RootNamespace>
+    <AssemblyName>polycoverTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -213,7 +213,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OOEdgeCoverage\OOEdgeCoverage.csproj">
+    <ProjectReference Include="..\..\src\polycover\polycover.csproj">
       <Project>{53F474BE-86F7-4068-B23D-C26C934E67F8}</Project>
       <Name>OOEdgeCoverage</Name>
     </ProjectReference>
