@@ -88,6 +88,12 @@ namespace polycover
             return derivedClassesDeclarations;
         }
 
+        // returns whether the given class is abstract
+        public bool IsClassAbstract(ClassDeclarationSyntax classDecl)
+        {
+            return semMod.GetDeclaredSymbol(classDecl).IsAbstract;
+        }
+
         // checks whether a given class has a method which overrides or hides a given method
         public bool ClassOverridesOrHidesMethod(ClassDeclarationSyntax classDecl, MethodDeclarationSyntax method)
         {

@@ -19,8 +19,9 @@ namespace polycover.Graphs
         {
             this.Styles = new List<Style>
             {
-                new Style("Node", "IsCovered", "true", new Condition("IsCovered='true'"), new Setter("Stroke", "Green")),
-                new Style("Node", "IsCovered", "false", new Condition("IsCovered='false'"), new Setter("Stroke", "Red"))
+                new Style("Node", "IsCoverable", "false", new List<Condition> { new Condition("IsCoverable='false'") }, new List<Setter> { new Setter("Background", "LightGray") }),
+                new Style("Node", "IsCovered", "true", new List<Condition> { new Condition("IsCoverable='true'"), new Condition("IsCovered='true'") }, new List<Setter> { new Setter("Stroke", "Green") }),
+                new Style("Node", "IsCovered", "false", new List<Condition> { new Condition("IsCoverable='true'"), new Condition("IsCovered='false'") }, new List<Setter> { new Setter("Stroke", "Red") })
             };
         }
 
@@ -41,6 +42,8 @@ namespace polycover.Graphs
     public class IHNode : Node
     {
         [XmlAttribute]
+        public bool IsCoverable;
+        [XmlAttribute]
         public string Group;
         [XmlIgnore]
         public MethodDeclarationSyntax Method;
@@ -55,14 +58,16 @@ namespace polycover.Graphs
         {
             this.Id = id;
             this.Label = label;
+            this.IsCoverable = true;
             this.Group = "Expanded";
             this.Method = method;
         }
 
-        public IHNode(string id, string label, ClassDeclarationSyntax classDecl)
+        public IHNode(string id, string label, ClassDeclarationSyntax classDecl, bool isCoverable)
         {
             this.Id = id;
             this.Label = label;
+            this.IsCoverable = isCoverable;
             this.ClassDecl = classDecl;
         }
     }

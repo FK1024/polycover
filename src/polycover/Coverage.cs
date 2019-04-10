@@ -42,13 +42,13 @@ namespace polycover
             if (isVariantEdge)
             {
                 YoYoGraph yoyoGraph = graph as YoYoGraph;
-                targets = yoyoGraph.GetLinksFromInvoc2Method();
+                targets = yoyoGraph.GetLinksFromInvoc2Method().ToList();
                 parents = yoyoGraph.GetMethodNodes();
             }
             else
             {
                 InheritanceGraph inheritanceGraph = graph as InheritanceGraph;
-                targets = inheritanceGraph.GetClassNodes();
+                targets = inheritanceGraph.GetClassNodes().Where(n => (n as IHNode).IsCoverable).ToList();
                 parents = inheritanceGraph.GetMethodNodes();
             }
 

@@ -94,20 +94,20 @@ namespace polycover.Graphs
         public string GroupLabel;
         [XmlAttribute]
         public string ValueLabel;
-        [XmlElement]
-        public Condition Condition;
-        [XmlElement]
-        public Setter Setter;
+        [XmlElement("Condition")]
+        public List<Condition> Conditions;
+        [XmlElement("Setter")]
+        public List<Setter> Setters;
 
         private Style() { }
 
-        public Style(string targetType, string groupLabel, string valueLabel, Condition condition, Setter setter)
+        public Style(string targetType, string groupLabel, string valueLabel, List<Condition> conditions, List<Setter> setters)
         {
             this.TargetType = targetType;
             this.GroupLabel = groupLabel;
             this.ValueLabel = valueLabel;
-            this.Condition = condition;
-            this.Setter = setter;
+            this.Conditions = conditions;
+            this.Setters = setters;
         }
     }
 

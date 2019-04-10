@@ -265,7 +265,7 @@ namespace polycover
             ClassDeclarationSyntax classDecl = tree.GetBaseClass();
             string nodeName = codeAnalysis.GetFullClassName(classDecl);
             // add the class node
-            IHNode classNode = new IHNode(groupNode.Id + "_" + nodeName, nodeName, classDecl);
+            IHNode classNode = new IHNode(groupNode.Id + "_" + nodeName, nodeName, classDecl, !codeAnalysis.IsClassAbstract(classDecl));
             graph.AddNode(classNode);
             // link the class node to the group
             graph.AddLink(new IHLink(groupNode.Id, classNode.Id, true));

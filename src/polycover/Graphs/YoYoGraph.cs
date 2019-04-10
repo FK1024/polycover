@@ -26,10 +26,10 @@ namespace polycover.Graphs
             };
             this.Styles = new List<Style>
             {
-                new Style("Node", "IsCovered", "true", new Condition("IsCovered='true'"), new Setter("Stroke", "Green")),
-                new Style("Node", "IsCovered", "false", new Condition("IsCovered='false'"), new Setter("Stroke", "Red")),
-                new Style("Link", "IsCovered", "true", new Condition("IsCovered='true'"), new Setter("Stroke", "Green")),
-                new Style("Link", "IsCovered", "false", new Condition("IsCovered='false'"), new Setter("Stroke", "Red"))
+                new Style("Node", "IsCovered", "true", new List<Condition> { new Condition("IsCovered='true'") }, new List<Setter> { new Setter("Stroke", "Green") }),
+                new Style("Node", "IsCovered", "false", new List<Condition> { new Condition("IsCovered='false'") }, new List<Setter> { new Setter("Stroke", "Red") }),
+                new Style("Link", "IsCovered", "true", new List<Condition> { new Condition("IsCovered='true'") }, new List<Setter> { new Setter("Stroke", "Green") }),
+                new Style("Link", "IsCovered", "false", new List<Condition> { new Condition("IsCovered='false'") }, new List<Setter> { new Setter("Stroke", "Red") })
             };
         }
 
