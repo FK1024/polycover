@@ -52,6 +52,14 @@ namespace OOEdgeCoverage
             return baseClassesDeclarations;
         }
 
+        // returns a list of all classes which are direct derived classes of a given class
+        public List<ClassDeclarationSyntax> GetDirectDerivedClasses(ClassDeclarationSyntax classDecl)
+        {
+            return (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
+                    where semMod.GetDeclaredSymbol(myClass).BaseType == semMod.GetDeclaredSymbol(classDecl)
+                    select myClass).ToList();
+        }
+
         // returns a list of all classes which are direct or indirect derived classes of a given class
         public List<ClassDeclarationSyntax> GetDerivedClasses(ClassDeclarationSyntax classDecl)
         {
@@ -80,12 +88,72 @@ namespace OOEdgeCoverage
             return derivedClassesDeclarations;
         }
 
+        // checks whether a given class has a method which overrides or hides a given method
+        public bool ClassOverridesOrHidesMethod(ClassDeclarationSyntax classDecl, MethodDeclarationSyntax method)
+        {
+            IMethodSymbol methodSymb = semMod.GetDeclaredSymbol(method);
+            List<MethodDeclarationSyntax> methods = classDecl.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
+
+            return (from meth in methods
+                    let methSymb = semMod.GetDeclaredSymbol(meth)
+                    where methSymb.Name == methodSymb.Name
+                    && methSymb.ReturnType == methodSymb.ReturnType
+                    && methSymb.Parameters.Select(p => p.Type).SequenceEqual(methodSymb.Parameters.Select(p => p.Type))
+                    select meth).Any();
+        }
+
+        public struct InheritanceTree
+        {
+            public MethodDeclarationSyntax method;
+            public InheritanceNode rootClass;
+
+            public InheritanceTree(MethodDeclarationSyntax method, InheritanceNode rootClass)
+            {
+                this.method = method;
+                this.rootClass = rootClass;
+            }
+
+            public override bool Equals(object obj)
+            {
+                InheritanceTree? testObj = obj as InheritanceTree?;
+
+                if (testObj.Value.method == null)
+                {
+                    return false;
+                }
+
+                return testObj.Value.method == this.method
+                    && testObj.Value.rootClass.Equals(this.rootClass);
+            }
+
+            public override int GetHashCode()
+            {
+                return (this.method, this.rootClass).GetHashCode();
+            }
+        }
+
+        // returns the InheritanceTree for a given method
+        public InheritanceTree GetInheritanceTree(MethodDeclarationSyntax method)
+        {
+            InheritanceNode rootClass = new InheritanceNode(GetClass(method));
+
+            InheritanceNode tree = CreateSubTree(rootClass, method);
+
+            return new InheritanceTree(method, rootClass);
+        }
+
         // returns all methods declared in a class
         public List<MethodDeclarationSyntax> GetAllMethods()
         {
             return (from method in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
                     where method.Parent is ClassDeclarationSyntax
                     select method).ToList();
+        }
+
+        // returns the class in which a given method is contained in
+        public ClassDeclarationSyntax GetClass(MethodDeclarationSyntax method)
+        {
+            return method.Ancestors().OfType<ClassDeclarationSyntax>().First();
         }
 
         // returns the line of the first statement of a given method
@@ -228,7 +296,7 @@ namespace OOEdgeCoverage
             return result;
         }
 
-
+        
         // helper functions:
         // =================
 
@@ -294,6 +362,21 @@ namespace OOEdgeCoverage
                 }
             }
             return implementingMethods;
+        }
+
+        // recoursivly creates an inheritance tree for a given method and it's given base class
+        public InheritanceNode CreateSubTree(InheritanceNode tree, MethodDeclarationSyntax method)
+        {
+            ClassDeclarationSyntax baseClass = tree.GetBaseClass();
+            List<ClassDeclarationSyntax> methodInheritedClasses = GetDirectDerivedClasses(baseClass).Where(c => !ClassOverridesOrHidesMethod(c, method)).ToList();
+            tree.SetSubClasses(methodInheritedClasses.Select(c => new InheritanceNode(c)).ToList());
+
+            foreach (var subClass in tree.GetSubClasses())
+            {
+                CreateSubTree(subClass, method);
+            }
+
+            return tree;
         }
     }
 }

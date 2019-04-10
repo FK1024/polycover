@@ -14,6 +14,7 @@ namespace OOEdgeCoverage.Tests
         static string path = @"..\..\..\ExampleCode\ExampleCode2.cs";
         StaticCodeAnalysis testAnalysis = new StaticCodeAnalysis(path);
 
+
         // GetBaseClasses tests:
         // =====================
         [TestMethod()]
@@ -44,6 +45,38 @@ namespace OOEdgeCoverage.Tests
                 testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass")
             };
             var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass"));
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        // GetDirectDerivedClasses tests:
+        // ==============================
+        [TestMethod]
+        public void GetDirectDerivedClassesTest1()
+        {
+            var expected = new List<ClassDeclarationSyntax>
+            {
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass")
+            };
+            var actual = testAnalysis.GetDirectDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.BaseClass"));
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetDirectDerivedClassesTest2()
+        {
+            var expected = new List<ClassDeclarationSyntax>
+            {
+                testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass")
+            };
+            var actual = testAnalysis.GetDirectDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedAbstractClass"));
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetDirectDerivedClassesTest3()
+        {
+            var expected = new List<ClassDeclarationSyntax> { };
+            var actual = testAnalysis.GetDirectDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode2.DerivedConcreteClass"));
             CollectionAssert.AreEqual(expected, actual);
         }
 

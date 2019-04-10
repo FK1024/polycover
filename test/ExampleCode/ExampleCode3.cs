@@ -4,16 +4,16 @@
         Class Structure:
 
             <<interface>>
-                   IA
+                     IA
+                     ^^
+                    /  \
+                   A    D
+                   ^
+                   |
+                   B
                    ^^
                   /  \
-                 A    D
-                 ^
-                 |
-                 B
-                 ^
-                 |
-                 C
+                 C1   C2
     */
 
     public interface IA
@@ -38,6 +38,11 @@
         {
             return 1;
         }
+
+        public virtual int O(int x)
+        {
+            return 42;
+        }
     }
 
     public class B : A
@@ -46,14 +51,34 @@
         {
             return 2;
         }
+
+        public int O(int x) // hides A.O() and gets inherited instead
+        {
+            return 43;
+        }
+
+        public int O(double x) // doesn't hide A.O() because parameter types don't match
+        {
+            return 44;
+        }
+
+        public double O(float x) // doesn't hide A.O() because return types don't match
+        {
+            return 45;
+        }
     }
 
-    public class C : B
+    public class C1 : B
     {
         public override int N()
         {
             return 3;
         }
+    }
+
+    public class C2 : B
+    {
+
     }
 
     public class D : IA

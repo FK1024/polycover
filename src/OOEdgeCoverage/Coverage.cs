@@ -8,12 +8,14 @@ namespace OOEdgeCoverage
 {
     class Coverage
     {
-        private YoYoGraph graph;
+        private bool isVariantEdge;
+        private DirectedGraph graph;
         private JToken fileCov;
 
 
-        public Coverage(string jsonPath, string codePath, YoYoGraph graph)
+        public Coverage(string jsonPath, string codePath, DirectedGraph graph)
         {
+            this.isVariantEdge = graph.GetType() == typeof(YoYoGraph);
             this.graph = graph;
             JToken coverage = JObject.Parse(File.ReadAllText(jsonPath));
             foreach (JToken projectCov in coverage.Values())
@@ -31,59 +33,89 @@ namespace OOEdgeCoverage
         public double Calculate()
         {
             JToken lines = GetLines();
-            int linksCovered = 0;
+            int targetsCovered = 0;
 
-            // mark the covered links from an invocation node to a method node
-            List<Link> linksFromInvoc2Method = graph.GetLinksFromInvoc2Method();
-            foreach (Link link in linksFromInvoc2Method)
+            // get targets and their parents
+            dynamic targets;
+            List<Node> parents;
+            if (isVariantEdge)
             {
-                if (lines[(link.TargetInsertedIfBodyLineNumber + 1).ToString()].ToObject<int>() > 0)
+                YoYoGraph yoyoGraph = graph as YoYoGraph;
+                targets = yoyoGraph.GetLinksFromInvoc2Method();
+                parents = yoyoGraph.GetMethodNodes();
+            }
+            else
+            {
+                InheritanceGraph inheritanceGraph = graph as InheritanceGraph;
+                targets = inheritanceGraph.GetClassNodes();
+                parents = inheritanceGraph.GetMethodNodes();
+            }
+
+            // mark covered targets:
+            //  * targets of a YoYo graph are links from an invocation node to a method node
+            //  * targets of an inheritance graph are classes inside a method group
+            foreach (dynamic target in targets)
+            {
+                if (lines[(target.TargetInsertedIfBodyLineNumber + 1).ToString()].ToObject<int>() > 0) // Note: "+ 1" because coverlet is 1 based
                 {
-                    link.IsCovered = true;
-                    linksCovered++;
+                    target.IsCovered = true;
+                    targetsCovered++;
                 }
                 else
                 {
-                    link.IsCovered = false;
+                    target.IsCovered = false;
                 }
             }
 
-            // mark the completely covered invocation nodes and their incoming links
-            List<Node> invocNodes = graph.GetInvocationNodes();
-            foreach (Node invocNode in invocNodes)
+            // mark completely covered invocation nodes and their incoming links if graph is a YoYo graph
+            if (isVariantEdge)
             {
-                List<Link> invocOutgoingLinks = graph.GetOutgoingLinks(invocNode.Id);
-                Link invocIncomingLink = graph.GetIncomingLinks(invocNode.Id).First();
-                // if all outgoing links of an invocation node are covered then the invocation node and it's incoming link are covered too
-                if (invocOutgoingLinks.All(l => l.IsCovered))
+                List<Node> invocNodes = (graph as YoYoGraph).GetInvocationNodes();
+                foreach (Node invocNode in invocNodes)
                 {
-                    invocNode.IsCovered = true;
-                    invocIncomingLink.IsCovered = true;
-                }
-                else
-                {
-                    invocNode.IsCovered = false;
-                    invocIncomingLink.IsCovered = false;
+                    List<Link> invocOutgoingLinks = graph.GetOutgoingLinks(invocNode.Id);
+                    YoYoLink invocIncomingLink = graph.GetIncomingLinks(invocNode.Id).First() as YoYoLink;
+                    // if all outgoing links of an invocation node are covered then the invocation node and it's incoming link are covered too
+                    if (invocOutgoingLinks.All(l => (l as YoYoLink).IsCovered))
+                    {
+                        invocNode.IsCovered = true;
+                        invocIncomingLink.IsCovered = true;
+                    }
+                    else
+                    {
+                        invocNode.IsCovered = false;
+                        invocIncomingLink.IsCovered = false;
+                    }
                 }
             }
 
-            // mark the completely covered method nodes
-            List<Node> methodNodes = graph.GetMethodNodes();
-            foreach (Node methodNode in methodNodes)
+            // mark completely covered parents of targets which are all method nodes:
+            foreach (Node parent in parents)
             {
-                List<Link> methodOutgoingLinks = graph.GetOutgoingLinks(methodNode.Id);
+                List<Link> methodOutgoingLinks = graph.GetOutgoingLinks(parent.Id);
                 // if all outgoing links of a method node are covered then the method node is covered too
-                if (methodOutgoingLinks.All(l => l.IsCovered))
+                bool isCovered;
+                if (isVariantEdge)
                 {
-                    methodNode.IsCovered = true;
+                    isCovered = methodOutgoingLinks.All(l => (l as YoYoLink).IsCovered);
                 }
                 else
                 {
-                    methodNode.IsCovered = false;
+                    List<Node> methodsClasses = methodOutgoingLinks.Select(l => graph.GetNode(l.Target)).ToList();
+                    isCovered = methodsClasses.All(l => l.IsCovered);
+                }
+
+                if (isCovered)
+                {
+                    parent.IsCovered = true;
+                }
+                else
+                {
+                    parent.IsCovered = false;
                 }
             }
 
-            double result = (double)linksCovered / linksFromInvoc2Method.Count;
+            double result = (double)targetsCovered / targets.Count;
             return result;
         }
 

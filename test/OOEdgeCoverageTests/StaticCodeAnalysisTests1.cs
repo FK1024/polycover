@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Linq;
 
 namespace OOEdgeCoverage.Tests
 {
@@ -46,6 +45,39 @@ namespace OOEdgeCoverage.Tests
                 testAnalysis.GetClassDeclSyntax("ExampleCode1.C1")
             };
             var actual = testAnalysis.GetBaseClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_1"));
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        // GetDirectDerivedClasses tests:
+        // ==============================
+        [TestMethod]
+        public void GetDirectDerivedClassesTest1()
+        {
+            var expected = new List<ClassDeclarationSyntax>
+            {
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C2")
+            };
+            var actual = testAnalysis.GetDirectDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C1"));
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetDirectDerivedClassesTest2()
+        {
+            var expected = new List<ClassDeclarationSyntax>
+            {
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_1"),
+                testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_2")
+            };
+            var actual = testAnalysis.GetDirectDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C2"));
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetDirectDerivedClassesTest3()
+        {
+            var expected = new List<ClassDeclarationSyntax> { };
+            var actual = testAnalysis.GetDirectDerivedClasses(testAnalysis.GetClassDeclSyntax("ExampleCode1.C3_1"));
             CollectionAssert.AreEqual(expected, actual);
         }
 

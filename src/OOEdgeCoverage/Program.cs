@@ -11,12 +11,18 @@ namespace OOEdgeCoverage
 {
     public class Program
     {
+        public static bool isVariantEdge;
         private static string codePath;
         private static string backupDirectory;
 
         private static void DisplayHelp()
         {
             Console.WriteLine(".NET Framework source code edge coverage tool" + Environment.NewLine);
+
+            Console.WriteLine("Usage: OOEdgeCoverage [options] [arguments]" + Environment.NewLine);
+
+            Console.WriteLine("Options:");
+            Console.WriteLine("\t" + "-v|--variant" + "\t" + "the variant of coverage to be calculated: 'edge' or 'type'" + Environment.NewLine);
 
             Console.WriteLine("Arguments:");
             Console.WriteLine("\t" + "<CODEFILE>" + "\t" + "Path to the source code file");
@@ -27,11 +33,19 @@ namespace OOEdgeCoverage
 
         private static void ParseArguments(string[] args)
         {
-            if (args.Length != 4)
+            if (args.Length != 6)
             {
-                throw new ArgumentException("Wrong number of arguments specified");
+                throw new ArgumentException("Wrong number of arguments or options specified.");
             }
-            for (int i = 0; i < 4; i++)
+            if (args[0] != "-v" && args[0] != "--variant")
+            {
+                throw new ArgumentException("No variant specified");
+            }
+            if (args[1] != "edge" && args[1] != "type")
+            {
+                throw new ArgumentException("Wrong variant specified. It need to be either 'edge' or 'type'.");
+            }
+            for (int i = 2; i < 6; i++)
             {
                 if (!File.Exists(args[i]))
                 {
@@ -62,13 +76,15 @@ namespace OOEdgeCoverage
                 }
             }
 
+            isVariantEdge = args[1] == "edge";
+
             backupDirectory = FindBackupDirectory();
 
             // input parameters:
-            codePath = args[0];
-            string solPath = args[1];
-            string testProjPath = args[2];
-            string testDllPath = args[3];
+            codePath = args[2];
+            string solPath = args[3];
+            string testProjPath = args[4];
+            string testDllPath = args[5];
 
             string target = "--target dotnet";
             string targetargs = $"--targetargs \"test {testProjPath} --no-build\"";
@@ -81,18 +97,35 @@ namespace OOEdgeCoverage
 
             StaticCodeAnalysis codeAnalysis = new StaticCodeAnalysis(codePath);
 
-            YoYoGraph graph = CreateYoYoGraph(codeAnalysis);
-            // if the source code doesn't contain invocations then output the graph, 100% coverage and return
-            if (!graph.GetInvocationNodes().Any())
+            DirectedGraph graph;
+            if (isVariantEdge)
             {
-                Console.WriteLine(Environment.NewLine + "The given source code does not contain any invocations" + Environment.NewLine);
-                // mark every method node as covered
-                foreach (Node methodNode in graph.Nodes)
+                graph = CreateYoYoGraph(codeAnalysis);
+                // if the source code doesn't contain invocations then output the graph, 100% coverage and return
+                YoYoGraph yoyoGraph = graph as YoYoGraph;
+                if (!yoyoGraph.GetInvocationNodes().Any())
                 {
-                    methodNode.IsCovered = true;
+                    Console.WriteLine(Environment.NewLine + "The given source code does not contain any invocations" + Environment.NewLine);
+                    // mark every method node as covered
+                    foreach (Node methodNode in yoyoGraph.Nodes)
+                    {
+                        methodNode.IsCovered = true;
+                    }
+                    OutputResultAndGraph(1, yoyoGraph);
+                    return 0;
                 }
-                OutputResultAndGraph(1, graph);
-                return 0;
+            }
+            else
+            {
+                graph = CreateInheritanceGraph(codeAnalysis);
+                // if the source code doesn't contain methods then output 100% coverage and return
+                InheritanceGraph inheritanceGraph = graph as InheritanceGraph;
+                if (!inheritanceGraph.GetMethodNodes().Any())
+                {
+                    Console.WriteLine(Environment.NewLine + "The given source code does not contain any methods" + Environment.NewLine);
+                    Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", 1);
+                    return 0;
+                }
             }
 
             BackupFile(codePath);
@@ -100,7 +133,7 @@ namespace OOEdgeCoverage
             try
             {
                 // manipulate the source code file to be able to gather information needed
-                PreCorrectLineNumbers(graph, codeAnalysis);
+                if (isVariantEdge) PreCorrectLineNumbers(graph as YoYoGraph, codeAnalysis); // YoYo graphs contain line numbers which have to be corrected before code gets inserted
                 SyntaxRewriter rewriter = new SyntaxRewriter(codeAnalysis, graph);
                 SyntaxNode newRoot = rewriter.Visit(codeAnalysis.GetRoot());
                 File.WriteAllText(codePath, newRoot.GetText().ToString(), Encoding.Default);
@@ -149,17 +182,17 @@ namespace OOEdgeCoverage
             {
                 RestoreFile(codePath);
             }
-            
+
             return 0;
         }
 
 
         // creates a file for the graph and writes the percentage result to console
-        public static void OutputResultAndGraph(double result, YoYoGraph graph)
+        public static void OutputResultAndGraph(double result, DirectedGraph graph)
         {
-            string graphPath = codePath.Substring(0, codePath.Length - 3) + "_YoYoGraph.dgml";
+            string graphPath = $"{codePath.Substring(0, codePath.Length - 3)}_{graph.GetType().Name}.dgml";
             graph.Serialize(graphPath);
-            Console.WriteLine($"Generated YoYo-graph '{graphPath}'");
+            Console.WriteLine($"Generated graph '{graphPath}'");
 
             Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", result);
         }
@@ -176,25 +209,25 @@ namespace OOEdgeCoverage
             foreach (MethodDeclarationSyntax method in methods)
             {
                 string nodeName = codeAnalysis.GetFullMethodName(method);
-                graph.AddNode(new Node(nodeName, nodeName, method));
+                graph.AddNode(new YoYoNode(nodeName, nodeName, method));
             }
 
             // create a node for each invocation and add the links
             List<Node> methodNodes = new List<Node>(graph.Nodes);
-            foreach (Node methodNode in methodNodes)
+            foreach (YoYoNode methodNode in methodNodes)
             {
                 int invocCount = 0;
                 List<StaticCodeAnalysis.Invocation> invocations = codeAnalysis.GetInvocations(methodNode.Method);
                 foreach (StaticCodeAnalysis.Invocation invocation in invocations)
                 {
-                    Node invocNode = new Node(methodNode.Id + "_I" + invocCount.ToString(), $"invocs (L {String.Join(", ", invocation.Lines.Select(l => l + 1))})", invocation);
+                    YoYoNode invocNode = new YoYoNode(methodNode.Id + "_I" + invocCount.ToString(), $"invocs (L {String.Join(", ", invocation.Lines.Select(l => l + 1))})", invocation);
                     graph.AddNode(invocNode);
                     invocCount++;
-                    graph.AddLink(new Link(methodNode.Id, invocNode.Id));
+                    graph.AddLink(new YoYoLink(methodNode.Id, invocNode.Id));
 
                     foreach (MethodDeclarationSyntax invocOption in invocation.Methods)
                     {
-                        graph.AddLink(new Link(invocNode.Id, graph.GetNode(codeAnalysis.GetFullMethodName(invocOption)).Id));
+                        graph.AddLink(new YoYoLink(invocNode.Id, graph.GetNode(codeAnalysis.GetFullMethodName(invocOption)).Id));
                     }
                 }
             }
@@ -202,13 +235,57 @@ namespace OOEdgeCoverage
             return graph;
         }
 
-        // corrects all saved line numbers of invocations with respect to the code which will be insterted
+        // creates and returns the inheritance graph
+        public static InheritanceGraph CreateInheritanceGraph(StaticCodeAnalysis codeAnalysis)
+        {
+            InheritanceGraph graph = new InheritanceGraph();
+
+            List<MethodDeclarationSyntax> methods = codeAnalysis.GetAllMethods();
+
+            foreach (MethodDeclarationSyntax method in methods)
+            {
+                // create a group for each method
+                string nodeName = codeAnalysis.GetFullMethodName(method);
+                IHNode methodNode = new IHNode(nodeName, nodeName, method);
+                graph.AddNode(methodNode);
+
+                // add the inheritance tree to the group
+                StaticCodeAnalysis.InheritanceTree tree = codeAnalysis.GetInheritanceTree(method);
+
+                graph = Tree2Graph(codeAnalysis, graph, tree.rootClass, methodNode, null);
+            }
+
+            return graph;
+        }
+
+        // helper to convert the recoursive inheritance tree to a flattened graph
+        private static InheritanceGraph Tree2Graph(StaticCodeAnalysis codeAnalysis, InheritanceGraph graph, InheritanceNode tree, IHNode groupNode, IHNode baseClassNode)
+        {
+            ClassDeclarationSyntax classDecl = tree.GetBaseClass();
+            string nodeName = codeAnalysis.GetFullClassName(classDecl);
+            // add the class node
+            IHNode classNode = new IHNode(groupNode.Id + "_" + nodeName, nodeName, classDecl);
+            graph.AddNode(classNode);
+            // link the class node to the group
+            graph.AddLink(new IHLink(groupNode.Id, classNode.Id, true));
+            // link the base class to this class node except this class node is the root class
+            if (baseClassNode != null) graph.AddLink(new IHLink(baseClassNode.Id, classNode.Id, false));
+
+            foreach (var subClass in tree.GetSubClasses())
+            {
+                graph = Tree2Graph(codeAnalysis, graph, subClass, groupNode, classNode);
+            }
+
+            return graph;
+        }
+
+        // corrects all saved line numbers of invocations in a given YoYo graph with respect to the code which will be insterted
         public static void PreCorrectLineNumbers(YoYoGraph graph, StaticCodeAnalysis codeAnalysis)
         {
             // first create a dictionary ["method body start line", "number of lines to insert"]
             var LinesToInsertAtLine = new Dictionary<int, int>();
 
-            foreach (Node methodNode in graph.GetMethodNodes())
+            foreach (YoYoNode methodNode in graph.GetMethodNodes())
             {
                 int methodBodyStartLine = codeAnalysis.GetMethodBodyStartLine(methodNode.Method);
                 int NoIncomingInvocs = graph.GetIncomingLinks(methodNode.Id).Count;
@@ -217,7 +294,7 @@ namespace OOEdgeCoverage
             }
 
             // correct all saved line numbers by adding the number of lines getting inserted before
-            foreach (Node invocNode in graph.GetInvocationNodes())
+            foreach (YoYoNode invocNode in graph.GetInvocationNodes())
             {
                 // check if invocation has line numbers which need to be corrected
                 if (invocNode.Invocation.Lines.Any(l => l >= LinesToInsertAtLine.Where(elem => elem.Value > 0).Select(elem => elem.Key).Min()))
