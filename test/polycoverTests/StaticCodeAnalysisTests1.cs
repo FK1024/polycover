@@ -123,16 +123,16 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M1"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M5")
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M1(int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M2(int, int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M3(int, bool, string)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M2(int, int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M3(int, bool, string)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M4(int, int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M3(int, bool, string)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M4(int, int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_2.M4(int, int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_2.M5(int)")
             };
             var actual = testAnalysis.GetAllMethods();
             CollectionAssert.AreEqual(expected, actual);
@@ -149,19 +149,19 @@ namespace polycover.Tests
                     new List<int> { 29 },
                     new List<MethodDeclarationSyntax>
                     {
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"),
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2")
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M2(int, int)"),
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M2(int, int)")
                     }),
                 new StaticCodeAnalysis.Invocation(
                     new List<int> { 33 },
                     new List<MethodDeclarationSyntax>
                     {
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"),
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M3(int, bool, string)"),
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M3(int, bool, string)"),
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M3(int, bool, string)")
                     })
             };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M1"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M1(int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -174,12 +174,12 @@ namespace polycover.Tests
                     new List<int> { 39 },
                     new List<MethodDeclarationSyntax>
                     {
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"),
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
-                        testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M3(int, bool, string)"),
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M3(int, bool, string)"),
+                        testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M3(int, bool, string)")
                     })
             };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M2(int, int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -187,7 +187,7 @@ namespace polycover.Tests
         public void GetInvocationsTest3()
         {
             var expected = new List<StaticCodeAnalysis.Invocation> { };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M3(int, bool, string)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -195,7 +195,7 @@ namespace polycover.Tests
         public void GetInvocationsTest4()
         {
             var expected = new List<StaticCodeAnalysis.Invocation> { };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M2(int, int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -203,7 +203,7 @@ namespace polycover.Tests
         public void GetInvocationsTest5()
         {
             var expected = new List<StaticCodeAnalysis.Invocation> { };
-            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M4"));
+            var actual = testAnalysis.GetInvocations(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M4(int, int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -213,7 +213,7 @@ namespace polycover.Tests
         public void GetOverridingMethodsTest1()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M1"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M1(int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -222,9 +222,9 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M2")
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M2(int, int)")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M2"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M2(int, int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -233,10 +233,10 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M3(int, bool, string)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M3(int, bool, string)")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C1.M3"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C1.M3(int, bool, string)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -245,9 +245,9 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M3")
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M3(int, bool, string)")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M3"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M3(int, bool, string)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -256,10 +256,10 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_1.M4"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M4")
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_1.M4(int, int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_2.M4(int, int)")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C2.M4"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C2.M4(int, int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -267,7 +267,7 @@ namespace polycover.Tests
         public void GetOverridingMethodsTest6()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode1.C3_2.M4"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode1.C3_2.M4(int, int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
     }

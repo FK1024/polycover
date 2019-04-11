@@ -28,7 +28,7 @@ namespace polycover.Graphs
 
             foreach (MethodDeclarationSyntax method in methods)
             {
-                string nodeName = codeAnalysis.GetFullMethodName(method);
+                string nodeName = codeAnalysis.GetMethodId(method);
                 graph.AddNode(new YoYoNode(nodeName, nodeName, method));
             }
 
@@ -47,7 +47,7 @@ namespace polycover.Graphs
 
                     foreach (MethodDeclarationSyntax invocOption in invocation.Methods)
                     {
-                        graph.AddLink(new YoYoLink(invocNode.Id, graph.GetNode(codeAnalysis.GetFullMethodName(invocOption)).Id));
+                        graph.AddLink(new YoYoLink(invocNode.Id, graph.GetNode(codeAnalysis.GetMethodId(invocOption)).Id));
                     }
                 }
             }
@@ -65,7 +65,7 @@ namespace polycover.Graphs
             foreach (MethodDeclarationSyntax method in methods)
             {
                 // create a group for each method
-                string nodeName = codeAnalysis.GetFullMethodName(method);
+                string nodeName = codeAnalysis.GetMethodId(method);
                 IHNode methodNode = new IHNode(nodeName, nodeName, method);
                 graph.AddNode(methodNode);
 
@@ -85,7 +85,7 @@ namespace polycover.Graphs
         private InheritanceGraph Tree2Graph(InheritanceGraph graph, InheritanceNode tree, IHNode groupNode, IHNode baseClassNode)
         {
             ClassDeclarationSyntax classDecl = tree.GetBaseClass();
-            string nodeName = codeAnalysis.GetFullClassName(classDecl);
+            string nodeName = codeAnalysis.GetClassId(classDecl);
             // add the class node
             IHNode classNode = new IHNode(groupNode.Id + "_" + nodeName, nodeName, classDecl, !codeAnalysis.IsClassAbstract(classDecl));
             graph.AddNode(classNode);

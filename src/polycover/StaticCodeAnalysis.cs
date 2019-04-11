@@ -324,17 +324,17 @@ namespace polycover
         }
 
         // returns the class declaration syntax node for a given class name
-        public ClassDeclarationSyntax GetClassDeclSyntax(string fullClassName)
+        public ClassDeclarationSyntax GetClassDeclSyntax(string classId)
         {
             return (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
-                    where semMod.GetDeclaredSymbol(myClass).OriginalDefinition.ToString() == fullClassName
+                    where GetClassId(myClass) == classId
                     select myClass).First();
         }
 
         // returns the full name of a given class declaration syntax
-        public string GetFullClassName(ClassDeclarationSyntax classDecl)
+        public string GetClassId(ClassDeclarationSyntax classDecl)
         {
-            return semMod.GetDeclaredSymbol(classDecl).OriginalDefinition.ToString();
+            return semMod.GetDeclaredSymbol(classDecl).ToString();
         }
 
 
@@ -347,19 +347,17 @@ namespace polycover
         }
 
         // returns the method declaration syntax node for a given class name
-        public MethodDeclarationSyntax GetMethodDeclSyntax(string fullMethodName)
+        public MethodDeclarationSyntax GetMethodDeclSyntax(string methodId)
         {
             return (from myMethod in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
-                    where (semMod.GetDeclaredSymbol(myMethod).ContainingType.OriginalDefinition.ToString()
-                           + "." + semMod.GetDeclaredSymbol(myMethod).Name) == fullMethodName
-                    select myMethod).First(); // assumes there is only one method with this specified name in the class -> only to get the classDecls for checking test results
+                    where GetMethodId(myMethod) == methodId
+                    select myMethod).First();
         }
 
         // returns the full name of a given method declaration syntax
-        public string GetFullMethodName(MethodDeclarationSyntax methodDecl)
+        public string GetMethodId(MethodDeclarationSyntax methodDecl)
         {
-            return semMod.GetDeclaredSymbol(methodDecl).ContainingType.OriginalDefinition.ToString()
-                   + "." + semMod.GetDeclaredSymbol(methodDecl).Name;
+            return semMod.GetDeclaredSymbol(methodDecl).ReturnType.ToString() + " " + semMod.GetDeclaredSymbol(methodDecl).ToString();
         }
         
 

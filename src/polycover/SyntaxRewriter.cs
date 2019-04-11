@@ -33,12 +33,12 @@ namespace polycover
 
             if (isVariantEdge)
             {
-                coverageTargets = graph.GetIncomingLinks(codeAnalysis.GetFullMethodName(node));
+                coverageTargets = graph.GetIncomingLinks(codeAnalysis.GetMethodId(node));
                 coverageTargetsCount = (coverageTargets as List<Link>).Count();
             }
             else
             {
-                List<Link> linksToClasses = graph.GetOutgoingLinks(codeAnalysis.GetFullMethodName(node)); // all nodes contained in the method group have a link with the method as source
+                List<Link> linksToClasses = graph.GetOutgoingLinks(codeAnalysis.GetMethodId(node)); // all nodes contained in the method group have a link with the method as source
                 coverageTargets = linksToClasses.Select(l => graph.GetNode(l.Target)).ToList();
                 coverageTargetsCount = (coverageTargets as List<Node>).Count();
             }

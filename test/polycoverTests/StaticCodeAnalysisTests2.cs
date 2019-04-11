@@ -120,11 +120,11 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.BaseClass.Method1"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method1"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method2"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method2"),
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method3")
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode2.BaseClass.Method1(int)"),
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode2.DerivedAbstractClass.Method1(int)"),
+                testAnalysis.GetMethodDeclSyntax("double ExampleCode2.DerivedAbstractClass.Method2()"),
+                testAnalysis.GetMethodDeclSyntax("double ExampleCode2.DerivedConcreteClass.Method2()"),
+                testAnalysis.GetMethodDeclSyntax("bool ExampleCode2.DerivedConcreteClass.Method3(bool)")
             };
             var actual = testAnalysis.GetAllMethods();
             CollectionAssert.AreEqual(expected, actual);
@@ -137,9 +137,9 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method1")
+                testAnalysis.GetMethodDeclSyntax("int ExampleCode2.DerivedAbstractClass.Method1(int)")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.BaseClass.Method1"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode2.BaseClass.Method1(int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -147,7 +147,7 @@ namespace polycover.Tests
         public void GetOverridingMethodsTest2()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method1"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("int ExampleCode2.DerivedAbstractClass.Method1(int)"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -156,9 +156,9 @@ namespace polycover.Tests
         {
             var expected = new List<MethodDeclarationSyntax>
             {
-                testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method2")
+                testAnalysis.GetMethodDeclSyntax("double ExampleCode2.DerivedConcreteClass.Method2()")
             };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedAbstractClass.Method2"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("double ExampleCode2.DerivedAbstractClass.Method2()"));
             CollectionAssert.AreEqual(expected, actual);
         }
 
@@ -166,7 +166,7 @@ namespace polycover.Tests
         public void GetOverridingMethodsTest4()
         {
             var expected = new List<MethodDeclarationSyntax> { };
-            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("ExampleCode2.DerivedConcreteClass.Method2"));
+            var actual = testAnalysis.GetOverridingMethods(testAnalysis.GetMethodDeclSyntax("double ExampleCode2.DerivedConcreteClass.Method2()"));
             CollectionAssert.AreEqual(expected, actual);
         }
     }
