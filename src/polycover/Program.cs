@@ -89,9 +89,9 @@ namespace polycover
             string targetargs = $"--targetargs \"test {testProjPath} --no-build\"";
             string coveragePath = backupDirectory + @"\coverage.json";
             string output = $"--output {coveragePath}";
-            string coverletCall = String.Join(" ", new string[] { "coverlet", testDllPath, target, targetargs, output });
+            string coverletCommand = String.Join(" ", new string[] { "coverlet", testDllPath, target, targetargs, output });
 
-            string buildCall = String.Join(" ", new string[] { "dotnet", "build", solPath });
+            string buildCommand = String.Join(" ", new string[] { "dotnet", "build", solPath });
 
 
             StaticCodeAnalysis codeAnalysis = new StaticCodeAnalysis(codePath);
@@ -140,36 +140,10 @@ namespace polycover
                 Console.WriteLine(Environment.NewLine + $"Instrumented file '{codePath}'");
 
                 // re-build the solution
-                Process buildProcess = new Process();
-                buildProcess.StartInfo.FileName = "cmd.exe";
-                buildProcess.StartInfo.Arguments = "/C " + buildCall;
-                buildProcess.StartInfo.RedirectStandardOutput = true; // don't write stdout to console
-                buildProcess.StartInfo.UseShellExecute = false; // don't create new window
-                Console.WriteLine(Environment.NewLine + "Re-building solution ...");
-                buildProcess.Start();
-                buildProcess.WaitForExit();
-                if (buildProcess.ExitCode != 0)
-                {
-                    Console.WriteLine("build failed");
-                    return 1;
-                }
-                Console.WriteLine("build succeed");
+                RunCMDCommand(buildCommand, "Re-building solution ...", "build succeed", "build failed");
 
                 // start coverlet
-                Process coverletProcess = new Process();
-                coverletProcess.StartInfo.FileName = "cmd.exe";
-                coverletProcess.StartInfo.Arguments = "/C " + coverletCall;
-                coverletProcess.StartInfo.RedirectStandardOutput = true; // don't write stdout to console
-                coverletProcess.StartInfo.UseShellExecute = false; // don't create new window
-                Console.WriteLine(Environment.NewLine + "Starting coverlet ...");
-                coverletProcess.Start();
-                coverletProcess.WaitForExit();
-                if (coverletProcess.ExitCode != 0)
-                {
-                    Console.WriteLine("coverlet calculation failed");
-                    return 1;
-                }
-                Console.WriteLine("coverlet calculation succeed");
+                RunCMDCommand(coverletCommand, "Starting coverlet ...", "coverlet calculation succeed", "coverlet calculation failed");
 
                 // read the generated json file & calculate the coverage
                 Console.WriteLine(Environment.NewLine + "Calculating coverage result ...");
@@ -177,6 +151,11 @@ namespace polycover
                 double result = coverage.Calculate();
 
                 OutputResultAndGraph(result, graph);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return 1;
             }
             finally
             {
@@ -186,6 +165,8 @@ namespace polycover
             return 0;
         }
 
+        // helper functions:
+        // =================
 
         // creates a file for the graph and writes the percentage result to console
         public static void OutputResultAndGraph(double result, DirectedGraph graph)
@@ -195,6 +176,24 @@ namespace polycover
             Console.WriteLine($"Generated graph '{graphPath}'");
 
             Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", result);
+        }
+
+        // creates and starts a new process to execute a given command on windows shell
+        public static void RunCMDCommand(string command, string startMessage, string successMessage, string failMessage)
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.Arguments = "/C " + command;
+            process.StartInfo.RedirectStandardOutput = true; // don't write stdout to console
+            process.StartInfo.UseShellExecute = false; // don't create new window
+            Console.WriteLine(Environment.NewLine + startMessage);
+            process.Start();
+            process.WaitForExit();
+            if (process.ExitCode != 0)
+            {
+                throw new Exception(failMessage);
+            }
+            Console.WriteLine(successMessage);
         }
         
         // searches for a random folder name in the user's temporary folder which not yet exists to safely backup
