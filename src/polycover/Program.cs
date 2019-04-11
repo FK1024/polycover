@@ -48,7 +48,7 @@ namespace polycover
             {
                 if (!File.Exists(args[i]))
                 {
-                    throw new ArgumentException(new string[] { "Code", "Solution", "Project", "Assembly" }[i] + $" file does not exist: '{args[i]}'");
+                    throw new FileNotFoundException(new string[] { "Code", "Solution", "Project", "Assembly" }[i - 2] + $" file does not exist: '{args[i]}'");
                 }
             }
         }
