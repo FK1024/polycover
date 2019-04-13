@@ -13,30 +13,44 @@ namespace polycover.Graphs
     public class InheritanceGraph : DirectedGraph
     {
         [XmlAttribute]
-        public string GraphDirection = "TopToBottom";
+        public string GraphDirection = "BottomToTop";
 
 
         public InheritanceGraph()
         {
             this.Styles = new List<Style>
             {
-                new Style("Node", "IsCoverable", "false", new List<Condition> { new Condition("IsCoverable='false'") }, new List<Setter> { new Setter("Background", "LightGray") }),
-                new Style("Node", "IsCovered", "true", new List<Condition> { new Condition("IsCoverable='true'"), new Condition("IsCovered='true'") }, new List<Setter> { new Setter("Stroke", "Green") }),
-                new Style("Node", "IsCovered", "false", new List<Condition> { new Condition("IsCoverable='true'"), new Condition("IsCovered='false'") }, new List<Setter> { new Setter("Stroke", "Red") })
+                new Style(
+                    Style.TARGETTYPE_NODE,
+                    "not coverable",
+                    new List<Condition> { new Condition("IsCoverable", "false") },
+                    new List<Setter> { new Setter("Background", "LightGray") }),
+                new Style(
+                    Style.TARGETTYPE_NODE,
+                    "covered",
+                    new List<Condition> { new Condition("IsCoverable", "true"), new Condition("IsCovered", "true") },
+                    new List<Setter> { new Setter("Stroke", "Green") }),
+                new Style(
+                    Style.TARGETTYPE_NODE,
+                    "not covered",
+                    new List<Condition> { new Condition("IsCoverable", "true"), new Condition("IsCovered", "false") },
+                    new List<Setter> { new Setter("Stroke", "Red") }),
+                new Style(Style.TARGETTYPE_NODE, 3),
+                new Style(Type.NAMESPACE),
+                new Style(Type.CLASS),
+                new Style(Type.METHOD),
+                new Style(Type.TYPE),
+                new Style(
+                    Style.TARGETTYPE_LINK,
+                    "derives from",
+                    new List<Condition>(),
+                    new List<Setter>
+                    {
+                        new Setter("Stroke", "Gray"),
+                        new Setter("StrokeThickness", "3"),
+                        new Setter("DrawArrow", "true")
+                    })
             };
-        }
-
-
-        // Node methods
-
-        public List<Node> GetMethodNodes()
-        {
-            return this.Nodes.Where(n => (n as IHNode).Method != null).ToList();
-        }
-
-        public List<Node> GetClassNodes()
-        {
-            return this.Nodes.Where(n => (n as IHNode).ClassDecl != null).ToList();
         }
     }
 
@@ -53,12 +67,23 @@ namespace polycover.Graphs
         [XmlIgnore]
         public int TargetInsertedIfBodyLineNumber;
 
+
         private IHNode() { }
+
+        public IHNode(string id, string label, string type)
+        {
+            this.Id = id;
+            this.Label = label;
+            this.Type = type;
+            this.IsCoverable = true;
+            this.Group = "Expanded";
+        }
 
         public IHNode(string id, string label, MethodDeclarationSyntax method)
         {
             this.Id = id;
             this.Label = label;
+            this.Type = Graphs.Type.METHOD;
             this.IsCoverable = true;
             this.Group = "Expanded";
             this.Method = method;
@@ -68,6 +93,7 @@ namespace polycover.Graphs
         {
             this.Id = id;
             this.Label = label;
+            this.Type = Graphs.Type.TYPE;
             this.IsCoverable = isCoverable;
             this.ClassDecl = classDecl;
         }
@@ -77,6 +103,7 @@ namespace polycover.Graphs
     {
         [XmlAttribute]
         public string Category;
+
 
         private IHLink() { }
 

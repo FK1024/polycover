@@ -27,6 +27,11 @@ namespace polycover.Graphs
             return this.Nodes.Where(n => n.Id == id).FirstOrDefault();
         }
 
+        public List<Node> GetNodesOfType(string type)
+        {
+            return this.Nodes.Where(n => n.Type == type).ToList();
+        }
+
         public void AddNode(Node n)
         {
             if (GetNode(n.Id) == null)
@@ -56,6 +61,11 @@ namespace polycover.Graphs
             return this.Links.Where(l => l.Source == nodeId).ToList();
         }
 
+        public List<Link> GetLinksFromTypeToType(string sourceType, string targetType)
+        {
+            return this.Links.Where(l => GetNode(l.Source).Type == sourceType && GetNode(l.Target).Type == targetType).ToList();
+        }
+
         public void Serialize(string dgmlPath)
         {
             XmlSerializer serializer = new XmlSerializer(this.GetType(), "http://schemas.microsoft.com/vs/2009/dgml");
@@ -73,8 +83,9 @@ namespace polycover.Graphs
         [XmlAttribute]
         public string Label;
         [XmlAttribute]
+        public string Type;
+        [XmlAttribute]
         public bool IsCovered;
-        
     }
 
     public abstract class Link
@@ -85,8 +96,22 @@ namespace polycover.Graphs
         public string Target;
     }
 
+    // enum of node types
+    public static class Type
+    {
+        public const string NAMESPACE = "Namespace";
+        public const string CLASS = "Class";
+        public const string METHOD = "Method";
+        public const string INVOCATION = "Invocation";
+        public const string TYPE = "Type";
+    }
+
     public class Style
     {
+        [XmlIgnore]
+        public const string TARGETTYPE_NODE = "Node";
+        [XmlIgnore]
+        public const string TARGETTYPE_LINK = "Link";
         [XmlAttribute]
         public string TargetType;
         [XmlAttribute]
@@ -98,13 +123,56 @@ namespace polycover.Graphs
         [XmlElement("Setter")]
         public List<Setter> Setters;
 
+
         private Style() { }
 
-        public Style(string targetType, string groupLabel, string valueLabel, List<Condition> conditions, List<Setter> setters)
+        public Style(string targetType, int strokeThickness)
         {
             this.TargetType = targetType;
-            this.GroupLabel = groupLabel;
-            this.ValueLabel = valueLabel;
+            this.Setters = new List<Setter> { new Setter("StrokeThickness", strokeThickness.ToString()) };
+        }
+
+        public Style(string type)
+        {
+            string icon = "";
+            string background = "";
+
+            switch (type)
+            {
+                case Type.NAMESPACE:
+                    icon = "CodeSchema_Namespace";
+                    background = "Darkblue";
+                    break;
+                case Type.CLASS:
+                    icon = "CodeSchema_Class";
+                    background = "Blue";
+                    break;
+                case Type.METHOD:
+                    icon = "CodeSchema_Method";
+                    background = "LightBlue";
+                    break;
+                case Type.INVOCATION:
+                    icon = "CodeSchema_Event";
+                    background = "Beige";
+                    break;
+                case Type.TYPE:
+                    icon = "CodeSchema_Class";
+                    background = "Beige";
+                    break;
+            }
+
+            this.TargetType = TARGETTYPE_NODE;
+            this.GroupLabel = type;
+            this.ValueLabel = type;
+            this.Conditions = new List<Condition> { new Condition("Type", type) };
+            this.Setters = new List<Setter> { new Setter("Icon", icon), new Setter("Background", background) };
+        }
+
+        public Style(string targetType, string legendLabel, List<Condition> conditions, List<Setter> setters)
+        {
+            this.TargetType = targetType;
+            this.GroupLabel = legendLabel;
+            this.ValueLabel = legendLabel;
             this.Conditions = conditions;
             this.Setters = setters;
         }
@@ -115,11 +183,12 @@ namespace polycover.Graphs
         [XmlAttribute]
         public string Expression;
 
+
         private Condition() { }
 
-        public Condition(string expression)
+        public Condition(string attribute, string value)
         {
-            this.Expression = expression;
+            this.Expression = $"{attribute}='{value}'";
         }
     }
 
@@ -129,6 +198,7 @@ namespace polycover.Graphs
         public string Property;
         [XmlAttribute]
         public string Value;
+
 
         private Setter() { }
 

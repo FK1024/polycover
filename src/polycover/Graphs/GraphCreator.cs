@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace polycover.Graphs
 {
@@ -28,8 +26,7 @@ namespace polycover.Graphs
 
             foreach (MethodDeclarationSyntax method in methods)
             {
-                string nodeName = codeAnalysis.GetMethodId(method);
-                graph.AddNode(new YoYoNode(nodeName, nodeName, method));
+                graph.AddNode(new YoYoNode(codeAnalysis.GetMethodId(method), codeAnalysis.GetFullMethodName(method), method));
             }
 
             // create a node for each invocation and add the links
@@ -59,20 +56,36 @@ namespace polycover.Graphs
         public  InheritanceGraph CreateInheritanceGraph()
         {
             InheritanceGraph graph = new InheritanceGraph();
+            string nodeId;
 
-            List<MethodDeclarationSyntax> methods = codeAnalysis.GetAllNonStaticMethods();
-
-            foreach (MethodDeclarationSyntax method in methods)
+            foreach (NamespaceDeclarationSyntax ns in codeAnalysis.GetAllNamespaces())
             {
-                // create a group for each method
-                string nodeName = codeAnalysis.GetMethodId(method);
-                IHNode methodNode = new IHNode(nodeName, nodeName, method);
-                graph.AddNode(methodNode);
+                // create a group for each namespace
+                nodeId = codeAnalysis.GetNamespaceId(ns);
+                IHNode nsNode = new IHNode(nodeId, nodeId, Type.NAMESPACE);
+                graph.AddNode(nsNode);
 
-                // add the inheritance tree to the group
-                StaticCodeAnalysis.InheritanceTree tree = codeAnalysis.GetInheritanceTree(method);
+                foreach (ClassDeclarationSyntax cl in codeAnalysis.GetAllClasses(ns))
+                {
+                    // create a group for each class and link it to the namespace group
+                    nodeId = codeAnalysis.GetClassId(cl);
+                    IHNode clNode = new IHNode(nodeId, cl.Identifier.Text, Type.CLASS);
+                    graph.AddNode(clNode);
+                    graph.AddLink(new IHLink(nsNode.Id, clNode.Id, true));
 
-                graph = Tree2Graph(graph, tree.rootClass, methodNode, null);
+                    foreach (MethodDeclarationSyntax method in codeAnalysis.GetAllMethods(cl))
+                    {
+                        // create a group for each method and link it to the class group
+                        nodeId = codeAnalysis.GetMethodId(method);
+                        IHNode methodNode = new IHNode(nodeId, method.Identifier.Text, method);
+                        graph.AddNode(methodNode);
+                        graph.AddLink(new IHLink(clNode.Id, methodNode.Id, true));
+
+                        // add the inheritance tree to the method group
+                        StaticCodeAnalysis.InheritanceTree tree = codeAnalysis.GetInheritanceTree(method);
+                        graph = Tree2Graph(graph, tree.rootClass, methodNode, null);
+                    }
+                }
             }
 
             return graph;
@@ -82,21 +95,21 @@ namespace polycover.Graphs
         // =================
 
         // helper to convert the recoursive inheritance tree to a flattened graph
-        private InheritanceGraph Tree2Graph(InheritanceGraph graph, InheritanceNode tree, IHNode groupNode, IHNode baseClassNode)
+        private InheritanceGraph Tree2Graph(InheritanceGraph graph, InheritanceNode tree, IHNode groupNode, IHNode baseTypeNode)
         {
             ClassDeclarationSyntax classDecl = tree.GetBaseClass();
             string nodeName = codeAnalysis.GetClassId(classDecl);
-            // add the class node
-            IHNode classNode = new IHNode(groupNode.Id + "_" + nodeName, nodeName, classDecl, !codeAnalysis.IsClassAbstract(classDecl));
-            graph.AddNode(classNode);
-            // link the class node to the group
-            graph.AddLink(new IHLink(groupNode.Id, classNode.Id, true));
-            // link the base class to this class node except this class node is the root class
-            if (baseClassNode != null) graph.AddLink(new IHLink(baseClassNode.Id, classNode.Id, false));
+            // add the type node
+            IHNode typeNode = new IHNode(groupNode.Id + ":" + nodeName, nodeName, classDecl, !codeAnalysis.IsClassAbstract(classDecl));
+            graph.AddNode(typeNode);
+            // link the type node to the method group
+            graph.AddLink(new IHLink(groupNode.Id, typeNode.Id, true));
+            // link the type node to it's base type if it has one
+            if (baseTypeNode != null) graph.AddLink(new IHLink(typeNode.Id, baseTypeNode.Id, false));
 
             foreach (var subClass in tree.GetSubClasses())
             {
-                graph = Tree2Graph(graph, subClass, groupNode, classNode);
+                graph = Tree2Graph(graph, subClass, groupNode, typeNode);
             }
 
             return graph;
@@ -108,7 +121,7 @@ namespace polycover.Graphs
             // first create a dictionary ["method body start line", "number of lines to insert"]
             var LinesToInsertAtLine = new Dictionary<int, int>();
 
-            foreach (YoYoNode methodNode in graph.GetMethodNodes())
+            foreach (YoYoNode methodNode in graph.GetNodesOfType(Type.METHOD))
             {
                 int methodBodyStartLine = codeAnalysis.GetMethodBodyStartLine(methodNode.Method);
                 int NoIncomingInvocs = graph.GetIncomingLinks(methodNode.Id).Count;
@@ -117,7 +130,7 @@ namespace polycover.Graphs
             }
 
             // correct all saved line numbers by adding the number of lines getting inserted before
-            foreach (YoYoNode invocNode in graph.GetInvocationNodes())
+            foreach (YoYoNode invocNode in graph.GetNodesOfType(Type.INVOCATION))
             {
                 // check if invocation has line numbers which need to be corrected
                 if (invocNode.Invocation.Lines.Any(l => l >= LinesToInsertAtLine.Where(elem => elem.Value > 0).Select(elem => elem.Key).Min()))

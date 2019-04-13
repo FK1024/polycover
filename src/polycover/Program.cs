@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using polycover.Graphs;
+using Type = polycover.Graphs.Type;
 
 namespace polycover
 {
@@ -98,34 +99,29 @@ namespace polycover
 
             GraphCreator graphCreator = new GraphCreator(codeAnalysis);
             DirectedGraph graph;
+            string coverageTargets;
+            bool hasCoverageTargets;
             if (isVariantEdge)
             {
                 graph = graphCreator.CreateYoYoGraph();
-                // if the source code doesn't contain invocations then output the graph, 100% coverage and return
-                YoYoGraph yoyoGraph = graph as YoYoGraph;
-                if (!yoyoGraph.GetInvocationNodes().Any())
-                {
-                    Console.WriteLine(Environment.NewLine + "The given source code does not contain any invocations" + Environment.NewLine);
-                    // mark every method node as covered
-                    foreach (Node methodNode in yoyoGraph.Nodes)
-                    {
-                        methodNode.IsCovered = true;
-                    }
-                    OutputResultAndGraph(1, yoyoGraph);
-                    return 0;
-                }
+                // if the source code doesn't contain invocations then output 100% coverage and return
+                coverageTargets = "invocations";
+                hasCoverageTargets = graph.GetNodesOfType(Type.INVOCATION).Any();
             }
             else
             {
                 graph = graphCreator.CreateInheritanceGraph();
-                // if the source code doesn't contain methods then output 100% coverage and return
-                InheritanceGraph inheritanceGraph = graph as InheritanceGraph;
-                if (!inheritanceGraph.GetMethodNodes().Any())
-                {
-                    Console.WriteLine(Environment.NewLine + "The given source code does not contain any methods" + Environment.NewLine);
-                    Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", 1);
-                    return 0;
-                }
+
+                coverageTargets = "methods";
+                hasCoverageTargets = graph.GetNodesOfType(Type.METHOD).Any();
+            }
+
+            // if the source code doesn't contain coverage targets then output 100% coverage and return
+            if (!hasCoverageTargets)
+            {
+                Console.WriteLine(Environment.NewLine + $"The given source code does not contain any {coverageTargets}" + Environment.NewLine);
+                OutputResult(1);
+                return 0;
             }
 
             BackupFile(codePath);
@@ -174,8 +170,13 @@ namespace polycover
             string graphPath = $"{codePath.Substring(0, codePath.Length - 3)}_{graph.GetType().Name}.dgml";
             graph.Serialize(graphPath);
             Console.WriteLine($"Generated graph '{graphPath}'");
+            OutputResult(result);
+        }
 
-            Console.WriteLine(Environment.NewLine + "OO Edge Coverage Result: {0:P2}", result);
+        // writes the percentage result to console
+        public static void OutputResult(double result)
+        {
+            Console.WriteLine(Environment.NewLine + "Coverage result: {0:P2}", result);
         }
 
         // creates and starts a new process to execute a given command on windows shell

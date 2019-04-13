@@ -33,6 +33,18 @@ namespace polycover
             return root;
         }
 
+        // returns all namespaces
+        public List<NamespaceDeclarationSyntax> GetAllNamespaces()
+        {
+            return root.DescendantNodes().OfType<NamespaceDeclarationSyntax>().ToList();
+        }
+
+        // returns all classes in a given namespace
+        public List<ClassDeclarationSyntax> GetAllClasses(NamespaceDeclarationSyntax namespaceDecl)
+        {
+            return namespaceDecl.DescendantNodes().OfType<ClassDeclarationSyntax>().ToList();
+        }
+
         // returns a list of all classes which are direct or indirect base classes of a given class
         public List<ClassDeclarationSyntax> GetBaseClasses(ClassDeclarationSyntax classDecl)
         {
@@ -156,13 +168,10 @@ namespace polycover
                     select method).ToList();
         }
 
-        // returns all non-static methods declared in a class
-        public List<MethodDeclarationSyntax> GetAllNonStaticMethods()
+        // returns all non-static methods declared in a given class
+        public List<MethodDeclarationSyntax> GetAllMethods(ClassDeclarationSyntax classDecl)
         {
-            return (from method in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
-                    where method.Parent is ClassDeclarationSyntax
-                    && !semMod.GetDeclaredSymbol(method).IsStatic
-                    select method).ToList();
+            return classDecl.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
         }
 
         // returns the class in which a given method is contained in
@@ -311,10 +320,23 @@ namespace polycover
             return result;
         }
 
+        // returns whether a given method is static
+        public bool IsMethodStatic(MethodDeclarationSyntax method)
+        {
+            return semMod.GetDeclaredSymbol(method).IsStatic;
+        }
+
         
         // helper functions:
         // =================
 
+        // returns the name of a given namespace
+        public string GetNamespaceId(NamespaceDeclarationSyntax namespaceDecl)
+        {
+            return semMod.GetDeclaredSymbol(namespaceDecl).ToString();
+        }
+        
+        
         // returns the corresponding ClassDeclarationSyntax of a given NamedTypeSymbol
         public ClassDeclarationSyntax GetClassDeclSyntax(INamedTypeSymbol classSymb)
         {
@@ -323,7 +345,7 @@ namespace polycover
                     select myClass).FirstOrDefault();
         }
 
-        // returns the class declaration syntax node for a given class name
+        // returns the class declaration syntax node for a given class Id
         public ClassDeclarationSyntax GetClassDeclSyntax(string classId)
         {
             return (from myClass in root.DescendantNodesAndSelf().OfType<ClassDeclarationSyntax>()
@@ -331,7 +353,7 @@ namespace polycover
                     select myClass).First();
         }
 
-        // returns the full name of a given class declaration syntax
+        // returns a unique Id for a given class
         public string GetClassId(ClassDeclarationSyntax classDecl)
         {
             return semMod.GetDeclaredSymbol(classDecl).ToString();
@@ -346,7 +368,7 @@ namespace polycover
                     select myMethod).FirstOrDefault(); // ...OrDefault returns null for non user defined methods such as .toString()
         }
 
-        // returns the method declaration syntax node for a given class name
+        // returns the method declaration syntax node for a given class Id
         public MethodDeclarationSyntax GetMethodDeclSyntax(string methodId)
         {
             return (from myMethod in root.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>()
@@ -354,14 +376,20 @@ namespace polycover
                     select myMethod).First();
         }
 
-        // returns the full name of a given method declaration syntax
+        // returns a unique Id for a given method
         public string GetMethodId(MethodDeclarationSyntax methodDecl)
         {
             return semMod.GetDeclaredSymbol(methodDecl).ReturnType.ToString() + " " + semMod.GetDeclaredSymbol(methodDecl).ToString();
         }
+
+        // returns the full name of a given method
+        public string GetFullMethodName(MethodDeclarationSyntax methodDecl)
+        {
+            return semMod.GetDeclaredSymbol(methodDecl).ContainingSymbol.ToString();
+        }
         
 
-        // returns all methods which implements a given method declared in an interface
+        // returns all methods which implement a given method declared in an interface
         public List<MethodDeclarationSyntax> GetInterfaceMethodImplementingMethods(MethodDeclarationSyntax methodDecl)
         {
             List<MethodDeclarationSyntax> implementingMethods = new List<MethodDeclarationSyntax>();

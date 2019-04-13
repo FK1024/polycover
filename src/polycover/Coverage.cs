@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Type = polycover.Graphs.Type;
 
 namespace polycover
 {
@@ -36,20 +37,15 @@ namespace polycover
             JToken lines = GetLines();
             int targetsCovered = 0;
 
-            // get targets and their parents
+            // get targets
             dynamic targets;
-            List<Node> parents;
             if (isVariantEdge)
             {
-                YoYoGraph yoyoGraph = graph as YoYoGraph;
-                targets = yoyoGraph.GetLinksFromInvoc2Method().ToList();
-                parents = yoyoGraph.GetMethodNodes();
+                targets = graph.GetLinksFromTypeToType(Type.INVOCATION, Type.METHOD);
             }
             else
             {
-                InheritanceGraph inheritanceGraph = graph as InheritanceGraph;
-                targets = inheritanceGraph.GetClassNodes().Where(n => (n as IHNode).IsCoverable).ToList();
-                parents = inheritanceGraph.GetMethodNodes();
+                targets = graph.GetNodesOfType(Type.TYPE).Where(n => (n as IHNode).IsCoverable).ToList();
             }
 
             // mark covered targets:
@@ -71,7 +67,7 @@ namespace polycover
             // mark completely covered invocation nodes and their incoming links if graph is a YoYo graph
             if (isVariantEdge)
             {
-                List<Node> invocNodes = (graph as YoYoGraph).GetInvocationNodes();
+                List<Node> invocNodes = graph.GetNodesOfType(Type.INVOCATION);
                 foreach (Node invocNode in invocNodes)
                 {
                     List<Link> invocOutgoingLinks = graph.GetOutgoingLinks(invocNode.Id);
@@ -90,10 +86,10 @@ namespace polycover
                 }
             }
 
-            // mark completely covered parents of targets which are all method nodes:
-            foreach (Node parent in parents)
+            // mark completely covered method nodes:
+            foreach (Node methodNode in graph.GetNodesOfType(Type.METHOD))
             {
-                List<Link> methodOutgoingLinks = graph.GetOutgoingLinks(parent.Id);
+                List<Link> methodOutgoingLinks = graph.GetOutgoingLinks(methodNode.Id);
                 // if all outgoing links of a method node are covered then the method node is covered too
                 bool isCovered;
                 if (isVariantEdge)
@@ -102,17 +98,49 @@ namespace polycover
                 }
                 else
                 {
-                    List<Node> methodsClasses = methodOutgoingLinks.Select(l => graph.GetNode(l.Target)).ToList();
-                    isCovered = methodsClasses.All(l => l.IsCovered);
+                    List<Node> methodsTypes = methodOutgoingLinks.Select(l => graph.GetNode(l.Target)).ToList();
+                    isCovered = methodsTypes.All(t => t.IsCovered);
                 }
 
                 if (isCovered)
                 {
-                    parent.IsCovered = true;
+                    methodNode.IsCovered = true;
                 }
                 else
                 {
-                    parent.IsCovered = false;
+                    methodNode.IsCovered = false;
+                }
+            }
+
+            // mark completely covered class nodes (inheritance graph only):
+            foreach (Node classNode in graph.GetNodesOfType(Type.CLASS))
+            {
+                List<Link> classOutgoingLinks = graph.GetOutgoingLinks(classNode.Id);
+                List<Node> classesMethods = classOutgoingLinks.Select(l => graph.GetNode(l.Target)).ToList();
+                // if all outgoing links of a class node are covered then the class node is covered too
+                if (classesMethods.All(m => m.IsCovered))
+                {
+                    classNode.IsCovered = true;
+                }
+                else
+                {
+                    classNode.IsCovered = false;
+                }
+            }
+
+            // mark completely covered namespace nodes (inheritance graph only):
+            foreach (Node namespaceNode in graph.GetNodesOfType(Type.NAMESPACE))
+            {
+                List<Link> namespaceOutgoingLinks = graph.GetOutgoingLinks(namespaceNode.Id);
+                List<Node> namespacesClasses = namespaceOutgoingLinks.Select(l => graph.GetNode(l.Target)).ToList();
+                // if all outgoing links of a namespace node are covered then the namespace node is covered too
+                if (namespacesClasses.All(m => m.IsCovered))
+                {
+                    namespaceNode.IsCovered = true;
+                }
+                else
+                {
+                    namespaceNode.IsCovered = false;
                 }
             }
 

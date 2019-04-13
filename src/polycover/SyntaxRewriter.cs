@@ -28,6 +28,17 @@ namespace polycover
         // inserts if-statement(s) for each coverage target in each method to be able to detect execution, modifies the graph
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node) // hopefully this visits the nodes in the correct order
         {
+            // if variant is type and method is static just use method start line as execution tracker and don't insert code
+            if (!isVariantEdge && codeAnalysis.IsMethodStatic(node))
+            {
+                Link linkToType = graph.GetOutgoingLinks(codeAnalysis.GetMethodId(node)).First(); // a static method can only be called on one type
+                Node typeNode = graph.GetNode(linkToType.Target);
+                int methodStartLine = codeAnalysis.GetMethodBodyStartLine(node) + insertedLines;
+                (typeNode as IHNode).TargetInsertedIfBodyLineNumber = methodStartLine;
+
+                return node;
+            }
+
             dynamic coverageTargets;
             int coverageTargetsCount;
 
@@ -43,24 +54,19 @@ namespace polycover
                 coverageTargetsCount = (coverageTargets as List<Node>).Count();
             }
 
-            if (coverageTargetsCount == 0)
-            {
-                return node;
-            }
-            else
-            {
-                int methodBodyStartLine = codeAnalysis.GetMethodBodyStartLine(node) + insertedLines;
-                int linesToInsert = 1 + 2 * coverageTargetsCount;
-                insertedLines += linesToInsert;
+            if (coverageTargetsCount == 0) return node;
 
-                List<StatementSyntax> ifStatements = CreateIfStatements(node, methodBodyStartLine, coverageTargets);
+            int methodBodyStartLine = codeAnalysis.GetMethodBodyStartLine(node) + insertedLines;
+            int linesToInsert = 1 + 2 * coverageTargetsCount;
+            insertedLines += linesToInsert;
 
-                // insert the generated if-statements
-                var newStatements = node.Body.Statements.InsertRange(0, ifStatements);
-                var newBody = node.Body.WithStatements(newStatements);
-                var newMethod = node.WithBody(newBody);
-                return newMethod;
-            }
+            List<StatementSyntax> ifStatements = CreateIfStatements(node, methodBodyStartLine, coverageTargets);
+
+            // insert the generated if-statements
+            var newStatements = node.Body.Statements.InsertRange(0, ifStatements);
+            var newBody = node.Body.WithStatements(newStatements);
+            var newMethod = node.WithBody(newBody);
+            return newMethod;
         }
 
         // creates an if-statement for each incoming invocation to from which line this method was invoced, modifies the graph
@@ -96,24 +102,24 @@ namespace polycover
         }
 
         // creates if-statements to detect on which types each method was called, modifies the graph
-        public List<StatementSyntax> CreateIfStatements(MethodDeclarationSyntax node, int methodBodyStartLine, List<Node> classNodes)
+        public List<StatementSyntax> CreateIfStatements(MethodDeclarationSyntax node, int methodBodyStartLine, List<Node> typeNodes)
         {
             // first create statement for the assignment of a variable for the runtime type
             List<StatementSyntax> ifStatements = new List<StatementSyntax>();
             string typeAssignmentStr = "string type = this.GetType().FullName;" + Environment.NewLine;
             ifStatements.Add(SyntaxFactory.ParseStatement(typeAssignmentStr));
 
-            // then create an if-statement for each class
+            // then create an if-statement for each type
             int classNo = 0;
-            foreach (IHNode classNode in classNodes)
+            foreach (IHNode typeNode in typeNodes)
             {
-                string ifStatementStr = "if (type == \"" + classNode.Label + "\")" + Environment.NewLine + "{}" + Environment.NewLine;
+                string ifStatementStr = "if (type == \"" + typeNode.Label + "\")" + Environment.NewLine + "{}" + Environment.NewLine;
 
                 // add the parsed statement
                 ifStatements.Add(SyntaxFactory.ParseStatement(ifStatementStr));
 
                 // save the line number where the body of the created statement will be inserted
-                classNode.TargetInsertedIfBodyLineNumber = methodBodyStartLine + 2 + 2 * classNo;
+                typeNode.TargetInsertedIfBodyLineNumber = methodBodyStartLine + 2 + 2 * classNo;
                 classNo++;
             }
 

@@ -116,26 +116,6 @@ namespace polycover.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        // GetAllNonStaticMethods test:
-        // ============================
-        [TestMethod]
-        public void GetAllNonStaticMethodsTest()
-        {
-            var expected = new List<MethodDeclarationSyntax>
-            {
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.A.M(ExampleCode3.IA)"),
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.A.N()"),
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.A.O(int)"),
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.B.N()"),
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.B.O(int)"),
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.C1.N()"),
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.D.M(ExampleCode3.IA)"),
-                testAnalysis.GetMethodDeclSyntax("int ExampleCode3.D.N()")
-            };
-            var actual = testAnalysis.GetAllNonStaticMethods();
-            CollectionAssert.AreEqual(expected, actual);
-        }
-
         // GetInvocations test:
         // ====================
         [TestMethod()]
