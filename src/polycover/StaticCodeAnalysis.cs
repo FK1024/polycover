@@ -385,7 +385,8 @@ namespace polycover
         // returns the full name of a given method
         public string GetFullMethodName(MethodDeclarationSyntax methodDecl)
         {
-            return semMod.GetDeclaredSymbol(methodDecl).ContainingSymbol.ToString();
+            var methodNameWithParams = semMod.GetDeclaredSymbol(methodDecl).ToString();
+            return methodNameWithParams.Substring(0, methodNameWithParams.IndexOf('('));
         }
         
 
