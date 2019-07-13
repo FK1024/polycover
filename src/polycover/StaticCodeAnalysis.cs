@@ -244,14 +244,17 @@ namespace polycover
 
             // transform each invocation to the struct Invocation(callee, line number)
             List<Invocation> directInvocations = new List<Invocation>();
-            foreach (InvocationExpressionSyntax invocExpr in invocationExpressions) {
+            foreach (InvocationExpressionSyntax invocExpr in invocationExpressions)
+            {
                 List<int> lines = new List<int> { invocExpr.GetLocation().GetLineSpan().StartLinePosition.Line }; // the line number of the invocation, NOTE: the line numbers start at 0!
                 List<MethodDeclarationSyntax> methods; // the invoced method
                 SymbolInfo symbInfo = semMod.GetSymbolInfo(invocExpr);
-                if (symbInfo.Symbol != null) {
+                if (symbInfo.Symbol != null)
+                {
                     methods = new List<MethodDeclarationSyntax> { GetMethodDeclSyntax(symbInfo.Symbol as IMethodSymbol) };
                 }
-                else {
+                else
+                {
                     methods = new List<MethodDeclarationSyntax> { GetMethodDeclSyntax(symbInfo.CandidateSymbols.FirstOrDefault() as IMethodSymbol) };
                 }
                 directInvocations.Add(new Invocation(lines, methods));
