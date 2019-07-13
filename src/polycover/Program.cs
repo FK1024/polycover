@@ -104,11 +104,10 @@ namespace polycover
             if (isVariantEdge)
             {
                 graph = graphCreator.CreateYoYoGraph();
-                // if the source code doesn't contain invocations then output 100% coverage and return
                 coverageTargets = "invocations";
                 hasCoverageTargets = graph.GetNodesOfType(Type.INVOCATION).Any();
             }
-            else
+            else // is variant 'type'
             {
                 graph = graphCreator.CreateInheritanceGraph();
 

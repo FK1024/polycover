@@ -243,10 +243,19 @@ namespace polycover
             if (!invocationExpressions.Any()) return allPossibleInvocations;
 
             // transform each invocation to the struct Invocation(callee, line number)
-            List<Invocation> directInvocations = invocationExpressions.Select(invocExpr => new Invocation(
-                new List<int> { invocExpr.GetLocation().GetLineSpan().StartLinePosition.Line }, // the line number of the invocation, NOTE: the line numbers start at 0!
-                new List<MethodDeclarationSyntax> { GetMethodDeclSyntax(semMod.GetSymbolInfo(invocExpr).Symbol as IMethodSymbol) })) // the invoced method
-                .ToList();
+            List<Invocation> directInvocations = new List<Invocation>();
+            foreach (InvocationExpressionSyntax invocExpr in invocationExpressions) {
+                List<int> lines = new List<int> { invocExpr.GetLocation().GetLineSpan().StartLinePosition.Line }; // the line number of the invocation, NOTE: the line numbers start at 0!
+                List<MethodDeclarationSyntax> methods; // the invoced method
+                SymbolInfo symbInfo = semMod.GetSymbolInfo(invocExpr);
+                if (symbInfo.Symbol != null) {
+                    methods = new List<MethodDeclarationSyntax> { GetMethodDeclSyntax(symbInfo.Symbol as IMethodSymbol) };
+                }
+                else {
+                    methods = new List<MethodDeclarationSyntax> { GetMethodDeclSyntax(symbInfo.CandidateSymbols.FirstOrDefault() as IMethodSymbol) };
+                }
+                directInvocations.Add(new Invocation(lines, methods));
+            }
 
             // remove non user defined callee's which are null
             directInvocations.RemoveAll(invoc => invoc.Methods.FirstOrDefault() == null);
