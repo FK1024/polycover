@@ -135,10 +135,10 @@ namespace polycover
                 Console.WriteLine(Environment.NewLine + $"Instrumented file '{codePath}'");
 
                 // re-build the solution
-                RunCMDCommand(buildCommand, "Re-building solution ...", "build succeed", "build failed");
+                RunCMDCommand(buildCommand, "Re-building solution ...", "build succeeded", "build failed");
 
                 // start coverlet
-                RunCMDCommand(coverletCommand, "Starting coverlet ...", "coverlet calculation succeed", "coverlet calculation failed");
+                RunCMDCommand(coverletCommand, "Starting coverlet ...", "coverlet calculation succeeded", "coverlet calculation failed");
 
                 // read the generated json file & calculate the coverage
                 Console.WriteLine(Environment.NewLine + "Calculating coverage result ...");
